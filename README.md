@@ -1,0 +1,1 @@
+# cursor-collab-side-project
