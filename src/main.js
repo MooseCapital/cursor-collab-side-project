@@ -10,6 +10,7 @@ let currentPosition = { x: 0, y: 0 }; // Current position of the cursor
 let targetPosition = { x: 0, y: 0 }; // Target position of the cursor
 
 function moveCursor(newX, newY) {
+    // targetPosition.x = newX - 16;
     targetPosition.x = newX;
     targetPosition.y = newY;
 }
@@ -18,7 +19,7 @@ function animateCursor() {
     // Interpolate position for smooth movement
     currentPosition.x += (targetPosition.x - currentPosition.x) * 0.1; // Adjust "0.1" for speed
     currentPosition.y += (targetPosition.y - currentPosition.y) * 0.1;
-
+    console.log(currentPosition)
     // Update the cursor's position using CSS transform
     cursor.style.transform = `translate(${currentPosition.x}px, ${currentPosition.y}px)`;
 
@@ -30,7 +31,7 @@ function animateCursor() {
 requestAnimationFrame(animateCursor);
 
 // Example: Move the cursor when clicking anywhere on the page
-document.addEventListener('mousemove', (event) => {
+document.addEventListener('click', (event) => {
     moveCursor(event.clientX, event.clientY);
 });
 
