@@ -1,14 +1,17 @@
 import _ from "lodash";
 
-
+let moveCount = 0;
 const cursor = document.querySelector("#test-cursor"); // The element representing the cursor
-document.addEventListener('mousemove', handleMouseMove);
 
-const throttled = _.throttle(({currentX, currentY}) => console.log({currentX, currentY}), 3000,{ 'trailing': true });
+const mouseThrottle = _.throttle(() => {
+    moveCount++;
+    console.log(moveCount)
+}, 50, { 'trailing': true, });
 
+const throttled = _.throttle(({currentX, currentY}) => console.log({currentX, currentY}), 1000,{ 'trailing': true });
 
-// Cancel the trailing throttled invocation.
-// jQuery(window).on('popstate', throttled.cancel);
+document.addEventListener('mousemove', mouseThrottle);
+
 
 //start the interval on webrtc connection, we can try to make an interval
 /*
@@ -52,7 +55,7 @@ requestAnimationFrame(animateCursor); */
 
 let lastX = 0;
 let lastY = 0;
-const threshold = 10; // pixels
+const threshold = 20; // pixels
 
 function handleMouseMove(event) {
 		const currentX = event.clientX;
