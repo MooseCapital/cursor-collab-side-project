@@ -1,0 +1,49 @@
+import {joinRoom} from 'trystero/torrent'
+// const room = joinRoom({appId: 'cursor-collab'}, 'mainRoom')
+
+// room.onPeerJoin(peerId => console.log(`${peerId} joined`))
+// room.onPeerLeave(peerId => console.log(`${peerId} left`))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
