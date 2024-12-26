@@ -1,22 +1,35 @@
+import iro from "@jaames/iro";
 import _ from "lodash";
-import iro from '@jaames/iro';
-import '../style.css'
+import "../style.css";
 import "./webRTC.js";
 import "./cursor.js";
-import "./colorPicker.js"
+import {cursorColor} from "./colorPicker.js";
 
-const grid = document.querySelector("#grid")
+const grid = document.querySelector("#grid");
 const gridLength = _.range(1, 401, 1);
 
-
-gridLength.map((item) => {
+gridLength.map((item, index) => {
+    
     const gridItem = document.createElement("div");
     gridItem.classList.add("grid-square");
+    gridItem.setAttribute("data-id", `${index + 1}`);
     grid.appendChild(gridItem);
-})
+});
 
+const gridSquares = document.querySelectorAll(".grid-square");
+// console.log(gridSquares);
+//look at linter rules, remove : 'let declares variable only assigned once'
+for (const square of gridSquares) {
+    square.addEventListener("mouseenter", (event) => {
+        event.target.style.backgroundColor = cursorColor
+        console.log(event.target)
+    })
+}
+
+/* gridSquares.forEach((square) => {
+    square.addEventListener("mouseenter", (event) => {
+        console.log(event)
+    })
+}) */
 
 //dont send even unless cursor moved so many pixels
-
-
-

@@ -1,16 +1,20 @@
 import _ from "lodash";
 
-let moveCount = 0;
 const cursor = document.querySelector("#test-cursor"); // The element representing the cursor
 
-const mouseThrottle = _.throttle(() => {
-    moveCount++;
-    console.log(moveCount)
-}, 50, { 'trailing': true, });
+// let moveCount = 0;
 
-const throttled = _.throttle(({currentX, currentY}) => console.log({currentX, currentY}), 1000,{ 'trailing': true });
+const mouseThrottle = _.throttle(
+    (event) => {
+        /* moveCount++;
+        console.log(moveCount); */
+        handleMouseMove(event)
+    }, 50,{ trailing: true });
+document.addEventListener("mousemove", mouseThrottle);
 
-document.addEventListener('mousemove', mouseThrottle);
+const serverThrottle = _.throttle(({ currentX, currentY }) => console.log({ currentX, currentY }), 250, {
+    trailing: true,
+});
 
 
 //start the interval on webrtc connection, we can try to make an interval
@@ -19,10 +23,6 @@ document.addEventListener('click', (event) => {
     moveCursor(event.clientX, event.clientY);
 });
 */
-
-
-
-
 
 /* let currentPosition = {x: 0, y: 0}; // Current position of the cursor
 let targetPosition = {x: 0, y: 0}; // Target position of the cursor
@@ -50,37 +50,25 @@ requestAnimationFrame(animateCursor); */
 // Example: Move the cursor when clicking anywhere on the page
 
 
-
-
-
 let lastX = 0;
 let lastY = 0;
 const threshold = 20; // pixels
-
 function handleMouseMove(event) {
-		const currentX = event.clientX;
-		const currentY = event.clientY;
+    const currentX = event.clientX;
+    const currentY = event.clientY;
 
-		const deltaX = currentX - lastX;
-		const deltaY = currentY - lastY;
+    const deltaX = currentX - lastX;
+    const deltaY = currentY - lastY;
 
-		const distanceMoved = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
-        //only send events if position changed > threshold 10px
-		if (distanceMoved >= threshold) {
-				// Update position and send to WebSocket
-				lastX = currentX;
-				lastY = currentY;
-				throttled({currentX, currentY});
-                // console.log({currentX, currentY})
-		}
+    const distanceMoved = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+    //only send events if position changed > threshold 10px
+    if (distanceMoved >= threshold) {
+        // Update position and send to WebSocket
+        lastX = currentX;
+        lastY = currentY;
+        // serverThrottle({ currentX, currentY });
+    }
 }
-
-
-
-
-
-
-
 
 function updateCursor(color) {
     const svgString = `<svg xmlns="http://www.w3.org/2000/svg" width="19.196396" height="23.999937"
@@ -94,27 +82,9 @@ function updateCursor(color) {
         -0.0064 h 0.0014 0.0024 c 0.290786,-2.1e-4 0.576938,-4.21e-4 0.840025,-0.007 0.481203,-0.0119 1.05119,-0.04318 1.48658,
         -0.225277 1.04624,-0.437812 1.284366,-1.58421 1.261301,-2.362835 -0.02443,-0.826649 -0.335231,-1.808645 -1.01001,
         -2.412334 z" fill="${color}" stroke="#000000" stroke-width="1.79042" /></svg>`;
-    
-    let encodeSVG = encodeURIComponent(svgString);
-    document.body.style.cursor = `url("data:image/svg+xml,${encodeSVG} ") 0 0, auto`;
+
+    // let encodeSVG = encodeURIComponent(svgString);
+    document.body.style.cursor = `url("data:image/svg+xml,${encodeURIComponent(svgString)} ") 0 0, auto`;
 }
 
-
-
-export {updateCursor}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+export { updateCursor };
