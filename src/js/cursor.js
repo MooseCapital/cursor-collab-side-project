@@ -70,7 +70,7 @@ function handleMouseMove(event) {
     }
 }
 
-function updateCursor(color) {
+/* function updateCursor(color) {
     const svgString = `<svg xmlns="http://www.w3.org/2000/svg" width="19.196396" height="23.999937"
         viewBox="0 0 19.196396 23.999937" fill="none"><path d="m 17.289555,12.591263 -0.0015,-0.0013 -0.0016,-0.0014 L 5.759437,
         2.370346 C 5.214821,1.872439 4.67901,1.471068 4.164547,1.215153 3.661648,0.964989 3.063331,0.797236 2.465876,0.961997 1.823272,
@@ -85,6 +85,6 @@ function updateCursor(color) {
 
     // let encodeSVG = encodeURIComponent(svgString);
     document.body.style.cursor = `url("data:image/svg+xml,${encodeURIComponent(svgString)} ") 0 0, auto`;
-}
+} */
 
-export { updateCursor };
+// export { updateCursor };
