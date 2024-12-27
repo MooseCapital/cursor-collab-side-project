@@ -4,6 +4,7 @@ import _ from "lodash";
 // let moveCount = 0;
 
 const mouseThrottle = _.throttle(mouseMovedOutsideBox, 50,{ trailing: true });
+// const mouseThrottle = _.throttle(moveCursor, 50,{ trailing: true });
 document.addEventListener("mousemove", mouseThrottle);
 
 const serverThrottle = _.throttle(({ currentX, currentY }) => console.log({ currentX, currentY }), 500, {
@@ -25,12 +26,11 @@ function moveCursor(event) {
     startAnimation();
 }
 
-//-------------------------------------------------------------------------------------------------------------
 //time based solution, no interpolation
 //ask gpt for solution about skipping that happens with time, but not with normal interpolation
-
+let animationInProgress = false;
 let startTime;
-const animationDuration = 500; // Duration in milliseconds
+const animationDuration = 250; // Duration in milliseconds
 
 function animateCursor(timestamp) {
     if (!startTime) startTime = timestamp;
@@ -49,11 +49,19 @@ function animateCursor(timestamp) {
     } else {
         // Animation complete
         startTime = null;
+        animationInProgress = false;
     }
     // requestAnimationFrame(animateCursor);
 }
 
 function startAnimation() {
+    /* startPosition = { ...currentPosition };
+    startTime = null;
+    requestAnimationFrame(animateCursor); */
+    
+    
+    if (animationInProgress) return;
+    animationInProgress = true;
     startPosition = { ...currentPosition };
     startTime = null;
     requestAnimationFrame(animateCursor);
@@ -131,7 +139,7 @@ function mouseMovedOutsideBox(event) {
         // Update position and send to WebSocket
         lastOutsideBoxX = currentX;
         lastOutsideBoxY = currentY;
-        // moveCursor(event);
+        moveCursor(event);
         // serverThrottle({ currentX, currentY });
     }
 }
