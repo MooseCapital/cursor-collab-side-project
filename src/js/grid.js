@@ -8,18 +8,22 @@ gridLength.map((item, index) => {
     
     const gridItem = document.createElement("div");
     gridItem.classList.add("grid-square");
-    // gridItem.setAttribute("data-id", `${index + 1}`);
-    gridItem.dataset.id = `${index + 1}`;
+    gridItem.setAttribute("data-id", `${index + 1}`);
+    // gridItem.dataset.id = `${index + 1}`;
     grid.appendChild(gridItem);
 });
 
 grid.addEventListener("click", (event) => {
     const gridSquare = event.target.closest(".grid-square");
     gridSquare.style.backgroundColor = cursorColor;
-    console.log(event.target.dataset);
+    console.log(gridSquare.getAttribute("data-id"));
     
     
 })
+
+
+
+
 
 // const gridSquares = document.querySelectorAll(".grid-square");
 /* for (const square of gridSquares) {
