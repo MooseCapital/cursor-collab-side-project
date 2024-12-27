@@ -51,6 +51,7 @@ font-size: 1.2rem;
 }
 body {
   background-color: wheat;
+  overflow: hidden;
 }
 
 html,
@@ -59,11 +60,13 @@ body,
   min-height: 100vh;
   z-index: -1;
   /* padding: 0 !important; */
+
 }
 
 #app {
   display: flex;
   flex-direction: column;
+
 }
 header {
 padding: 0 20px;
