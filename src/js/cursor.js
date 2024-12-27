@@ -1,37 +1,69 @@
 import _ from "lodash";
 
-const cursor = document.querySelector("#test-cursor"); // The element representing the cursor
 
 // let moveCount = 0;
 
-const mouseThrottle = _.throttle(
-    (event) => {
-        /* moveCount++;
-        console.log(moveCount); */
-        handleMouseMove(event)
-    }, 50,{ trailing: true });
+const mouseThrottle = _.throttle(mouseMovedOutsideBox, 50,{ trailing: true });
 document.addEventListener("mousemove", mouseThrottle);
 
-const serverThrottle = _.throttle(({ currentX, currentY }) => console.log({ currentX, currentY }), 250, {
+const serverThrottle = _.throttle(({ currentX, currentY }) => console.log({ currentX, currentY }), 500, {
     trailing: true,
 });
 
+const cursor = document.querySelector("#test-cursor");
 
-//start the interval on webrtc connection, we can try to make an interval
-/*
-document.addEventListener('click', (event) => {
-    moveCursor(event.clientX, event.clientY);
-});
-*/
+document.addEventListener('click', moveCursor);
 
-/* let currentPosition = {x: 0, y: 0}; // Current position of the cursor
-let targetPosition = {x: 0, y: 0}; // Target position of the cursor
+const currentPosition = {x: 0, y: 0}; // Current position of the cursor
+const targetPosition = {x: 0, y: 0}; // Target position of the cursor
+let startPosition = {x: 0, y: 0}; // Target position of the cursor
 //move cursor logic
-function moveCursor(newX, newY) {
-    targetPosition.x = newX;
-    targetPosition.y = newY;
-} */
+function moveCursor(event) {
+    targetPosition.x = event.clientX;
+    targetPosition.y = event.clientY;
+    console.log(targetPosition)
+    startAnimation();
+}
 
+//-------------------------------------------------------------------------------------------------------------
+//time based solution, no interpolation
+//ask gpt for solution about skipping that happens with time, but not with normal interpolation
+
+let startTime;
+const animationDuration = 500; // Duration in milliseconds
+
+function animateCursor(timestamp) {
+    if (!startTime) startTime = timestamp;
+    const elapsedTime = timestamp - startTime;
+    const progress = Math.min(elapsedTime / animationDuration, 1);
+
+    // Interpolate position using the progress
+    currentPosition.x = startPosition.x + (targetPosition.x - startPosition.x) * progress;
+    currentPosition.y = startPosition.y + (targetPosition.y - startPosition.y) * progress;
+
+    // Update the cursor's position
+    cursor.style.transform = `translate(${currentPosition.x}px, ${currentPosition.y}px)`;
+    
+    if (progress < 1) {
+        requestAnimationFrame(animateCursor);
+    } else {
+        // Animation complete
+        startTime = null;
+    }
+    // requestAnimationFrame(animateCursor);
+}
+
+function startAnimation() {
+    startPosition = { ...currentPosition };
+    startTime = null;
+    requestAnimationFrame(animateCursor);
+}
+
+// Call startAnimation() when you want to start a new animation
+
+
+//-------------------------------------------------------------------------------------------------------------
+//ORIGINAL: animate cursor without a time
 /* function animateCursor() {
     // Interpolate position for smooth movement
     currentPosition.x += (targetPosition.x - currentPosition.x) * 0.05; // Adjust "0.1" for speed
@@ -47,25 +79,59 @@ function moveCursor(newX, newY) {
 // Start the animation loop
 requestAnimationFrame(animateCursor); */
 
-// Example: Move the cursor when clicking anywhere on the page
+//-------------------------------------------------------------------------------------------------------------
+//animation cursor without time, but does not infinite animate
+/* function animateCursor() {
+    // Interpolate position for smooth movement
+    currentPosition.x += (targetPosition.x - currentPosition.x) * 0.05;
+    currentPosition.y += (targetPosition.y - currentPosition.y) * 0.05;
+
+    // Update the cursor's position using CSS transform
+    cursor.style.transform = `translate(${currentPosition.x}px, ${currentPosition.y}px)`;
+    
+    // Check if the cursor is close enough to the target
+    const distanceX = Math.abs(targetPosition.x - currentPosition.x);
+    const distanceY = Math.abs(targetPosition.y - currentPosition.y);
+    
+    if (currentPosition.x !== targetPosition.x || currentPosition.y !== targetPosition.y) {
+        // Continue the animation loop if not close enough
+        requestAnimationFrame(animateCursor);
+    } else {
+        // Snap to exact position and stop the animation
+        currentPosition.x = targetPosition.x;
+        currentPosition.y = targetPosition.y;
+        cursor.style.transform = `translate(${currentPosition.x}px, ${currentPosition.y}px)`;
+    }
+}
+
+// Start the animation loop
+ function startAnimation() {
+    requestAnimationFrame(animateCursor);
+}
+*/
 
 
-let lastX = 0;
-let lastY = 0;
+
+
+//-------------------------------------------------------------------------------------------------------------
+//box to limit events unless mouse moves over 20px
+let lastOutsideBoxX = 0;
+let lastOutsideBoxY = 0;
 const threshold = 20; // pixels
-function handleMouseMove(event) {
+function mouseMovedOutsideBox(event) {
     const currentX = event.clientX;
     const currentY = event.clientY;
 
-    const deltaX = currentX - lastX;
-    const deltaY = currentY - lastY;
+    const deltaX = currentX - lastOutsideBoxX;
+    const deltaY = currentY - lastOutsideBoxY;
 
     const distanceMoved = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
     //only send events if position changed > threshold 10px
     if (distanceMoved >= threshold) {
         // Update position and send to WebSocket
-        lastX = currentX;
-        lastY = currentY;
+        lastOutsideBoxX = currentX;
+        lastOutsideBoxY = currentY;
+        // moveCursor(event);
         // serverThrottle({ currentX, currentY });
     }
 }

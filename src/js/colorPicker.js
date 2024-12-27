@@ -37,7 +37,7 @@ function updateCursor(color) {
 }
 
 colorPicker.on('color:change', (color) => {
-    console.log(color.rgbaString);
+    // console.log(color.rgbaString);
     cursorColor = color.rgbaString;
     updateCursor(color.rgbaString);
 });
