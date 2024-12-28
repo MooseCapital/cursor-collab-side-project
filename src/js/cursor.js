@@ -35,11 +35,15 @@ function animateCursor() {
 
     // Update the cursor's position using CSS transform
     cursor.style.transform = `translate(${currentPosition.x}px, ${currentPosition.y}px)`;
+    //translate3d
+    // cursor.style.transform = `translate3d(${currentPosition.x}px, ${currentPosition.y}px, 0)`;
+    
     
     // Check if the cursor is close enough to the target
     // const distanceX = Math.abs(targetPosition.x - currentPosition.x);
     // const distanceY = Math.abs(targetPosition.y - currentPosition.y);
     const distance = Math.hypot(targetPosition.x - currentPosition.x, targetPosition.y - currentPosition.y);
+    
     // Continue the animation loop if cursor is not less than 0.1px to target
     if (distance > 0.2) {
         requestAnimationFrame(animateCursor);
@@ -48,6 +52,8 @@ function animateCursor() {
         currentPosition.x = targetPosition.x;
         currentPosition.y = targetPosition.y;
         cursor.style.transform = `translate(${currentPosition.x}px, ${currentPosition.y}px)`;
+        //translate3d
+        // cursor.style.transform = `translate3d(${currentPosition.x}px, ${currentPosition.y}px, 0)`;
         // Animation complete
         animationInProgress = false;
     }
@@ -60,7 +66,6 @@ function animateCursor() {
     animationInProgress = true;
     requestAnimationFrame(animateCursor);
 }
-
 
 
 

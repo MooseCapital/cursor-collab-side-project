@@ -22,9 +22,9 @@
 #test-cursor {
   position: absolute;
   pointer-events: none;
-  top: 0;
-  left: 0;
-  transform: translate(0, 0); /* Initial position */
+  /* top: 0;
+  left: 0; */
+  /* transform: translate(0, 0);  */
   /* background-color: rgba(45, 227, 247, 0.5); */
 }
 
