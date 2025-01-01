@@ -17,8 +17,8 @@ class User {
     }
     //this is the prototype, use for shared methods or default property values until the user sets
     render(id) {
-        document.querySelector("#app").innerHTML += `
-            <svg
+        document.querySelector("#app").insertAdjacentHTML("afterend",
+            `<svg
               height="24"
               viewBox="0 0 19.196396 23.999937"
               fill="none"
@@ -43,9 +43,8 @@ class User {
                 stroke="#000000"
                 stroke-width="1.79042"
                 id="path2" />
-          </svg>
-        
-        `
+          </svg> `
+        )
     }
 }
 
