@@ -1,22 +1,31 @@
 import iro from "@jaames/iro";
 // import {updateCursor} from "./cursor.js";
+let cursorColor = "rgba(255,255,255,0.6)";
 
-let cursorColor = 'rgba(45, 227, 247, 0.5)'
+const cursorColors = [
+    "rgba(68,255,255,0.6)",
+    "rgba(91,250,94,0.6)",
+    "rgba(255,128,0,0.6)",
+    "rgba(173,144,255,0.6)",
+    "rgba(255,31,31,0.6)",
+    "rgba(255,166,250,0.6)",
+];
+const getColor = () => cursorColors[Math.floor(Math.random() * cursorColors.length)];
+cursorColor = getColor();
+updateCursor(cursorColor);
 
-const colorPicker = new iro.ColorPicker('#color-picker', {
+const colorPicker = new iro.ColorPicker("#color-picker", {
     width: 200,
-    color: "rgba(45, 227, 247, 0.5)",
+    color: `${cursorColor}`,
     layout: [
         {
             // component: iro.ui.Wheel,
             component: iro.ui.Slider,
             options: {
-                sliderType: 'hue'
-            }
-            
+                sliderType: "hue",
+            },
         },
-    ]
-    
+    ],
 });
 
 function updateCursor(color) {
@@ -36,16 +45,10 @@ function updateCursor(color) {
     document.body.style.cursor = `url("data:image/svg+xml,${encodeURIComponent(svgString)} ") 0 0, auto`;
 }
 
-colorPicker.on('color:change', (color) => {
+colorPicker.on("color:change", (color) => {
     // console.log(color.rgbaString);
     cursorColor = color.rgbaString;
     updateCursor(color.rgbaString);
 });
 
-
-export {cursorColor}
-
-
-
-
-
+export { cursorColor, getColor };

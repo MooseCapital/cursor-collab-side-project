@@ -11,7 +11,7 @@ const mouseThrottle = _.throttle(moveCursor, 50,{ trailing: true });
 
 const cursor = document.querySelector("#test-cursor");
 
-document.addEventListener('click', mouseThrottle);
+// document.addEventListener('click', mouseThrottle);
 
 const currentPosition = {x: 0, y: 0}; // Current position of the cursor
 const targetPosition = {x: 0, y: 0}; // Target position of the cursor
