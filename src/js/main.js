@@ -1,5 +1,5 @@
 // import _ from "lodash";
-import "../style.css";
+import "../styles/style.css";
 import "./webRTC.js";
 import "./cursor.js";
 import "./grid.js";

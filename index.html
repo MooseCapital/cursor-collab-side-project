@@ -1,12 +1,73 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <!--   <link rel="stylesheet" href="./src/style.css"> -->
-  <title>Vite App</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self';
+  font-src 'self' https://cdn.jsdelivr.net;
+  img-src 'self' data:;
+   style-src 'self' 'unsafe-inline';">
+
+  <!--   <meta http-equiv="Content-Security-Policy" content="default-src 'self';
+    font-src 'self' https://cdn.jsdelivr.net;
+    img-src 'self' data:; "> -->
+  <!--    -->
+  <!--   <meta http-equiv="Content-Security-Policy" content=" style-src 'self' 'unsafe-inline';"> -->
+
+
+  <title>Cursor collaboration</title>
+
+  <!-- 	preload essential css, and external font links for performance-->
+  <link rel="preload stylesheet" as="style" href="./src/styles/style.css" type="text/css" crossorigin="anonymous">
+  <!-- 	browsers ignore fonts without cross origin, even if we host in on our domain -->
+  <link rel="preload" as="font"
+        href="https://cdn.jsdelivr.net/fontsource/fonts/public-sans:vf@latest/latin-wght-normal.woff2" type="font/woff2"
+        crossorigin="anonymous">
+
+  <!-- 	preload essential images like the landing page graphic, href is standard fallback image,  -->
+  <!-- 	srcset are image links and widths, sizes are the screen sizes like media query -->
+  <!-- <link rel="preload" as="image"
+      imagesrcset="
+       image-xsmall.jpg 160w,
+             image-small.jpg 320w,
+             image-medium.jpg 640w,
+             image-large.jpg 960w,
+             image-xlarge.jpg 1280w"
+      sizes="(max-width: 320px) 159w,
+            (max-width: 480px) 160w,
+            (max-width: 767px) 320w,
+            (max-width: 1024px) 640w,
+            (min-width: 1350px) 960w,
+            (min-width: 1920px) 50vw"
+      href="image-640.jpg"> -->
+
+  <!-- 	used in search results description -->
+  <meta name="description" content="Live cursor collaboration game with everyone">
+  <!-- 	exclude pages we dont want indexed like specific user data pages -->
+  <meta name="robots" content="noindex">
+  <!-- 	set color of search bar to match branding, light & dark mode -->
+  <meta name="theme-color" content="#ff0000">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0000ff">
+
+  <!-- 	show website content for external linking, choose website, or article, link the website, link image to show users  -->
+  <meta property="og:title" content="Live cursor collaboration game">
+  <meta property="og:type" content="website">
+  <!-- 	<meta property="og:url" content="http://yourdomain.com"> -->
+  <!-- 	<meta property="og:image" content="http://yourdomain.com/image.jpg"> -->
+  <!-- 	<meta property="og:image:alt" content="Description of the image"> -->
+  <!-- 	all social media will use og tags, twitter can use the sites account if it applies -->
+  <!-- 	<meta name="twitter:site" content="@site_account"> -->
+
+  <!-- 	.ico is for legacy browsers, keep it 192x192 so chrome can scale it down right, safari will use this for pinned tabs -->
+  <!-- 	apple-touch-icon must be png 180px x 180px -->
+  <!-- 	<link rel="icon" href="/favicon.ico" sizes="192x192"> -->
+  <link rel="icon" href="/vite.svg" type="image/svg+xml">
+  <!-- 	<link rel="apple-touch-icon" href="/path/to/apple-touch-icon.png" sizes="180x180"> -->
+
 </head>
+
+
 <body>
 <div id="app">
   <header>
@@ -22,6 +83,7 @@
 
 
   <div id="color-picker"></div>
+  <div id="cursor-overlay"></div>
 
 </div>
 <script type="module" src="/src/js/main.js"></script>

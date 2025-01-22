@@ -1,4 +1,7 @@
 import iro from "@jaames/iro";
+import _ from "lodash";
+
+
 // import {updateCursor} from "./cursor.js";
 let cursorColor = "rgba(255,255,255,0.6)";
 
@@ -10,6 +13,7 @@ const cursorColors = [
     "rgba(255,31,31,0.6)",
     "rgba(255,166,250,0.6)",
 ];
+
 const getColor = () => cursorColors[Math.floor(Math.random() * cursorColors.length)];
 cursorColor = getColor();
 updateCursor(cursorColor);
@@ -43,12 +47,20 @@ function updateCursor(color) {
 
     // let encodeSVG = encodeURIComponent(svgString);
     document.body.style.cursor = `url("data:image/svg+xml,${encodeURIComponent(svgString)} ") 0 0, auto`;
+    // document.querySelector("#cursor-overlay").style.cursor = `url("data:image/svg+xml,${encodeURIComponent(svgString)} ") 0 0, auto`;
 }
 
-colorPicker.on("color:change", (color) => {
+const colorThrottle = _.throttle((color) => {
+    cursorColor = color.rgbaString;
+    updateCursor(color.rgbaString);
+}, 200, { trailing: false, leading: true });
+
+colorPicker.on("color:change", (color) => colorThrottle(color));
+
+/* colorPicker.on("color:change", (color) => {
     // console.log(color.rgbaString);
     cursorColor = color.rgbaString;
     updateCursor(color.rgbaString);
-});
+}); */
 
 export { cursorColor, getColor };
