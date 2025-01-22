@@ -1,5 +1,5 @@
 import _ from "lodash";
-import {cursorColor} from "./colorPicker.js";
+import {cursorColor} from "../js/colorPicker.js";
 
 const grid = document.querySelector("#grid");
 const gridLength = _.range(1, 401, 1);

@@ -1,21 +1,13 @@
 import iro from "@jaames/iro";
 import _ from "lodash";
+import {cursorColors} from "../models/cursorColors.js";
 
 
 // import {updateCursor} from "./cursor.js";
-let cursorColor = "rgba(255,255,255,0.6)";
 
-const cursorColors = [
-    "rgba(68,255,255,0.6)",
-    "rgba(91,250,94,0.6)",
-    "rgba(255,128,0,0.6)",
-    "rgba(173,144,255,0.6)",
-    "rgba(255,31,31,0.6)",
-    "rgba(255,166,250,0.6)",
-];
+const randomCursorColor = () => cursorColors[Math.floor(Math.random() * cursorColors.length)];
 
-const getColor = () => cursorColors[Math.floor(Math.random() * cursorColors.length)];
-cursorColor = getColor();
+let cursorColor = randomCursorColor();
 updateCursor(cursorColor);
 
 const colorPicker = new iro.ColorPicker("#color-picker", {
@@ -47,7 +39,6 @@ function updateCursor(color) {
 
     // let encodeSVG = encodeURIComponent(svgString);
     document.body.style.cursor = `url("data:image/svg+xml,${encodeURIComponent(svgString)} ") 0 0, auto`;
-    // document.querySelector("#cursor-overlay").style.cursor = `url("data:image/svg+xml,${encodeURIComponent(svgString)} ") 0 0, auto`;
 }
 
 const colorThrottle = _.throttle((color) => {
@@ -63,4 +54,4 @@ colorPicker.on("color:change", (color) => colorThrottle(color));
     updateCursor(color.rgbaString);
 }); */
 
-export { cursorColor, getColor };
+export { cursorColor, randomCursorColor };

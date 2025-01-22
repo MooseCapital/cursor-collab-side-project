@@ -19,7 +19,7 @@
   <title>Cursor collaboration</title>
 
   <!-- 	preload essential css, and external font links for performance-->
-  <link rel="preload stylesheet" as="style" href="./src/styles/style.css" type="text/css" crossorigin="anonymous">
+  <link rel="preload stylesheet" as="style" href="./src/styles/style.css" type="text/css" >
   <!-- 	browsers ignore fonts without cross origin, even if we host in on our domain -->
   <link rel="preload" as="font"
         href="https://cdn.jsdelivr.net/fontsource/fonts/public-sans:vf@latest/latin-wght-normal.woff2" type="font/woff2"
@@ -71,7 +71,7 @@
 <body>
 <div id="app">
   <header>
-    <h1>Cursor Collaboration</h1>
+    <h1>Cursor collaboration</h1>
   </header>
   <main>
     <div id="grid"></div>
@@ -83,9 +83,8 @@
 
 
   <div id="color-picker"></div>
-  <div id="cursor-overlay"></div>
 
 </div>
-<script type="module" src="/src/js/main.js"></script>
+<script type="module" src="/src/components/main.js"></script>
 </body>
 </html>
