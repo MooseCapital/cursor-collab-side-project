@@ -3,7 +3,6 @@
     "private": true,
     "version": "0.0.0",
     "type": "module",
-    
     "scripts": {
         "dev": "vite",
         "build": "vite build",
@@ -17,7 +16,7 @@
     "dependencies": {
         "@jaames/iro": "^5.5.2",
         "jsdom": "^25.0.1",
-        "lodash": "^4.17.21",
+        "lodash-es": "^4.17.21",
         "ress": "^5.0.2",
         "trystero": "^0.20.0"
     }

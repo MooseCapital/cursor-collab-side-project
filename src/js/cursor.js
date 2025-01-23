@@ -1,12 +1,12 @@
-import _ from "lodash";
+import {throttle} from "lodash-es";
 
 
-const serverThrottle = _.throttle(({ currentX, currentY }) => console.log({ currentX, currentY }), 500, {
+const serverThrottle = throttle(({ currentX, currentY }) => console.log({ currentX, currentY }), 500, {
     trailing: true,
 });
 // const mouseThrottle = _.throttle(mouseMovedOutsideBox, 50,{ trailing: true });
 
-const mouseThrottle = _.throttle(moveCursor, 50,{ trailing: true });
+const mouseThrottle = throttle(moveCursor, 50,{ trailing: true });
 // document.addEventListener("mousemove", mouseThrottle);
 
 const cursor = document.querySelector("#test-cursor");

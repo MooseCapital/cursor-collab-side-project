@@ -1,5 +1,6 @@
 import iro from "@jaames/iro";
-import _ from "lodash";
+
+import {throttle} from "lodash-es";
 import {cursorColors} from "../models/cursorColors.js";
 
 
@@ -41,10 +42,10 @@ function updateCursor(color) {
     document.body.style.cursor = `url("data:image/svg+xml,${encodeURIComponent(svgString)} ") 0 0, auto`;
 }
 
-const colorThrottle = _.throttle((color) => {
+const colorThrottle = throttle((color) => {
     cursorColor = color.rgbaString;
     updateCursor(color.rgbaString);
-}, 200, { trailing: false, leading: true });
+}, 500, { trailing: false, leading: true });
 
 colorPicker.on("color:change", (color) => colorThrottle(color));
 
