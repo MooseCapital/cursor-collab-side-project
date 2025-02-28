@@ -1,17 +1,56 @@
-import iro from "@jaames/iro";
-
+// import iro from "@jaames/iro";
 import {throttle} from "lodash-es";
-import {cursorColors} from "../models/cursorColors.js";
 
-
-// import {updateCursor} from "./cursor.js";
+const cursorColors = [
+    {color: "blue", rgba: "rgba(68,255,255,0.6)"},
+    {color: "green", rgba: "rgba(91,250,94,0.6)"},
+    {color: "orange", rgba: "rgba(255,128,0,0.6)"},
+    {color: "purple", rgba: "rgba(173,144,255,0.6)"},
+    {color: "red", rgba: "rgba(255,31,31,0.6)"},
+    {color: "pink", rgba: "rgba(255,166,250,0.6)"},
+];
 
 const randomCursorColor = () => cursorColors[Math.floor(Math.random() * cursorColors.length)];
 
-let cursorColor = randomCursorColor();
-updateCursor(cursorColor);
+function getImageUrl(color) {
+  // return new URL(`./dir/${name}.png`, import.meta.url).href
+  return new URL(`/public/images/bibata-${color}-24.svg`, import.meta.url).href
+}
+// console.log(getImageUrl("white"))
 
-const colorPicker = new iro.ColorPicker("#color-picker", {
+const cursorObj = randomCursorColor();
+
+// updateCursor(cursorColor);
+
+function setCursor(color) {
+    //short way, not proper
+    const url = `url(/images/bibata-${color}.svg) 0 0, auto`;
+    // const url = `url("${getImageUrl("white")}") 0 0, auto`;
+    console.log(url)
+    document.body.style.cursor = url;
+}
+setCursor(cursorObj.color)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* const colorPicker = new iro.ColorPicker("#color-picker", {
     width: 200,
     color: `${cursorColor}`,
     layout: [
@@ -23,9 +62,9 @@ const colorPicker = new iro.ColorPicker("#color-picker", {
             },
         },
     ],
-});
+}); */
 
-function updateCursor(color) {
+/* function updateCursor(color) {
     const svgString = `<svg xmlns="http://www.w3.org/2000/svg" width="19.196396" height="23.999937"
         viewBox="0 0 19.196396 23.999937" fill="none"><path d="m 17.289555,12.591263 -0.0015,-0.0013 -0.0016,-0.0014 L 5.759437,
         2.370346 C 5.214821,1.872439 4.67901,1.471068 4.164547,1.215153 3.661648,0.964989 3.063331,0.797236 2.465876,0.961997 1.823272,
@@ -40,14 +79,14 @@ function updateCursor(color) {
 
     // let encodeSVG = encodeURIComponent(svgString);
     document.body.style.cursor = `url("data:image/svg+xml,${encodeURIComponent(svgString)} ") 0 0, auto`;
-}
+} */
 
-const colorThrottle = throttle((color) => {
+/* const colorThrottle = throttle((color) => {
     cursorColor = color.rgbaString;
     updateCursor(color.rgbaString);
-}, 500, { trailing: false, leading: true });
+}, 500, { trailing: false, leading: true }); */
 
-colorPicker.on("color:change", (color) => colorThrottle(color));
+// colorPicker.on("color:change", (color) => colorThrottle(color));
 
 /* colorPicker.on("color:change", (color) => {
     // console.log(color.rgbaString);
@@ -55,4 +94,6 @@ colorPicker.on("color:change", (color) => colorThrottle(color));
     updateCursor(color.rgbaString);
 }); */
 
-export { cursorColor, randomCursorColor };
+
+
+export { cursorObj,randomCursorColor };
