@@ -25,7 +25,8 @@ function setCursor(color) {
     //short way, not proper
     // const url = `url("${getImageUrl("white")}") 0 0, auto`;
     // console.log(url)
-    document.body.style.cursor = `url(/images/bibata-${color}.svg) 0 0, auto`;
+    const cursorPath = `${import.meta.env.BASE_URL}/images/bibata-${color}.svg`
+    document.body.style.cursor = `url(${cursorPath}) 0 0, auto`;
 }
 setCursor(cursorObj.color)
 

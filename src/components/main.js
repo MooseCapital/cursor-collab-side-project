@@ -8,9 +8,9 @@ import "./router.js"
 document.querySelector("#app").innerHTML = `
   <header>
     <h1>Cursor collaboration</h1>
-    <a href="/#/websocket">WebSocket</a>
-    <a href="/#/webrtc">WebRTC</a>
-    <a href="/#/colors">Colors</a>
+    <a href="/cursor-collab-side-project/#/websocket">WebSocket</a>
+    <a href="/cursor-collab-side-project/#/webrtc">WebRTC</a>
+    <a href="/cursor-collab-side-project/#/colors">Colors</a>
 
   </header>
   <main>
