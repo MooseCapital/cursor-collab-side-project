@@ -1,5 +1,4 @@
 // import iro from "@jaames/iro";
-import {throttle} from "lodash-es";
 
 const cursorColors = [
     {color: "blue", rgba: "rgba(68,255,255,0.6)"},
@@ -24,10 +23,9 @@ const cursorObj = randomCursorColor();
 
 function setCursor(color) {
     //short way, not proper
-    const url = `url(/images/bibata-${color}.svg) 0 0, auto`;
     // const url = `url("${getImageUrl("white")}") 0 0, auto`;
-    console.log(url)
-    document.body.style.cursor = url;
+    // console.log(url)
+    document.body.style.cursor = `url(/images/bibata-${color}.svg) 0 0, auto`;
 }
 setCursor(cursorObj.color)
 
