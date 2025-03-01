@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self';
+  font-src 'self' https://cdn.jsdelivr.net;
+  img-src 'self' data:;
+   style-src 'self' 'unsafe-inline';">
+
+    <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self';
+    font-src 'self' https://cdn.jsdelivr.net;
+    img-src 'self' data:; "> -->
+
+  <!-- 	preload essential css, and external font links for performance-->
+  <!-- 	browsers ignore fonts without cross origin, even if we host in on our domain -->
+  <link rel="preload" as="font"
+        href="https://cdn.jsdelivr.net/fontsource/fonts/public-sans:vf@latest/latin-wght-normal.woff2" type="font/woff2"
+        crossorigin="anonymous">
+
+
+  <!-- 	used in search results description -->
+  <meta name="description" content="Live cursor collaboration game with everyone">
+  <!-- 	exclude pages we dont want indexed like specific user data pages -->
+  <meta name="robots" content="noindex">
+  <!-- 	set color of search bar to match branding, light & dark mode -->
+  <meta name="theme-color" content="#ff0000">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0000ff">
+
+  <!-- 	show website content for external linking, choose website, or article, link the website, link image to show users  -->
+  <meta property="og:title" content="Live cursor collaboration">
+  <meta property="og:type" content="website">
+
+  <!-- 	.ico is for legacy browsers, keep it 192x192 so chrome can scale it down right, safari will use this for pinned tabs -->
+  <!-- 	apple-touch-icon must be png 180px x 180px -->
+  <!-- 	<link rel="icon" href="/favicon.ico" sizes="192x192"> -->
+  <link rel="icon" href="/cursor-collab-side-project/images/bibata-pink.svg" type="image/svg+xml">
+  <!-- 	<link rel="apple-touch-icon" href="/path/to/apple-touch-icon.png" sizes="180x180"> -->
+
+  <title>Cursor collaboration</title>
+  <script async type="module" crossorigin src="/cursor-collab-side-project/assets/index-BtEHYi50.js"></script>
+  <link rel="stylesheet" crossorigin href="/cursor-collab-side-project/assets/index-C_RHJEz5.css">
+</head>
+
+
+<body>
+<div id="app">
+  <!-- <header>
+    <h1>Cursor collaboration</h1>
+  </header>
+  <main>
+    <div id="grid"></div>
+  </main>
+
+  <h2 id="latency">
+    50<span>MS Latency</span>
+  </h2>
+
+
+  <div id="color-picker"></div> -->
+
+</div>
+</body>
+</html>
