@@ -1,6 +1,6 @@
 import { range } from "lodash-es";
-import { cursorObj } from "./colorPicker.js";
-export {createGrid}
+import { cursorObj } from "../components/colorPicker.js";
+export { createGrid };
 
 function createGrid() {
     const grid = document.querySelector("#grid");
@@ -20,17 +20,3 @@ function createGrid() {
         console.log(gridSquare.getAttribute("data-id"));
     });
 }
-
-// const gridSquares = document.querySelectorAll(".grid-square");
-/* for (const square of gridSquares) {
-    square.addEventListener("mouseenter", (event) => {
-        event.target.style.backgroundColor = cursorColor
-        console.log(event.target)
-    })
-} */
-
-/* gridSquares.forEach((square) => {
-    square.addEventListener("mouseenter", (event) => {
-        console.log(event)
-    })
-}) */

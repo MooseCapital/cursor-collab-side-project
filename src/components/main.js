@@ -1,7 +1,7 @@
 import "../style.css";
 import "./webRTC.js";
 import "../services/cursor.js";
-import { createGrid } from "./grid.js";
+import { createGrid } from "../services/grid.js";
 import "../services/router.js";
 
 //layout
