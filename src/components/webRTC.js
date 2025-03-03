@@ -1,7 +1,7 @@
-import { selfId } from "trystero";
-import { joinRoom } from "trystero/torrent";
+// import { selfId } from "trystero";
+// import { joinRoom } from "trystero/torrent";
 // const room = joinRoom({appId: 'cursor-collab'}, 'mainRoom')
-import {randomCursorColor} from "./colorPicker.js";
+import { randomCursorColor } from "./colorPicker.js";
 // user gets their ip, we use geo ip library to put local state/country and flag emoji on a rectangle by cursor
 //because other users cant get our ip with trystero, we send them the data when joining, so on join we send initial data event like mouse color
 
@@ -11,13 +11,14 @@ class User {
     constructor(id) {
         // Constructor
         this.id = id;
-        this.color = `${randomCursorColor()}`
-        
-        this.render(id)
+        this.color = `${randomCursorColor()}`;
+
+        this.render(id);
     }
     //this is the prototype, use for shared methods or default property values until the user sets
     render(id) {
-        document.querySelector("#app").insertAdjacentHTML("afterend",
+        document.querySelector("#app").insertAdjacentHTML(
+            "afterend",
             `<svg
               height="24"
               viewBox="0 0 19.196396 23.999937"
@@ -43,8 +44,8 @@ class User {
                 stroke="#000000"
                 stroke-width="1.79042"
                 id="path2" />
-          </svg> `
-        )
+          </svg> `,
+        );
     }
 }
 

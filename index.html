@@ -9,12 +9,12 @@
   img-src 'self' data:;
    style-src 'self' 'unsafe-inline';">
 
-    <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self';
-    font-src 'self' https://cdn.jsdelivr.net;
-    img-src 'self' data:; "> -->
+  <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self';
+  font-src 'self' https://cdn.jsdelivr.net;
+  img-src 'self' data:; "> -->
 
   <!-- 	preload essential css, and external font links for performance-->
-  <link rel="preload stylesheet" as="style" type="text/css" href="src/style.css"  >
+  <link rel="preload stylesheet" as="style" type="text/css" href="src/style.css">
   <!-- 	browsers ignore fonts without cross origin, even if we host in on our domain -->
   <link rel="preload" as="font"
         href="https://cdn.jsdelivr.net/fontsource/fonts/public-sans:vf@latest/latin-wght-normal.woff2" type="font/woff2"
@@ -38,28 +38,27 @@
   <!-- 	<link rel="icon" href="/favicon.ico" sizes="192x192"> -->
   <link rel="icon" href="/images/bibata-pink.svg" type="image/svg+xml">
   <!-- 	<link rel="apple-touch-icon" href="/path/to/apple-touch-icon.png" sizes="180x180"> -->
-
   <title>Cursor collaboration</title>
+
 </head>
 
 
 <body>
 <div id="app">
-  <!-- <header>
-    <h1>Cursor collaboration</h1>
-  </header>
-  <main>
-    <div id="grid"></div>
-  </main>
+  <header>
+        <h1>Cursor collaboration</h1>
+        <a href="/cursor-collab-side-project/#/websocket">WebSocket</a>
+        <a href="/cursor-collab-side-project/#/webrtc">WebRTC</a>
+        <a href="/cursor-collab-side-project/#/colors">Colors</a>
+<!--         <button onclick="navigate('/websocket')">WebSocket</button> -->
+<!--           <button onclick="navigate('/webrtc')">WebRTC</button> -->
+<!--           <button onclick="navigate('/colors')">Colors</button> -->
 
-  <h2 id="latency">
-    50<span>MS Latency</span>
-  </h2>
+      </header>
 
-
-  <div id="color-picker"></div> -->
-
+      <main>
+      </main>
 </div>
-<script type="module" src="/src/components/main.js" async></script>
+<script type="module" src="/src/components/main.js"></script>
 </body>
 </html>

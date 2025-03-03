@@ -1,19 +1,19 @@
 // import iro from "@jaames/iro";
 
 const cursorColors = [
-    {color: "blue", rgba: "rgba(68,255,255,0.6)"},
-    {color: "green", rgba: "rgba(91,250,94,0.6)"},
-    {color: "orange", rgba: "rgba(255,128,0,0.6)"},
-    {color: "purple", rgba: "rgba(173,144,255,0.6)"},
-    {color: "red", rgba: "rgba(255,31,31,0.6)"},
-    {color: "pink", rgba: "rgba(255,166,250,0.6)"},
+    { color: "blue", rgba: "rgba(68,255,255,0.6)" },
+    { color: "green", rgba: "rgba(91,250,94,0.6)" },
+    { color: "orange", rgba: "rgba(255,128,0,0.6)" },
+    { color: "purple", rgba: "rgba(173,144,255,0.6)" },
+    { color: "red", rgba: "rgba(255,31,31,0.6)" },
+    { color: "pink", rgba: "rgba(255,166,250,0.6)" },
 ];
 
 const randomCursorColor = () => cursorColors[Math.floor(Math.random() * cursorColors.length)];
 
 function getImageUrl(color) {
-  // return new URL(`./dir/${name}.png`, import.meta.url).href
-  return new URL(`/public/images/bibata-${color}-24.svg`, import.meta.url).href
+    // return new URL(`./dir/${name}.png`, import.meta.url).href
+    return new URL(`/public/images/bibata-${color}-24.svg`, import.meta.url).href;
 }
 // console.log(getImageUrl("white"))
 
@@ -25,29 +25,10 @@ function setCursor(color) {
     //short way, not proper
     // const url = `url("${getImageUrl("white")}") 0 0, auto`;
     // console.log(url)
-    const cursorPath = `${import.meta.env.BASE_URL}/images/bibata-${color}.svg`
+    const cursorPath = `${import.meta.env.BASE_URL}/#/images/bibata-${color}.svg`;
     document.body.style.cursor = `url(${cursorPath}) 0 0, auto`;
 }
-setCursor(cursorObj.color)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// setCursor(cursorObj.color)
 
 /* const colorPicker = new iro.ColorPicker("#color-picker", {
     width: 200,
@@ -93,6 +74,4 @@ setCursor(cursorObj.color)
     updateCursor(color.rgbaString);
 }); */
 
-
-
-export { cursorObj,randomCursorColor };
+export { cursorObj, randomCursorColor };
