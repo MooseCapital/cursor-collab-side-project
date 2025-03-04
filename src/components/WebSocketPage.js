@@ -16,6 +16,6 @@ function WebSocketPage() {
           </h2>
         
           <div id="color-picker"></div>
-    
+          <div id="cursorFloat">🇺🇸 Miami, FL</div>
     `;
 }

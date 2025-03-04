@@ -77,6 +77,20 @@ main {
   /* justify-content: center;
   align-items: center; */
 }
+/* make it a certain width, and wrap if length is over that */
+#cursorFloat {
+  position: absolute;
+  font-weight: 300;
+  top: 50%;
+  left: 100px;
+  width: max-content;
+  padding: 0.25rem;
+  /* height: 3rem; */
+  /* border-radius: 5px; */
+  background-color: rgba(91, 250, 94, 0.6);
+  /* box-shadow: 2px 2px black; */
+}
+
 #grid {
   position: absolute;
   top: calc(50% / 2 - 40px);
