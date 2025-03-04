@@ -1,5 +1,6 @@
 import { range } from "lodash-es";
-import { cursorObj } from "../components/colorPicker.js";
+import { userData } from "./userData.js";
+
 export { createGrid };
 
 function createGrid() {
@@ -16,7 +17,7 @@ function createGrid() {
 
     grid.addEventListener("click", (event) => {
         const gridSquare = event.target.closest(".grid-square");
-        gridSquare.style.backgroundColor = cursorObj.rgba;
+        gridSquare.style.backgroundColor = userData.cursorRGBA;
         console.log(gridSquare.getAttribute("data-id"));
     });
 }

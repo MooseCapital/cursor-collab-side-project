@@ -1,4 +1,7 @@
 // import iro from "@jaames/iro";
+import { userData } from "./userData.js";
+
+export { setCursor, setCursorColors };
 
 const cursorColors = [
     { color: "blue", rgba: "rgba(68,255,255,0.6)" },
@@ -9,26 +12,33 @@ const cursorColors = [
     { color: "pink", rgba: "rgba(255,166,250,0.6)" },
 ];
 
-const randomCursorColor = () => cursorColors[Math.floor(Math.random() * cursorColors.length)];
-
-function getImageUrl(color) {
-    // return new URL(`./dir/${name}.png`, import.meta.url).href
-    return new URL(`/public/images/bibata-${color}-24.svg`, import.meta.url).href;
+function getRandomColorObj() {
+    return cursorColors[Math.floor(Math.random() * cursorColors.length)];
 }
-// console.log(getImageUrl("white"))
 
-const cursorObj = randomCursorColor();
-
-// updateCursor(cursorColor);
+function setCursorColors(userData, newColor) {
+    if (!userData.cursorColor) {
+        const colorObj = getRandomColorObj();
+        userData.cursorColor = colorObj.color;
+        userData.cursorRGBA = colorObj.rgba;
+    }
+    if (newColor) {
+        //pass in color from color input here
+    }
+}
 
 function setCursor(color) {
-    //short way, not proper
-    // const url = `url("${getImageUrl("white")}") 0 0, auto`;
-    // console.log(url)
-    const cursorPath = `${import.meta.env.BASE_URL}/#/images/bibata-${color}.svg`;
+    const cursorPath = `${import.meta.env.BASE_URL}/images/bibata-${color}.svg`;
+    // console.log(cursorPath);
     document.body.style.cursor = `url(${cursorPath}) 0 0, auto`;
 }
-// setCursor(cursorObj.color)
+
+//gives entire svg code, not image link
+function getImageUrl(color) {
+    // return new URL(`./dir/${name}.png`, import.meta.url).href
+    return new URL(`/public/images/bibata-${color}.svg`, import.meta.url).href;
+}
+// console.log(getImageUrl("white"));
 
 /* const colorPicker = new iro.ColorPicker("#color-picker", {
     width: 200,
@@ -60,7 +70,7 @@ function setCursor(color) {
     // let encodeSVG = encodeURIComponent(svgString);
     document.body.style.cursor = `url("data:image/svg+xml,${encodeURIComponent(svgString)} ") 0 0, auto`;
 } */
-
+// updateCursor(cursorColor);
 /* const colorThrottle = throttle((color) => {
     cursorColor = color.rgbaString;
     updateCursor(color.rgbaString);
@@ -73,5 +83,3 @@ function setCursor(color) {
     cursorColor = color.rgbaString;
     updateCursor(color.rgbaString);
 }); */
-
-export { cursorObj, randomCursorColor };

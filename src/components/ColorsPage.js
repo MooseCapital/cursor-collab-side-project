@@ -1,11 +1,12 @@
+import { cursorObj, randomCursorColor, setCursor } from "../services/colorPicker.js";
 import { createGrid } from "../services/grid.js";
-
 export { ColorsPage };
+
 //when visiting, now change the users cursor, and check if it reverts to css when changing pages
 function ColorsPage() {
     console.log("color page loaded");
     setTimeout(() => createGrid(), 0);
-
+    setCursor(cursorObj.color);
     return `
         <div id="grid"></div>
     

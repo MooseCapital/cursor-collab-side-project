@@ -1,8 +1,12 @@
 import "../style.css";
-import "./webRTC.js";
+import "../services/webRTC.js";
 import "../services/cursor.js";
 import { createGrid } from "../services/grid.js";
 import "../services/router.js";
+
+//to do
+// put color picker which lets users pick set amount of colors
+//store user data in local storage, so we don't call api more than needed
 
 //layout
 /*

@@ -16,7 +16,9 @@
         "vite-node": "^2.1.8"
     },
     "dependencies": {
+        "@floating-ui/dom": "^1.6.13",
         "@jaames/iro": "^5.5.2",
+        "country-code-emoji": "^2.3.0",
         "install": "^0.13.0",
         "jsdom": "^25.0.1",
         "lodash-es": "^4.17.21",

@@ -1,4 +1,4 @@
-import { ColorsPage } from "../components/ColorsPage.js";
+// import { ColorsPage } from "../components/ColorsPage.js";
 import { WebSocketPage } from "../components/WebSocketPage.js";
 import { WebrtcPage } from "../components/WebrtcPage.js";
 
@@ -13,15 +13,15 @@ const routes = {
     "/webrtc": () => {
         main.innerHTML = WebrtcPage();
     },
-    "/colors": () => {
+    /* "/colors": () => {
         main.innerHTML = ColorsPage();
-    },
+    }, */
 };
 
 function router(url) {
     // const path = url.replace(basePath, "").replace(/^\//, "").substring(1);
     const path = url.substring(1);
-    console.log(path);
+    // console.log(path);
     if (routes[path]) {
         routes[path]();
     } else {
