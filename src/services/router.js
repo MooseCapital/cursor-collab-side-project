@@ -7,9 +7,12 @@ const basePath = "/cursor-collab-side-project";
 
 const main = document.querySelector("main");
 const routes = {
-    "/websocket": () => WebSocketPage(),
-    "/webrtc": () => WebrtcPage()
-    ,
+    "/websocket": () => {
+        main.innerHTML = WebSocketPage();
+    },
+    "/webrtc": () => {
+        main.innerHTML = WebrtcPage();
+    },
     /* "/colors": () => {
         main.innerHTML = ColorsPage();
     }, */
