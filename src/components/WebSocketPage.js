@@ -1,13 +1,17 @@
 import { createGrid } from "../services/grid.js";
 import { setUserData, userData } from "../services/userData.js";
 import { cursorColors, setCursor, setCursorColors } from "../services/colorPicker.js";
-import "../services/floater.js"
-export { WebSocketPage, userData };
+// import "../services/floater.js"
+export { WebSocketPage, getSwatches };
 const swatchGrid = document.querySelector(".swatchGrid");
-
 
 function WebSocketPage() {
     console.log("websocket page loaded");
+    setTimeout(() => {
+        createGrid();
+        setUserData();
+        swatchGrid.innerHTML = getSwatches();
+    }, 0);
     
     return `
         <div id="grid"></div>
@@ -16,19 +20,9 @@ function WebSocketPage() {
             50<span>MS Latency</span>
           </h2>
         
-          <div id="color-picker"></div>
-          
-          
-          
-          
     `;
 }
-setTimeout(() => {
-    createGrid();
-    setUserData();
-    swatchGrid.innerHTML = getSwatches();
-    
-}, 0);
+
 
 swatchGrid.addEventListener("click", (e) => {
     if (e.target.closest(".swatch")) {

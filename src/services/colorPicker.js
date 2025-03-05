@@ -34,8 +34,9 @@ function setCursor(color) {
     const cursorPath = `${import.meta.env.BASE_URL}/images/bibata-${color}.svg`;
     // console.log(cursorPath);
     document.body.style.cursor = `url(${cursorPath}) 0 0, auto`;
+    
     //set cursor float to make cursor color
-    document.querySelector("#cursorFloat").style.backgroundColor = userData.cursorRGBA;
+    // document.querySelector("#cursorFloat").style.backgroundColor = userData.cursorRGBA;
 }
 
 //gives entire svg code, not image link

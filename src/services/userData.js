@@ -5,7 +5,7 @@ export { userData, setUserData };
 
 const userData = JSON.parse(localStorage.getItem("userData")) || {};
 
-console.log(userData, typeof userData);
+// console.log(userData, typeof userData);
 
 async function setUserData() {
     try {
@@ -33,7 +33,7 @@ async function getLocationData() {
 
             console.log(userData, "inside function");
         } else {
-            console.log("not fetched");
+            // console.log("not fetched");
         }
     } catch (e) {
         //toast popup

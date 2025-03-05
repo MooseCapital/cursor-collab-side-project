@@ -1,14 +1,10 @@
 import "../style.css";
-import "../services/webRTC.js";
-import "../services/cursor.js";
 import { createGrid } from "../services/grid.js";
 import "../services/router.js";
+import {cursorColors, setCursor, setCursorColors} from "../services/colorPicker.js";
 
 //to do
-// put color picker which lets users pick set amount of colors
-//store user data in local storage, so we don't call api more than needed
-//build swatch grid from irojs
-//layout
+// move common page functions, and import into page
 /*
 document.querySelector("#app").innerHTML = layout();
 
