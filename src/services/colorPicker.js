@@ -16,16 +16,17 @@ function getRandomColorObj() {
     return cursorColors[Math.floor(Math.random() * cursorColors.length)];
 }
 
-function setCursorColors(userData, newColor) {
+function setCursorColors(userData, cursorColor, cursorRGBA) {
     if (!userData.cursorColor) {
         const colorObj = getRandomColorObj();
         userData.cursorColor = colorObj.name;
         userData.cursorRGBA = colorObj.rgba;
     }
-    if (newColor) {
+    if (cursorColor) {
         //pass in color from color input here
-        userData.cursorColor = newColor.name;
-        userData.cursorRGBA = newColor.rgba;
+        userData.cursorColor = cursorColor;
+        userData.cursorRGBA = cursorRGBA;
+        localStorage.setItem("userData", JSON.stringify(userData));
     }
 }
 
@@ -33,6 +34,8 @@ function setCursor(color) {
     const cursorPath = `${import.meta.env.BASE_URL}/images/bibata-${color}.svg`;
     // console.log(cursorPath);
     document.body.style.cursor = `url(${cursorPath}) 0 0, auto`;
+    //set cursor float to make cursor color
+    document.querySelector("#cursorFloat").style.backgroundColor = userData.cursorRGBA;
 }
 
 //gives entire svg code, not image link
