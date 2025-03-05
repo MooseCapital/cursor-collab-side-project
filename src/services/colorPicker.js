@@ -1,15 +1,15 @@
 // import iro from "@jaames/iro";
 import { userData } from "./userData.js";
 
-export { setCursor, setCursorColors };
+export { setCursor, setCursorColors, cursorColors };
 
 const cursorColors = [
-    { color: "blue", rgba: "rgba(68,255,255,0.6)" },
-    { color: "green", rgba: "rgba(91,250,94,0.6)" },
-    { color: "orange", rgba: "rgba(255,128,0,0.6)" },
-    { color: "purple", rgba: "rgba(173,144,255,0.6)" },
-    { color: "red", rgba: "rgba(255,31,31,0.6)" },
-    { color: "pink", rgba: "rgba(255,166,250,0.6)" },
+    { name: "blue", rgba: "rgba(68,255,255,0.6)" },
+    { name: "green", rgba: "rgba(91,250,94,0.6)" },
+    { name: "orange", rgba: "rgba(255,128,0,0.6)" },
+    { name: "purple", rgba: "rgba(173,144,255,0.6)" },
+    { name: "red", rgba: "rgba(255,31,31,0.6)" },
+    { name: "pink", rgba: "rgba(255,166,250,0.6)" },
 ];
 
 function getRandomColorObj() {
@@ -19,11 +19,13 @@ function getRandomColorObj() {
 function setCursorColors(userData, newColor) {
     if (!userData.cursorColor) {
         const colorObj = getRandomColorObj();
-        userData.cursorColor = colorObj.color;
+        userData.cursorColor = colorObj.name;
         userData.cursorRGBA = colorObj.rgba;
     }
     if (newColor) {
         //pass in color from color input here
+        userData.cursorColor = newColor.name;
+        userData.cursorRGBA = newColor.rgba;
     }
 }
 

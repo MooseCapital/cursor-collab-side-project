@@ -12,6 +12,7 @@ async function setUserData() {
         await getLocationData();
         setFlag();
         setCursorColors(userData);
+        
         setCursor(userData.cursorColor);
 
         localStorage.setItem("userData", JSON.stringify(userData));
