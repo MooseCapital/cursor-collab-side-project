@@ -4,18 +4,46 @@
 // user gets their ip, we use geo ip library to put local state/country and flag emoji on a rectangle by cursor
 //because other users cant get our ip with trystero, we send them the data when joining, so on join we send initial data event like mouse color
 
+import {getRandomColorObj} from "./colorPicker.js";
+
 const users = {};
 
 class User {
     constructor(id) {
+        const colorObj = getRandomColorObj();
         // Constructor
         this.id = id;
-        this.color = `${randomCursorColor()}`;
+        this.userColor = colorObj.name;
+        this.userRGBA = colorObj.rgba;
 
         this.render(id);
+        
     }
     //this is the prototype, use for shared methods or default property values until the user sets
     render(id) {
+            document.querySelector("#app").insertAdjacentHTML(
+            "afterend", `<img src="/images/bibata-${this.userColor}.svg" alt="" width="100%" height="auto" />`)
+        }
+}
+
+function addNewUser(id) {
+    users[`${id}`] = new User(`${id}`);
+}
+// log round-trip time every 2 seconds
+
+/* room.onPeerJoin((peerId) => {
+    addNewUser(peerId)
+    console.log(users)
+    setInterval(async () => console.log(`took ${await room.ping(peerId)}ms ${room.getPeers()}`), 5000)
+}); */
+// console.log(room)
+
+// room.onPeerLeave(peerId => console.log(`${peerId} left`))
+
+
+//long svg render function
+/*
+render(id) {
         document.querySelector("#app").insertAdjacentHTML(
             "afterend",
             `<svg
@@ -45,19 +73,4 @@ class User {
                 id="path2" />
           </svg> `,
         );
-    }
-}
-
-function addNewUser(id) {
-    users[`${id}`] = new User(`${id}`);
-}
-// log round-trip time every 2 seconds
-
-/* room.onPeerJoin((peerId) => {
-    addNewUser(peerId)
-    console.log(users)
-    setInterval(async () => console.log(`took ${await room.ping(peerId)}ms ${room.getPeers()}`), 5000)
-}); */
-// console.log(room)
-
-// room.onPeerLeave(peerId => console.log(`${peerId} left`))
+    }*/

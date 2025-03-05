@@ -1,9 +1,10 @@
 import {throttle} from "lodash-es";
 
-
+//throttle how often we send server events
 const serverThrottle = throttle(({ currentX, currentY }) => console.log({ currentX, currentY }), 500, {
     trailing: true,
 });
+//throttle mouse events, don't run until moved outside of box
 // const mouseThrottle = _.throttle(mouseMovedOutsideBox, 50,{ trailing: true });
 
 const mouseThrottle = throttle(moveCursor, 50,{ trailing: true });

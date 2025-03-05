@@ -1,7 +1,7 @@
 // import iro from "@jaames/iro";
 import { userData } from "./userData.js";
 
-export { setCursor, setCursorColors, cursorColors };
+export { setCursor, setCursorColors, cursorColors, getRandomColorObj };
 
 const cursorColors = [
     { name: "blue", rgba: "rgba(68,255,255,0.6)" },

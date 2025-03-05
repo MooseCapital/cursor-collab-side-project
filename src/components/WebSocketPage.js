@@ -1,7 +1,7 @@
 import { createGrid } from "../services/grid.js";
 import { setUserData, userData } from "../services/userData.js";
 import { cursorColors, setCursor, setCursorColors } from "../services/colorPicker.js";
-
+import "../services/floater.js"
 export { WebSocketPage, userData };
 const swatchGrid = document.querySelector(".swatchGrid");
 
@@ -17,7 +17,7 @@ function WebSocketPage() {
           </h2>
         
           <div id="color-picker"></div>
-          <div id="cursorFloat">🇺🇸 Miami, FL</div>
+          
           
           
           
