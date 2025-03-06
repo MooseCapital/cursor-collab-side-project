@@ -67,7 +67,7 @@ class User {
 function addNewUser(id) {
     otherUsers[`${id}`] = new User(`${id}`);
 }
-addNewUser(1234)
+// addNewUser(1234)
 
 
 

@@ -30,7 +30,12 @@
   /* transform: translate(0, 0);  */
   /* background-color: rgba(45, 227, 247, 0.5); */
 }
-
+#test-cursor {
+  position: absolute;
+  pointer-events: none;
+  top: 0;
+  left: 0;
+}
 
 
 #latency {

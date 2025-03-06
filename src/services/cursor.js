@@ -4,24 +4,25 @@ import {throttle} from "lodash-es";
 const serverThrottle = throttle(({ currentX, currentY }) => console.log({ currentX, currentY }), 500, {
     trailing: true,
 });
-//throttle mouse events, don't run until moved outside of box
-// const mouseThrottle = _.throttle(mouseMovedOutsideBox, 50,{ trailing: true });
 
-const mouseThrottle = throttle(moveCursor, 50,{ trailing: true });
-// document.addEventListener("mousemove", mouseThrottle);
+//throttle mouse events, don't run until moved outside of box
+const mouseThrottle = throttle(mouseMovedOutsideBox, 50,{ trailing: true });
 
 const cursor = document.querySelector("#test-cursor");
 
+document.addEventListener("mousemove", mouseThrottle);
 // document.addEventListener('click', mouseThrottle);
 
 const currentPosition = {x: 0, y: 0}; // Current position of the cursor
 const targetPosition = {x: 0, y: 0}; // Target position of the cursor
 
-//move cursor logic
+
+// const mouseThrottle = throttle(moveCursor, 50,{ trailing: true });
+//move cursor always, no box to limit events
 function moveCursor(event) {
     targetPosition.x = event.clientX;
     targetPosition.y = event.clientY;
-    // console.log(targetPosition)
+    console.log(targetPosition)
     startAnimation();
 }
 
@@ -34,9 +35,8 @@ function animateCursor() {
     currentPosition.x += (targetPosition.x - currentPosition.x) * 0.1;
     currentPosition.y += (targetPosition.y - currentPosition.y) * 0.1;
 
-    // Update the cursor's position using CSS transform
+    // Update the cursor's position using CSS transform or translate 3d or needs more performance
     cursor.style.transform = `translate(${currentPosition.x}px, ${currentPosition.y}px)`;
-    //translate3d
     // cursor.style.transform = `translate3d(${currentPosition.x}px, ${currentPosition.y}px, 0)`;
     
     
@@ -53,8 +53,8 @@ function animateCursor() {
         currentPosition.x = targetPosition.x;
         currentPosition.y = targetPosition.y;
         cursor.style.transform = `translate(${currentPosition.x}px, ${currentPosition.y}px)`;
-        //translate3d
         // cursor.style.transform = `translate3d(${currentPosition.x}px, ${currentPosition.y}px, 0)`;
+        
         // Animation complete
         animationInProgress = false;
     }
@@ -67,8 +67,6 @@ function animateCursor() {
     animationInProgress = true;
     requestAnimationFrame(animateCursor);
 }
-
-
 
 //-------------------------------------------------------------------------------------------------------------
 //box to limit events unless mouse moves over 20px
