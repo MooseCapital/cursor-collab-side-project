@@ -33,9 +33,10 @@ function navigate(path) {
     const fullPath = `${basePath}/${path}`;
 
     window.history.pushState({}, "", fullPath);
-    // router(path);
+    console.log(path)
+    router(path);
 }
 
 // Initial route
 navigate(window.location.hash || "#/websocket");
-router(window.location.hash || "#/websocket");
+// router(window.location.hash || "#/websocket");
