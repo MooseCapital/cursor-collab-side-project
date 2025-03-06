@@ -19,17 +19,19 @@
 }
 
 * {
-  cursor: inherit;
+  /* cursor: inherit; */
 }
 
-.cursor {
+.cursors {
   position: absolute;
   pointer-events: none;
-  top: 0;
-  left: 0;
+  top: 200px;
+  left: 200px;
   /* transform: translate(0, 0);  */
   /* background-color: rgba(45, 227, 247, 0.5); */
 }
+
+
 
 #latency {
   position: absolute;
@@ -85,8 +87,8 @@ main {
 #cursorFloat {
   position: absolute;
   font-weight: 300;
-  /* top: 50%; */
-  /* left: 100px; */
+  top: 0;
+  left: 0;
   width: max-content;
   padding: 0.25rem;
   /* height: 3rem; */

@@ -11,24 +11,32 @@ const users = {};
 class User {
     constructor(id) {
         const colorObj = getRandomColorObj();
-        // Constructor
+        // console.log(colorObj)
         this.id = id;
         this.userColor = colorObj.name;
         this.userRGBA = colorObj.rgba;
-
         this.render(id);
         
     }
     //this is the prototype, use for shared methods or default property values until the user sets
     render(id) {
             document.querySelector("#app").insertAdjacentHTML(
-            "afterend", `<img src="/images/bibata-${this.userColor}.svg" alt="" width="100%" height="auto" />`)
+            "afterbegin",
+            `<object class="cursors" type="image/svg+xml" data="${import.meta.env.BASE_URL}/images/bibata-${this.userColor}.svg" data-id="${this.id}" width="auto" height="auto"></object>`
+            
+            )
         }
 }
+
+// `<img class="cursors" src="${import.meta.env.BASE_URL}/images/bibata-${this.userColor}.svg" alt="" data-id="${this.id}" width="auto" height="auto" />`
+
 
 function addNewUser(id) {
     users[`${id}`] = new User(`${id}`);
 }
+addNewUser(1234)
+
+
 // log round-trip time every 2 seconds
 
 /* room.onPeerJoin((peerId) => {

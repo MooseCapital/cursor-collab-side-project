@@ -1,9 +1,11 @@
 import { createGrid } from "../services/grid.js";
 import { setUserData, userData } from "../services/userData.js";
 import { cursorColors, setCursor, setCursorColors } from "../services/colorPicker.js";
-// import "../services/floater.js"
+import "../services/floater.js"
+import "../services/webRTC.js"
 export { WebSocketPage, getSwatches };
 const swatchGrid = document.querySelector(".swatchGrid");
+
 
 function WebSocketPage() {
     console.log("websocket page loaded");

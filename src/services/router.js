@@ -2,7 +2,7 @@
 import { WebSocketPage } from "../components/WebSocketPage.js";
 import { WebrtcPage } from "../components/WebrtcPage.js";
 
-window.addEventListener("hashchange", () => router(window.location.hash));
+window.addEventListener("hashchange", () => navigate(window.location.hash ));
 const basePath = "/cursor-collab-side-project";
 
 const main = document.querySelector("main");
@@ -18,23 +18,17 @@ const routes = {
     }, */
 };
 
-function router(url) {
-    // const path = url.replace(basePath, "").replace(/^\//, "").substring(1);
-    const path = url.substring(1);
-    // console.log(path);
+function navigate(path) {
+    path = path.substring(1);
+    console.log(path)
+    const fullPath = `${basePath}/#${path}`;
+    window.history.pushState({}, "", fullPath);
+
     if (routes[path]) {
         routes[path]();
     } else {
-        console.log("Route not found", url);
+        console.log("Route not found", path);
     }
-}
-
-function navigate(path) {
-    const fullPath = `${basePath}/${path}`;
-
-    window.history.pushState({}, "", fullPath);
-    console.log(path)
-    router(path);
 }
 
 // Initial route

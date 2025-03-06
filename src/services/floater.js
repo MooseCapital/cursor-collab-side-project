@@ -1,10 +1,11 @@
 import { throttle } from "lodash-es";
 
-const mouseThrottle = throttle(moveFloater, 10, { trailing: true });
+const mouseThrottle = throttle(moveFloater, 20, { trailing: true });
 const currentPosition = { x: 0, y: 0 }; // Current position of the cursor
 const targetPosition = { x: 0, y: 0 }; // Target position of the cursor
 
-document.addEventListener("mousemove", mouseThrottle);
+//uncomment to use floater
+// document.addEventListener("mousemove", mouseThrottle);
 
 function moveFloater(event) {
     currentPosition.x = event.clientX;
