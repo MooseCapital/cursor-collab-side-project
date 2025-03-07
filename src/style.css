@@ -22,21 +22,33 @@
   /* cursor: inherit; */
 }
 
-.cursors {
-  position: absolute;
-  pointer-events: none;
-  top: 200px;
-  left: 200px;
-  /* transform: translate(0, 0);  */
-  /* background-color: rgba(45, 227, 247, 0.5); */
-}
-#test-cursor {
-  position: absolute;
-  pointer-events: none;
-  top: 0;
-  left: 0;
-}
 
+
+.other-cursor {
+  /* position: absolute; */
+  pointer-events: none;
+  width: max-content;
+  /* top: 0; */
+  /* left: 0; */
+}
+.cursorFloat {
+  /* position: absolute; */
+  font-weight: 300;
+  /* top: 0; */
+  /* left: 0; */
+  width: max-content;
+  padding: 0.25rem;
+  /* height: 3rem; */
+  border-radius: 4px;
+  margin-left: 12px;
+  /* background-color: rgba(91, 250, 94, 0.6); */
+  /* box-shadow: 2px 2px black; */
+}
+ .cursorContainer {
+  position: absolute;
+   display: flex;
+   flex-direction: column;
+ }
 
 #latency {
   position: absolute;
@@ -88,19 +100,7 @@ main {
   /* justify-content: center;
   align-items: center; */
 }
-/* make it a certain width, and wrap if length is over that */
-#cursorFloat {
-  position: absolute;
-  font-weight: 300;
-  top: 0;
-  left: 0;
-  width: max-content;
-  padding: 0.25rem;
-  /* height: 3rem; */
-  border-radius: 4px;
-  /* background-color: rgba(91, 250, 94, 0.6); */
-  /* box-shadow: 2px 2px black; */
-}
+
 
 #grid {
   position: absolute;

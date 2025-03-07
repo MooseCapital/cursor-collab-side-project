@@ -1,10 +1,9 @@
 import { throttle } from "lodash-es";
 import { gsap } from "gsap";
 
-const cursor = document.querySelector("#test-cursor");
-
-//try sending an event more often, 250ms, and animate it, so no need for multiple positions
-//check users latency then send or be sent events sooner
+const cursor = document.querySelector(".test-cursor");
+const floater = document.querySelector(".cursorFloat");
+const cursorContainer = document.querySelector(".cursorContainer");
 
 // positions of our cursor
 const myCurrentPosition = { x: 0, y: 0 };
@@ -29,7 +28,8 @@ function moveCursorGsap(event) {
     targetPosition.y = event.clientY;
     // console.log(targetPosition);
     
-    gsap.to(cursor, {
+    gsap.to(cursorContainer, {
+    // gsap.to(cursor, {
         x: targetPosition.x,
         y: targetPosition.y,
         duration: 0.25,
@@ -37,6 +37,8 @@ function moveCursorGsap(event) {
         ease: "none",
     });
 }
+
+
 
 //throttle how often we send server events
 const serverThrottle = throttle(({ currentX, currentY }) => console.log({ currentX, currentY }), 250, {
@@ -50,7 +52,10 @@ function mouseMovedOutsideBox(event) {
 
     const deltaX = currentX - lastOutsideBoxX;
     const deltaY = currentY - lastOutsideBoxY;
-
+    
+    //sync our floater to cursor
+    // moveFloaterGsap(currentX, currentY);
+    
     const distanceMoved = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
     //only send events if position changed > threshold 10px
     if (distanceMoved >= threshold) {
@@ -58,11 +63,21 @@ function mouseMovedOutsideBox(event) {
         lastOutsideBoxX = currentX;
         lastOutsideBoxY = currentY;
         
-        // moveCursorLinear(event);
         moveCursorGsap(event);
+        // moveCursorLinear(event);
         // serverThrottle({ currentX, currentY });
     }
 }
+
+function moveFloaterGsap(currentX, currentY) {
+    gsap.to(floater, {
+        x: currentX + 12,
+        y: currentY + 25,
+        duration: 0.05,
+        ease: "none",
+    });
+}
+
 
 //-------------------------------------------------------------------------------------------------------------
 //move cursor always, no box to limit events

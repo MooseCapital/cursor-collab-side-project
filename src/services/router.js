@@ -20,7 +20,7 @@ const routes = {
 
 function navigate(path) {
     path = path.substring(1);
-    console.log(path)
+    // console.log(path)
     const fullPath = `${basePath}/#${path}`;
     window.history.pushState({}, "", fullPath);
 
