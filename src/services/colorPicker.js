@@ -42,7 +42,7 @@ function setCursor(color) {
 
 function setCustomCursor(cursorColor, cursorRGBA) {
   const svgString = `
-    <svg xmlns="http://www.w3.org/2000/svg" width="115" height="51" viewBox="0 0 115 51">
+    <svg xmlns="http://www.w3.org/2000/svg" width="114.41" height="51" viewBox="0 0 115 51">
       <path d="m 17.289555,12.591263 -0.0015,-0.0013 -0.0016,-0.0014 L 5.759437,
         2.370346 C 5.214821,1.872439 4.67901,1.471068 4.164547,1.215153 3.661648,0.964989 3.063331,0.797236 2.465876,0.961997 1.823272,
         1.139207 1.4205,1.630363 1.196844,2.18767 0.98076103,2.726114 0.89521003,3.400914 0.89521003,4.165489 v 15.470608 0.0065 l 9.5e-5,
@@ -54,8 +54,8 @@ function setCustomCursor(cursorColor, cursorRGBA) {
         -0.225277 1.04624,-0.437812 1.284366,-1.58421 1.261301,-2.362835 -0.02443,-0.826649 -0.335231,-1.808645 -1.01001,
         -2.412334 z" fill="${cursorRGBA}" stroke="#000000" stroke-width="1.79042" />
       
-      <rect x="12" y="21" width="102.4" height="27" fill="${cursorRGBA}" rx="4" />
-      <text x="16" y="40" font-family="Arial" font-size="16" font-weight="300" fill="black">🇺🇸 Miami, FL</text>
+      <rect x="12" y="23" width="102.4" height="27" fill="${cursorRGBA}" rx="4" />
+      <text x="16" y="42" font-family="Arial" font-size="16" font-weight="300" fill="black">🇺🇸 Miami, FL</text>
     </svg>
   `;
 
