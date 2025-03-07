@@ -1,78 +1,49 @@
-import {throttle} from "lodash-es";
-
-//throttle how often we send server events
-const serverThrottle = throttle(({ currentX, currentY }) => console.log({ currentX, currentY }), 500, {
-    trailing: true,
-});
-
-//throttle mouse events, don't run until moved outside of box
-const mouseThrottle = throttle(mouseMovedOutsideBox, 50,{ trailing: true });
+import { throttle } from "lodash-es";
+import { gsap } from "gsap";
 
 const cursor = document.querySelector("#test-cursor");
 
-document.addEventListener("mousemove", mouseThrottle);
-// document.addEventListener('click', mouseThrottle);
+//try sending an event more often, 250ms, and animate it, so no need for multiple positions
+//check users latency then send or be sent events sooner
 
-const currentPosition = {x: 0, y: 0}; // Current position of the cursor
-const targetPosition = {x: 0, y: 0}; // Target position of the cursor
+// positions of our cursor
+const myCurrentPosition = { x: 0, y: 0 };
 
+//other users position
+const targetPosition = { x: 0, y: 0 };
 
-// const mouseThrottle = throttle(moveCursor, 50,{ trailing: true });
-//move cursor always, no box to limit events
-function moveCursor(event) {
-    targetPosition.x = event.clientX;
-    targetPosition.y = event.clientY;
-    console.log(targetPosition)
-    startAnimation();
-}
-
-let animationInProgress = false;
-
-//-------------------------------------------------------------------------------------------------------------
-//animation cursor without time, but does not infinite animate
-function animateCursor() {
-    // Interpolate position for smooth movement
-    currentPosition.x += (targetPosition.x - currentPosition.x) * 0.1;
-    currentPosition.y += (targetPosition.y - currentPosition.y) * 0.1;
-
-    // Update the cursor's position using CSS transform or translate 3d or needs more performance
-    cursor.style.transform = `translate(${currentPosition.x}px, ${currentPosition.y}px)`;
-    // cursor.style.transform = `translate3d(${currentPosition.x}px, ${currentPosition.y}px, 0)`;
-    
-    
-    // Check if the cursor is close enough to the target
-    // const distanceX = Math.abs(targetPosition.x - currentPosition.x);
-    // const distanceY = Math.abs(targetPosition.y - currentPosition.y);
-    const distance = Math.hypot(targetPosition.x - currentPosition.x, targetPosition.y - currentPosition.y);
-    
-    // Continue the animation loop if cursor is not less than 0.1px to target
-    if (distance > 0.2) {
-        requestAnimationFrame(animateCursor);
-    } else {
-        // Snap to exact position and stop the animation
-        currentPosition.x = targetPosition.x;
-        currentPosition.y = targetPosition.y;
-        cursor.style.transform = `translate(${currentPosition.x}px, ${currentPosition.y}px)`;
-        // cursor.style.transform = `translate3d(${currentPosition.x}px, ${currentPosition.y}px, 0)`;
-        
-        // Animation complete
-        animationInProgress = false;
-    }
-}
-
-// Start the animation loop
- function startAnimation() {
-     if (animationInProgress) return;
-     
-    animationInProgress = true;
-    requestAnimationFrame(animateCursor);
-}
-
-//-------------------------------------------------------------------------------------------------------------
-//box to limit events unless mouse moves over 20px
+//position of last mouse event outside of box
 let lastOutsideBoxX = 0;
 let lastOutsideBoxY = 0;
-const threshold = 10; // pixels
+
+//pixel amount for threshold box
+const threshold = 10;
+
+//throttle mouse events, don't run until cursor moved outside of box
+const mouseThrottle = throttle(mouseMovedOutsideBox, 50, { trailing: true });
+document.addEventListener("mousemove", mouseThrottle);
+
+//gsap animate, without requestAnimationFrame
+function moveCursorGsap(event) {
+    targetPosition.x = event.clientX;
+    targetPosition.y = event.clientY;
+    // console.log(targetPosition);
+    
+    gsap.to(cursor, {
+        x: targetPosition.x,
+        y: targetPosition.y,
+        duration: 0.25,
+        // ease: "power1.out"
+        ease: "none",
+    });
+}
+
+//throttle how often we send server events
+const serverThrottle = throttle(({ currentX, currentY }) => console.log({ currentX, currentY }), 250, {
+    trailing: true,
+});
+
+//box to limit events unless mouse moves over that
 function mouseMovedOutsideBox(event) {
     const currentX = event.clientX;
     const currentY = event.clientY;
@@ -86,51 +57,55 @@ function mouseMovedOutsideBox(event) {
         // Update position and send to WebSocket
         lastOutsideBoxX = currentX;
         lastOutsideBoxY = currentY;
-        moveCursor(event);
+        
+        // moveCursorLinear(event);
+        moveCursorGsap(event);
         // serverThrottle({ currentX, currentY });
     }
 }
 
-
 //-------------------------------------------------------------------------------------------------------------
-// time based animation, is always jumpy since it moves 1px at a time while interpolation moves tiny decimals
-/*
-// let startTime;
-const animationDuration = 250; // Duration in milliseconds
-function animateCursor(timestamp) {
-    if (!startTime) startTime = timestamp;
-    const elapsedTime = timestamp - startTime;
-    const progress = Math.min(elapsedTime / animationDuration, 1);
-    
-    const easedProgress = easeOutQuad(progress);
-    // Interpolate position using the progress
-    currentPosition.x = startPosition.x + (targetPosition.x - startPosition.x) * easedProgress;
-    currentPosition.y = startPosition.y + (targetPosition.y - startPosition.y) * easedProgress;
+//move cursor always, no box to limit events
+let animationInProgress = false;
 
-    // Update the cursor's position
-    cursor.style.transform = `translate(${currentPosition.x}px, ${currentPosition.y}px)`;
-    
-    if (progress < 1) {
+function moveCursorLinear(event) {
+    targetPosition.x = event.clientX;
+    targetPosition.y = event.clientY;
+    console.log(targetPosition);
+    startAnimation();
+}
+
+//linear interpolation, animation cursor without time
+function animateCursor() {
+    // Interpolate position for smooth movement
+    myCurrentPosition.x += (targetPosition.x - myCurrentPosition.x) * 0.1;
+    myCurrentPosition.y += (targetPosition.y - myCurrentPosition.y) * 0.1;
+
+    // Update the cursor's position using CSS transform or translate 3d or needs more performance
+    cursor.style.transform = `translate(${myCurrentPosition.x}px, ${myCurrentPosition.y}px)`;
+    // cursor.style.transform = `translate3d(${myCurrentPosition.x}px, ${myCurrentPosition.y}px, 0)`;
+
+    // Check if the cursor is close enough to the target
+    const distance = Math.hypot(targetPosition.x - myCurrentPosition.x, targetPosition.y - myCurrentPosition.y);
+
+    // Continue the animation loop if cursor is not less than 0.1px to target
+    if (distance > 0.2) {
         requestAnimationFrame(animateCursor);
     } else {
+        // Snap to exact position and stop the animation
+        myCurrentPosition.x = targetPosition.x;
+        myCurrentPosition.y = targetPosition.y;
+        cursor.style.transform = `translate(${myCurrentPosition.x}px, ${myCurrentPosition.y}px)`;
+        // cursor.style.transform = `translate3d(${myCurrentPosition.x}px, ${myCurrentPosition.y}px, 0)`;
+
         // Animation complete
-        startTime = null;
         animationInProgress = false;
     }
-    // requestAnimationFrame(animateCursor);
 }
 
-// Call startAnimation() when you want to start a new animation
+// Start the animation loop
 function startAnimation() {
-    
     if (animationInProgress) return;
     animationInProgress = true;
-    startPosition = { ...currentPosition };
-    startTime = null;
     requestAnimationFrame(animateCursor);
 }
-
-function easeOutQuad(t) {
-  return 1 - (1 - t) * (1 - t);
-}
-*/

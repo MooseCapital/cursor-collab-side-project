@@ -15,7 +15,4 @@ function moveFloater(event) {
         `translate(${currentPosition.x + 12}px, ${currentPosition.y + 25}px)`;
 }
 
-function setUpFLoater() {
-
-}
 
