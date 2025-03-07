@@ -63,7 +63,7 @@ function mouseMovedOutsideBox(event) {
         lastOutsideBoxX = currentX;
         lastOutsideBoxY = currentY;
         
-        moveCursorGsap(event);
+        // moveCursorGsap(event);
         // moveCursorLinear(event);
         // serverThrottle({ currentX, currentY });
     }

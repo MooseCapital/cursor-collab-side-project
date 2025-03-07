@@ -1,7 +1,7 @@
 // import iro from "@jaames/iro";
 import { userData } from "./userData.js";
 
-export { setCursor, setCursorColors, cursorColors, getRandomColorObj };
+export { setCursor, setCursorColors, cursorColors, getRandomColorObj, setCustomCursor };
 
 const cursorColors = [
     { name: "blue", rgba: "rgba(68,255,255,0.6)" },
@@ -32,12 +32,35 @@ function setCursorColors(userData, cursorColor, cursorRGBA) {
 
 function setCursor(color) {
     const cursorPath = `${import.meta.env.BASE_URL}/images/bibata-${color}.svg`;
-    // console.log(cursorPath);
+    console.log(cursorPath);
     document.body.style.cursor = `url(${cursorPath}) 0 0, auto`;
     
     //set cursor float to make cursor color
     document.querySelector(".cursorFloat").style.backgroundColor = userData.cursorRGBA;
 }
+
+
+function setCustomCursor(cursorColor, cursorRGBA) {
+  const svgString = `
+    <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100">
+      <!-- Cursor -->
+      <image href="/images/bibata-${cursorColor}.svg" x="0" y="0" width="24" height="24" />
+      <!-- Floater with space -->
+      <rect x="34" y="10" width="60" height="30" fill="${cursorRGBA}" stroke="black" />
+      <text x="39" y="30" font-family="Arial" font-size="14" fill="black">🇺🇸 Miami, FL</text>
+    </svg>
+  `;
+
+  const encodedSVG = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svgString)}`;
+  console.log(encodedSVG);
+
+  document.body.style.cursor = `url(${encodedSVG}) 0 0, auto`;
+}
+
+
+
+
+
 
 //gives entire svg code, not image link
 function getImageUrl(color) {

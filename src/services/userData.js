@@ -1,5 +1,5 @@
 import flag from "country-code-emoji";
-import {getRandomColorObj, setCursor, setCursorColors} from "./colorPicker.js";
+import {getRandomColorObj, setCursor, setCursorColors, setCustomCursor} from "./colorPicker.js";
 
 export { userData, setUserData };
 
@@ -13,7 +13,8 @@ async function setUserData() {
         setFlag();
         setCursorColors(userData);
         
-        setCursor(userData.cursorColor);
+        // setCursor(userData.cursorColor);
+        setCustomCursor(userData.cursorColor, userData.cursorRGBA);
 
         localStorage.setItem("userData", JSON.stringify(userData));
     } catch (err) {
