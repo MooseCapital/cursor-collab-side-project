@@ -13,7 +13,7 @@ async function setUserData() {
         setFlag();
         setCursorColors(userData);
         
-        // setCursor(userData.cursorColor);
+        setCursor(userData.cursorColor);
         setCustomCursor(userData.cursorColor, userData.cursorRGBA);
 
         localStorage.setItem("userData", JSON.stringify(userData));

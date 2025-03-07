@@ -53,14 +53,9 @@ function setCustomCursor(cursorColor, cursorRGBA) {
         -0.0064 h 0.0014 0.0024 c 0.290786,-2.1e-4 0.576938,-4.21e-4 0.840025,-0.007 0.481203,-0.0119 1.05119,-0.04318 1.48658,
         -0.225277 1.04624,-0.437812 1.284366,-1.58421 1.261301,-2.362835 -0.02443,-0.826649 -0.335231,-1.808645 -1.01001,
         -2.412334 z" fill="${cursorRGBA}" stroke="#000000" stroke-width="1.79042" />
-<!--       <rect x="34" y="10" width="100" height="30" fill="${cursorRGBA}" stroke="black" /> -->
-<!--       <text x="39" y="30" font-family="Arial" font-size="14" fill="black">🇺🇸 Miami, FL</text> -->
       
-      <rect x="12" y="21" width="103" height="43" fill="${cursorRGBA}" rx="4" />
-    <!-- Text styled to match CSS -->
-    <text x="16" y="40" font-family="Arial" font-size="14" font-weight="300" fill="black">🇺🇸 Miami, FL</text>
-    
-    
+      <rect x="12" y="21" width="102.4" height="27" fill="${cursorRGBA}" rx="4" />
+      <text x="16" y="40" font-family="Arial" font-size="16" font-weight="300" fill="black">🇺🇸 Miami, FL</text>
     </svg>
   `;
 
