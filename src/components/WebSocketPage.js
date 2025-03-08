@@ -31,7 +31,7 @@ swatchGrid.addEventListener("click", (e) => {
 
         setCursorColors(userData, swatch.dataset.color, swatch.dataset.rgba);
         setTimeout(() => {
-            setCursor(swatch.dataset.color);
+            setCursor(swatch.dataset.color, swatch.dataset.rgba);
         }, 0);
 
         swatchGrid.innerHTML = getSwatches();

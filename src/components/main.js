@@ -1,7 +1,7 @@
 import "../style.css";
 import { createGrid } from "../services/grid.js";
 import "../services/router.js";
-import {cursorColors, setCursor, setCursorColors} from "../services/colorPicker.js";
+import {cursorColors, setCursor, setCursorColors, showMyLocation} from "../services/colorPicker.js";
 
 //to do
 // move common page functions, and import into page
@@ -26,3 +26,4 @@ function layout() {
 `;
 }
 */
+document.querySelector("#myCursorCheckbox").addEventListener("change", showMyLocation);
