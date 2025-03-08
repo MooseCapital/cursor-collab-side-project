@@ -1,11 +1,11 @@
 import { throttle } from "lodash-es";
 import { gsap } from "gsap";
 
-const cursor = document.querySelector(".other-cursor");
+const cursorEvents = document.querySelector(".other-cursorEvents");
 // const floater = document.querySelector(".cursorFloat");
 // const cursorContainer = document.querySelector(".cursorContainer");
 
-// positions of our cursor
+// positions of our cursorEvents
 const myCurrentPosition = { x: 0, y: 0 };
 
 //other users position
@@ -18,7 +18,7 @@ let lastOutsideBoxY = 0;
 //pixel amount for threshold box
 const threshold = 10;
 
-//throttle mouse events, don't run until cursor moved outside of box
+//throttle mouse events, don't run until cursorEvents moved outside of box
 const mouseThrottle = throttle(mouseMovedOutsideBox, 50, { trailing: true });
 // document.addEventListener("mousemove", mouseThrottle);
 
@@ -26,14 +26,11 @@ const mouseThrottle = throttle(mouseMovedOutsideBox, 50, { trailing: true });
 function moveCursorGsap(event) {
     targetPosition.x = event.clientX;
     targetPosition.y = event.clientY;
-    // console.log(targetPosition);
     
-    gsap.to(cursor, {
-    // gsap.to(cursor, {
+    gsap.to(cursorEvents, {
         x: targetPosition.x,
         y: targetPosition.y,
         duration: 0.25,
-        // ease: "power1.out"
         ease: "none",
     });
 }
@@ -53,7 +50,7 @@ function mouseMovedOutsideBox(event) {
     const deltaX = currentX - lastOutsideBoxX;
     const deltaY = currentY - lastOutsideBoxY;
     
-    //sync our floater to cursor
+    //sync our floater to cursorEvents
     // moveFloaterGsap(currentX, currentY);
     
     const distanceMoved = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
@@ -80,7 +77,7 @@ function moveFloaterGsap(currentX, currentY) {
 
 
 //-------------------------------------------------------------------------------------------------------------
-//move cursor always, no box to limit events
+//move cursorEvents always, no box to limit events
 let animationInProgress = false;
 
 function moveCursorLinear(event) {
@@ -90,28 +87,28 @@ function moveCursorLinear(event) {
     startAnimation();
 }
 
-//linear interpolation, animation cursor without time
+//linear interpolation, animation cursorEvents without time
 function animateCursor() {
     // Interpolate position for smooth movement
     myCurrentPosition.x += (targetPosition.x - myCurrentPosition.x) * 0.1;
     myCurrentPosition.y += (targetPosition.y - myCurrentPosition.y) * 0.1;
 
-    // Update the cursor's position using CSS transform or translate 3d or needs more performance
-    cursor.style.transform = `translate(${myCurrentPosition.x}px, ${myCurrentPosition.y}px)`;
-    // cursor.style.transform = `translate3d(${myCurrentPosition.x}px, ${myCurrentPosition.y}px, 0)`;
+    // Update the cursorEvents's position using CSS transform or translate 3d or needs more performance
+    // cursorEvents.style.transform = `translate(${myCurrentPosition.x}px, ${myCurrentPosition.y}px)`;
+    cursorEvents.style.transform = `translate3d(${myCurrentPosition.x}px, ${myCurrentPosition.y}px, 0)`;
 
-    // Check if the cursor is close enough to the target
+    // Check if the cursorEvents is close enough to the target
     const distance = Math.hypot(targetPosition.x - myCurrentPosition.x, targetPosition.y - myCurrentPosition.y);
 
-    // Continue the animation loop if cursor is not less than 0.1px to target
+    // Continue the animation loop if cursorEvents is not less than 0.1px to target
     if (distance > 0.2) {
         requestAnimationFrame(animateCursor);
     } else {
         // Snap to exact position and stop the animation
         myCurrentPosition.x = targetPosition.x;
         myCurrentPosition.y = targetPosition.y;
-        cursor.style.transform = `translate(${myCurrentPosition.x}px, ${myCurrentPosition.y}px)`;
-        // cursor.style.transform = `translate3d(${myCurrentPosition.x}px, ${myCurrentPosition.y}px, 0)`;
+        // cursorEvents.style.transform = `translate(${myCurrentPosition.x}px, ${myCurrentPosition.y}px)`;
+        cursorEvents.style.transform = `translate3d(${myCurrentPosition.x}px, ${myCurrentPosition.y}px, 0)`;
 
         // Animation complete
         animationInProgress = false;

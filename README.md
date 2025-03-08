@@ -1,5 +1,5 @@
 <div align="center">
-<h2 style="text-align: center;">cursor-collab-side-project</h2>
+<h2 style="text-align: center;">cursorEvents-collab-side-project</h2>
 
 [//]: # (<img src="https://img.shields.io/badge/Socket.io-010101?style=flat&logo=Socket.io&logoColor=white&labelColor=5B5B5B" alt="Socket.io">)
 [//]: # (<img src="https://img.shields.io/badge/Docker-2496ED?style=flat&logo=Docker&logoColor=white&labelColor=5B5B5B" alt="Socket.io">)
