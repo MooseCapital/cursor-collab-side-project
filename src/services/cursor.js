@@ -1,9 +1,9 @@
 import { throttle } from "lodash-es";
 import { gsap } from "gsap";
 
-const cursor = document.querySelector(".test-cursor");
-const floater = document.querySelector(".cursorFloat");
-const cursorContainer = document.querySelector(".cursorContainer");
+const cursor = document.querySelector(".other-cursor");
+// const floater = document.querySelector(".cursorFloat");
+// const cursorContainer = document.querySelector(".cursorContainer");
 
 // positions of our cursor
 const myCurrentPosition = { x: 0, y: 0 };
@@ -20,7 +20,7 @@ const threshold = 10;
 
 //throttle mouse events, don't run until cursor moved outside of box
 const mouseThrottle = throttle(mouseMovedOutsideBox, 50, { trailing: true });
-document.addEventListener("mousemove", mouseThrottle);
+// document.addEventListener("mousemove", mouseThrottle);
 
 //gsap animate, without requestAnimationFrame
 function moveCursorGsap(event) {
@@ -28,7 +28,7 @@ function moveCursorGsap(event) {
     targetPosition.y = event.clientY;
     // console.log(targetPosition);
     
-    gsap.to(cursorContainer, {
+    gsap.to(cursor, {
     // gsap.to(cursor, {
         x: targetPosition.x,
         y: targetPosition.y,
@@ -63,7 +63,7 @@ function mouseMovedOutsideBox(event) {
         lastOutsideBoxX = currentX;
         lastOutsideBoxY = currentY;
         
-        // moveCursorGsap(event);
+        moveCursorGsap(event);
         // moveCursorLinear(event);
         // serverThrottle({ currentX, currentY });
     }

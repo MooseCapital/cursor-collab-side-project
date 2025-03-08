@@ -19,17 +19,17 @@
 }
 
 * {
-  /* cursor: inherit; */
+  cursor: inherit;
 }
 
 
-
 .other-cursor {
-  /* position: absolute; */
+   position: absolute;
+   /* top: 200px; */
+   /* left: 50px; */
+  top: 0;
+  left: 0;
   pointer-events: none;
-  width: max-content;
-  /* top: 0; */
-  /* left: 0; */
 }
 .cursorFloat {
   font-weight: 300;
@@ -154,3 +154,7 @@ main {
   box-shadow: 1px 1px black;
 }
 
+
+input[type="checkbox"] {
+  margin-right: 1rem;
+}
