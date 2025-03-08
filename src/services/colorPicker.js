@@ -108,13 +108,11 @@ function showOthersLocation(event) {
     const cursorPath = `${import.meta.env.BASE_URL}/images/bibata-${color}.svg`;
     document.body.style.cursor = `url(${cursorPath}) 0 0, auto`;
     
-    //set cursor float to match cursor color, this separate div floater is slow to sync, so we use all in 1 svg
-    // document.querySelector(".cursorFloat").style.backgroundColor = userData.cursorRGBA;
 } */
 
-// console.log(getImageUrl("white"));
+/* code to set custom color inside cursor instead of presets
 
-/* const colorPicker = new iro.ColorPicker("#color-picker", {
+const colorPicker = new iro.ColorPicker("#color-picker", {
     width: 200,
     color: `${cursorColor}`,
     layout: [
@@ -126,9 +124,9 @@ function showOthersLocation(event) {
             },
         },
     ],
-}); */
+});
 
-/* function updateCursor(color) {
+function updateCursor(color) {
     const svgString = `<svg xmlns="http://www.w3.org/2000/svg" width="19.196396" height="23.999937"
         viewBox="0 0 19.196396 23.999937" fill="none"><path d="m 17.289555,12.591263 -0.0015,-0.0013 -0.0016,-0.0014 L 5.759437,
         2.370346 C 5.214821,1.872439 4.67901,1.471068 4.164547,1.215153 3.661648,0.964989 3.063331,0.797236 2.465876,0.961997 1.823272,
@@ -143,17 +141,18 @@ function showOthersLocation(event) {
 
     // let encodeSVG = encodeURIComponent(svgString);
     document.body.style.cursor = `url("data:image/svg+xml,${encodeURIComponent(svgString)} ") 0 0, auto`;
-} */
+}
 // updateCursor(cursorColor);
-/* const colorThrottle = throttle((color) => {
+const colorThrottle = throttle((color) => {
     cursorColor = color.rgbaString;
     updateCursor(color.rgbaString);
-}, 500, { trailing: false, leading: true }); */
+}, 500, { trailing: false, leading: true });
 
 // colorPicker.on("color:change", (color) => colorThrottle(color));
 
-/* colorPicker.on("color:change", (color) => {
+colorPicker.on("color:change", (color) => {
     // console.log(color.rgbaString);
     cursorColor = color.rgbaString;
     updateCursor(color.rgbaString);
-}); */
+});
+*/
