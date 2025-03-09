@@ -159,3 +159,13 @@ main {
 input[type="checkbox"] {
   margin-right: 1rem;
 }
+
+/* webrtc page */
+#join-webrtc {
+  padding: 0.25rem 1rem;
+ border: 1px solid black;
+  cursor: inherit;
+  margin: 1rem
+;
+}
+

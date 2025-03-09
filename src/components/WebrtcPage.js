@@ -1,6 +1,7 @@
-import {getSwatches} from "./WebSocketPage.js";
+// import {getSwatches} from "./WebSocketPage.js";
 import {createGrid} from "../services/grid.js";
 import {setUserData} from "../services/userData.js";
+import {setUpWebRTC} from "../services/webRTC.js";
 
 export { WebrtcPage };
 
@@ -12,10 +13,11 @@ function WebrtcPage() {
     setTimeout(() => {
         createGrid();
         setUserData();
-        swatchGrid.innerHTML = getSwatches();
+        setUpWebRTC()
+        // swatchGrid.innerHTML = getSwatches();
     }, 0);
     return `
-        <div>webrtc</div>
+        <button id="join-webrtc">Join webrtc</button>
         <div id="grid"></div>
     `;
 }

@@ -1,24 +1,29 @@
-// import { selfId } from "trystero";
+export {setUpWebRTC}
+import { selfId, joinRoom } from "trystero";
 // import { joinRoom } from "trystero/torrent";
-// const room = joinRoom({appId: 'cursor-collab'}, 'mainRoom')
-// user gets their ip, we use geo ip library to put local state/country and flag emoji on a rectangle by cursor
-//because other users cant get our ip with trystero, we send them the data when joining, so on join we send initial data event like mouse color
+const config = { appId: "cursor-collab" };
+let room;
 
-import {getRandomColorObj} from "./cursorSetting.js";
+//on join, we get and send data like
+//cursor color/rgba , location flag, country, region,
+//then start receiving their position and sending ours
+function setUpWebRTC() {
+    const joinButton = document.querySelector("#join-webrtc");
+    // joinButton.addEventListener("click", joinWebRTC);
+    // joinWebRTC();
+}
 
-
-
-// `<img class="cursors" src="${import.meta.env.BASE_URL}/images/bibata-${this.userColor}.svg" alt="" data-id="${this.id}" width="auto" height="auto" />`
-
-
-
+function joinWebRTC() {
+    room = joinRoom(config, "mainRoom");
 // log round-trip time every 2 seconds
+    room.onPeerJoin((peerId) => {
+        // addNewUser(peerId)
+        // console.log(users)
+        console.log(peerId, "connected")
+        setInterval(async () => console.log(`took ${await room.ping(peerId)}ms `), 2000);
+    });
+    console.log(room);
+    
+    room.onPeerLeave((peerId) => console.log(`${peerId} left`));
+}
 
-/* room.onPeerJoin((peerId) => {
-    addNewUser(peerId)
-    console.log(users)
-    setInterval(async () => console.log(`took ${await room.ping(peerId)}ms ${room.getPeers()}`), 5000)
-}); */
-// console.log(room)
-
-// room.onPeerLeave(peerId => console.log(`${peerId} left`))

@@ -32,6 +32,7 @@ function setCursorColors(userData, cursorColor, cursorRGBA) {
 
 function setCursor(cursorColor, cursorRGBA) {
     const myCursorCheckbox = document.querySelector("#myCursorCheckbox");
+    const othersCursorCheckbox = document.querySelector("#othersCursorCheckbox");
 
     if (myCursorCheckbox.checked) {
         //location cursor here

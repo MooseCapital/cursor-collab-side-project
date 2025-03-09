@@ -48,7 +48,7 @@ function setFlag() {
 
 
 class User {
-    constructor(id) {
+    constructor({id, userColor, userRGBA}) {
         // { name: "blue", rgba: "rgba(68,255,255,0.6)" }
         const colorObj = getRandomColorObj();
         this.id = id;
