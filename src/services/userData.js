@@ -1,5 +1,5 @@
 import flag from "country-code-emoji";
-import {getRandomColorObj, setCursor, setCursorColors, } from "./colorPicker.js";
+import {getRandomColorObj, setCursor, setCursorColors, } from "./cursorSetting.js";
 
 export { userData, setUserData };
 

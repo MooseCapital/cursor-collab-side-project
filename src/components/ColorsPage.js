@@ -1,4 +1,4 @@
-import { cursorObj, randomCursorColor, setCursor } from "../services/colorPicker.js";
+import { cursorObj, randomCursorColor, setCursor } from "../services/cursorSetting.js";
 import { createGrid } from "../services/grid.js";
 export { ColorsPage };
 

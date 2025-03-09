@@ -1,7 +1,7 @@
 import { throttle } from "lodash-es";
 import { gsap } from "gsap";
 
-const cursorEvents = document.querySelector(".other-cursorEvents");
+const cursorEvents = document.querySelector(".other-cursors");
 // const floater = document.querySelector(".cursorFloat");
 // const cursorContainer = document.querySelector(".cursorContainer");
 
@@ -20,7 +20,7 @@ const threshold = 10;
 
 //throttle mouse events, don't run until cursorEvents moved outside of box
 const mouseThrottle = throttle(mouseMovedOutsideBox, 50, { trailing: true });
-// document.addEventListener("mousemove", mouseThrottle);
+document.addEventListener("mousemove", mouseThrottle);
 
 //gsap animate, without requestAnimationFrame
 function moveCursorGsap(event) {
@@ -34,7 +34,6 @@ function moveCursorGsap(event) {
         ease: "none",
     });
 }
-
 
 
 //throttle how often we send server events
@@ -60,26 +59,22 @@ function mouseMovedOutsideBox(event) {
         lastOutsideBoxX = currentX;
         lastOutsideBoxY = currentY;
         
-        moveCursorGsap(event);
+        //animate other cursor when moving to simulate test movement
+        // moveCursorGsap(event);
         // moveCursorLinear(event);
+        
+        //send events to webrtc/websocket
         // serverThrottle({ currentX, currentY });
     }
 }
 
-function moveFloaterGsap(currentX, currentY) {
-    gsap.to(floater, {
-        x: currentX + 12,
-        y: currentY + 25,
-        duration: 0.05,
-        ease: "none",
-    });
-}
+
 
 
 //-------------------------------------------------------------------------------------------------------------
+
 //move cursorEvents always, no box to limit events
 let animationInProgress = false;
-
 function moveCursorLinear(event) {
     targetPosition.x = event.clientX;
     targetPosition.y = event.clientY;

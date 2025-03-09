@@ -4,7 +4,7 @@
 // user gets their ip, we use geo ip library to put local state/country and flag emoji on a rectangle by cursor
 //because other users cant get our ip with trystero, we send them the data when joining, so on join we send initial data event like mouse color
 
-import {getRandomColorObj} from "./colorPicker.js";
+import {getRandomColorObj} from "./cursorSetting.js";
 
 
 
