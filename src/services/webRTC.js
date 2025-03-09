@@ -1,8 +1,11 @@
 export {setUpWebRTC}
-import { selfId, joinRoom } from "trystero";
-// import { joinRoom } from "trystero/torrent";
+// import { selfId, joinRoom } from "trystero";
+import { joinRoom } from "trystero/torrent";
 const config = { appId: "cursor-collab" };
 let room;
+
+const app = document.querySelector("#app");
+// app.insertAdjacentHTML("beforeend", ``);
 
 //on join, we get and send data like
 //cursor color/rgba , location flag, country, region,

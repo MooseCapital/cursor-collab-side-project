@@ -1,5 +1,5 @@
 import flag from "country-code-emoji";
-import {getRandomColorObj, setCursor, setCursorColors, } from "./cursorSetting.js";
+import {getRandomColorObj, setCursor, generateCursorColors, } from "./cursorSetting.js";
 
 export { userData, setUserData };
 
@@ -11,9 +11,12 @@ async function setUserData() {
     try {
         await getLocationData();
         setFlag();
-        setCursorColors(userData);
+        generateCursorColors(userData);
         
-        setCursor(userData.cursorColor, userData.cursorRGBA);
+        setCursor({cursorColor: userData.cursorColor,
+            cursorRGBA: userData.cursorRGBA
+        
+        });
         // setLocationCursor(userData.cursorColor, userData.cursorRGBA);
 
         localStorage.setItem("userData", JSON.stringify(userData));
@@ -54,7 +57,10 @@ class User {
         this.id = id;
         this.userColor = colorObj.name;
         this.userRGBA = colorObj.rgba;
-        this.render(id);
+        this.flag= "";
+        this.countryCode = "";
+        this.region = "";
+        // this.render(id);
         
     }
     //this is the prototype, use for shared methods or default property values until the user sets
@@ -62,9 +68,9 @@ class User {
             document.querySelector("#app").insertAdjacentHTML(
             "afterbegin",
             `<object class="cursors" type="image/svg+xml" data="${import.meta.env.BASE_URL}/images/bibata-${this.userColor}.svg" data-id="${this.id}" width="auto" height="auto"></object>`)
-        }
+    }
 }
-
+console.log(new User(1234))
 function addNewUser(id) {
     otherUsers[`${id}`] = new User(`${id}`);
 }

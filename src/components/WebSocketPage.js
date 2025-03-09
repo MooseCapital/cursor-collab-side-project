@@ -1,6 +1,6 @@
 import { createGrid } from "../services/grid.js";
 import { setUserData, userData } from "../services/userData.js";
-import { cursorColors, setCursor, setCursorColors } from "../services/cursorSetting.js";
+import { cursorColors, setCursor, generateCursorColors } from "../services/cursorSetting.js";
 import "../services/cursorEvents.js"
 export { WebSocketPage};
 

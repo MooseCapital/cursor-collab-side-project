@@ -1,7 +1,9 @@
 import "../style.css";
 import { createGrid } from "../services/grid.js";
 import "../services/router.js";
-import {cursorColors, setCursor, setCursorColors, showMyLocation} from "../services/cursorSetting.js";
+import {
+    cursorColors, setCursor,showMyLocation, changeCursorColors
+} from "../services/cursorSetting.js";
 import {userData} from "../services/userData.js";
 
 //to do
@@ -36,9 +38,9 @@ swatchGrid.addEventListener("click", (e) => {
     if (e.target.closest(".swatch")) {
         const swatch = e.target.closest(".swatch");
 
-        setCursorColors(userData, swatch.dataset.color, swatch.dataset.rgba);
+        changeCursorColors(userData, swatch.dataset.color, swatch.dataset.rgba);
         setTimeout(() => {
-            setCursor(swatch.dataset.color, swatch.dataset.rgba);
+            setCursor({cursorColor: swatch.dataset.color, cursorRGBA:swatch.dataset.rgba});
         }, 0);
 
         swatchGrid.innerHTML = getSwatches();
