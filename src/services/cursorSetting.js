@@ -1,14 +1,7 @@
 // import iro from "@jaames/iro";
 import { userData } from "./userData.js";
 
-export {
-    setCursor,
-    generateCursorColors,
-    cursorColors,
-    getRandomColorObj,
-    changeCursorColors,
-    setOthersCursor
-};
+export { setCursor, generateCursorColors, cursorColors, getRandomColorObj, changeCursorColors, setOthersCursor };
 
 const cursorColors = [
     { name: "blue", rgba: "rgba(68,255,255,0.6)" },
@@ -39,7 +32,7 @@ function changeCursorColors(userData, cursorColor, cursorRGBA) {
     }
 }
 
-function setCursor({ cursorColor, cursorRGBA, }) {
+function setCursor({ cursorColor, cursorRGBA }) {
     const myCursorCheckbox = document.querySelector("#myCursorCheckbox");
 
     //we combine function for setting our cursor and other users cursors
@@ -75,18 +68,20 @@ function setCursor({ cursorColor, cursorRGBA, }) {
     }
 }
 
-//check if cursor exist so we don't duplicate, setting our own cursor doesn't have this since theres only 1
-//can be css query selector check with data-id
-function setOthersCursor({ cursorColor, cursorRGBA, id, region, countryCode, flag }) {
+//we have if statement to check if cursor exist, so we dont duplicate
+//the issue is, if user clicks show others checkbox, we want ALL others cursors replaced with other style
+//meaning, they all exist, and wouldn't change, so we can pass in an argument that defaults to false, but can override this if statement check
+function setOthersCursor({ cursorColor, cursorRGBA, id, region, countryCode, flag, swapCursors = false }) {
     const othersCursorCheckbox = document.querySelector("#othersCursorCheckbox");
     const app = document.querySelector("#app");
-    
-    if (othersCursorCheckbox.checked) {
-        console.log('checked')
-        //get other users data
-        const text = region && region.length < 3 ? region : countryCode;
 
-        const svgString = `
+    if (othersCursorCheckbox.checked) {
+        if (!document.querySelector(`.other-cursors[data-id="${id}"]`) || swapCursors) {
+            console.log("checked test. unique");
+            //get other users data
+            const text = region && region.length < 3 ? region : countryCode;
+
+            const svgString = `
             <svg class="other-cursors" data-id="${id}" xmlns="http://www.w3.org/2000/svg" width="70" height="51" viewBox="0 0 70 51">
               <path d="m 17.289555,12.591263 -0.0015,-0.0013 -0.0016,-0.0014 L 5.759437,
                 2.370346 C 5.214821,1.872439 4.67901,1.471068 4.164547,1.215153 3.661648,0.964989 3.063331,0.797236 2.465876,0.961997 1.823272,
@@ -101,23 +96,22 @@ function setOthersCursor({ cursorColor, cursorRGBA, id, region, countryCode, fla
               
               <rect x="12" y="23" width="55" height="27" fill="${cursorRGBA}" rx="4" />
               <text x="16" y="42"  font-family="Arial" font-size="16" font-weight="300" fill="black">${flag} ${text}</text>
-            </svg>
-          `;
+            </svg>`;
 
-        // const encodedSVG = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svgString)}`;
-        //cursor is the same, we just set it to us, or the other users with id
-        // document.body.style.cursor = `url("${encodedSVG}") 0 0, auto`;
-
-        app.insertAdjacentHTML("beforeend", svgString);
+            app.insertAdjacentHTML("beforeend", svgString);
+        }
     } else {
-        const cursorPath = `${import.meta.env.BASE_URL}/images/bibata-${cursorColor}.svg`;
-        
-        app.insertAdjacentHTML("beforeend",`
+        if (!document.querySelector(`.other-cursors[data-id="${id}"]`) || swapCursors) {
+            const cursorPath = `${import.meta.env.BASE_URL}/images/bibata-${cursorColor}.svg`;
+
+            app.insertAdjacentHTML(
+                "beforeend",
+                `
         <img class="other-cursors" data-id="${id}" src="${cursorPath}" alt="Other users cursor icon" />
-      `);
+      `,);
+        }
     }
 }
-
 
 /* code to set custom color inside cursor instead of presets
 

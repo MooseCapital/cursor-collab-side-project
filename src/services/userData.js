@@ -1,7 +1,7 @@
 import flag from "country-code-emoji";
 import { getRandomColorObj, setCursor, generateCursorColors, setOthersCursor } from "./cursorSetting.js";
 
-export { userData, setUserData };
+export { userData, setUserData, otherUsers };
 
 const userData = JSON.parse(localStorage.getItem("userData")) || {};
 const otherUsers = {};
@@ -58,6 +58,7 @@ class User {
         this.countryCode = countryCode;
         this.region = region;
         this.renderCursor();
+        otherUsers[this.id] = this;
     }
     //this is the prototype, use for shared methods or default property values until the user sets
     renderCursor() {
@@ -82,7 +83,15 @@ console.log(
     }),
 );
 
-function addNewUser(id) {
-    otherUsers[`${id}`] = new User(`${id}`);
-}
+console.log(
+    new User({
+        id: 1234,
+        userColor: "purple",
+        userRGBA: "rgba(173,144,255,0.6)",
+        flag: "🇷🇸",
+        countryCode: "RS",
+        region: "RS",
+    }),
+);
+console.log(otherUsers)
 // addNewUser(1234)

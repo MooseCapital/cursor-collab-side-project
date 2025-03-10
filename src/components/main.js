@@ -2,7 +2,7 @@ import "../style.css";
 import { createGrid } from "../services/grid.js";
 import "../services/router.js";
 import {
-    cursorColors, setCursor, changeCursorColors
+    cursorColors, setCursor, changeCursorColors, setOthersCursor
 } from "../services/cursorSetting.js";
 import {userData} from "../services/userData.js";
 
@@ -32,9 +32,24 @@ function layout() {
 document.querySelector("#myCursorCheckbox").addEventListener("change", () => {
     setCursor({ cursorColor: userData.cursorColor, cursorRGBA: userData.cursorRGBA });
 });
-
+//we are now not setting 1(our cursor) , but all, so we need to loop over them when selected
+//find users user with the id in loop, then get that users id and run cursors again, while box is not checked
 document.querySelector("#othersCursorCheckbox").addEventListener("change", () => {
-
+        console.log('checkbox change')
+   const otherCursors = document.querySelectorAll((".other-cursors"));
+    for (const el of otherCursors) {
+        console.log(el.dataset.id)
+    }
+   
+    
+  /*   setOthersCursor({
+            cursorColor: this.userColor,
+            cursorRGBA: this.userRGBA,
+            id: this.id,
+            region: this.region,
+            countryCode: this.countryCode,
+            flag: this.flag,
+        }); */
 });
 
 const swatchGrid = document.querySelector(".swatchGrid");
