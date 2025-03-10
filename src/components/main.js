@@ -2,7 +2,7 @@ import "../style.css";
 import { createGrid } from "../services/grid.js";
 import "../services/router.js";
 import {
-    cursorColors, setCursor,showMyLocation, changeCursorColors
+    cursorColors, setCursor, changeCursorColors
 } from "../services/cursorSetting.js";
 import {userData} from "../services/userData.js";
 
@@ -33,7 +33,9 @@ document.querySelector("#myCursorCheckbox").addEventListener("change", () => {
     setCursor({ cursorColor: userData.cursorColor, cursorRGBA: userData.cursorRGBA });
 });
 
+document.querySelector("#othersCursorCheckbox").addEventListener("change", () => {
 
+});
 
 const swatchGrid = document.querySelector(".swatchGrid");
 swatchGrid.innerHTML = getSwatches();
