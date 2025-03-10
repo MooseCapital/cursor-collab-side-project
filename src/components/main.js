@@ -1,10 +1,8 @@
 import "../style.css";
 import { createGrid } from "../services/grid.js";
 import "../services/router.js";
-import {
-    cursorColors, setCursor, changeCursorColors, setOthersCursor
-} from "../services/cursorSetting.js";
-import {userData} from "../services/userData.js";
+import { cursorColors, setCursor, changeCursorColors, setOthersCursor } from "../services/cursorSetting.js";
+import { myData, otherUsers } from "../services/userData.js";
 
 //to do
 // move common page functions, and import into page
@@ -30,25 +28,28 @@ function layout() {
 }
 */
 document.querySelector("#myCursorCheckbox").addEventListener("change", () => {
-    setCursor({ cursorColor: userData.cursorColor, cursorRGBA: userData.cursorRGBA });
+    setCursor({ cursorColor: myData.cursorColor, cursorRGBA: myData.cursorRGBA });
 });
+
 //we are now not setting 1(our cursor) , but all, so we need to loop over them when selected
 //find users user with the id in loop, then get that users id and run cursors again, while box is not checked
 document.querySelector("#othersCursorCheckbox").addEventListener("change", () => {
-        console.log('checkbox change')
-   const otherCursors = document.querySelectorAll((".other-cursors"));
+    const otherCursors = document.querySelectorAll(".other-cursors");
+    const app = document.querySelector("#app");
     for (const el of otherCursors) {
-        console.log(el.dataset.id)
+        app.removeChild(el);
+        otherUsers[`${el.dataset.id}`].renderCursor();
+        
     }
-   
-    
-  /*   setOthersCursor({
+
+    /*   setOthersCursor({
             cursorColor: this.userColor,
             cursorRGBA: this.userRGBA,
             id: this.id,
             region: this.region,
             countryCode: this.countryCode,
             flag: this.flag,
+            swapCursors: true,
         }); */
 });
 
@@ -59,9 +60,9 @@ swatchGrid.addEventListener("click", (e) => {
     if (e.target.closest(".swatch")) {
         const swatch = e.target.closest(".swatch");
 
-        changeCursorColors(userData, swatch.dataset.color, swatch.dataset.rgba);
+        changeCursorColors(myData, swatch.dataset.color, swatch.dataset.rgba);
         setTimeout(() => {
-            setCursor({cursorColor: swatch.dataset.color, cursorRGBA:swatch.dataset.rgba});
+            setCursor({ cursorColor: swatch.dataset.color, cursorRGBA: swatch.dataset.rgba });
         }, 0);
 
         swatchGrid.innerHTML = getSwatches();
@@ -71,11 +72,8 @@ swatchGrid.addEventListener("click", (e) => {
 function getSwatches() {
     let swatches = "";
     cursorColors.map((color) => {
-        const currentSwatch = userData.cursorColor === color.name ? "currentSwatch" : "";
+        const currentSwatch = myData.cursorColor === color.name ? "currentSwatch" : "";
         swatches += `<div class="swatch ${currentSwatch}" data-color="${color.name}" data-rgba="${color.rgba}"  style="background: ${color.rgba}"></div>`;
     });
     return swatches;
 }
-
-
-

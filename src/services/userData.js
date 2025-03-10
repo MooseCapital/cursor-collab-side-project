@@ -1,22 +1,21 @@
 import flag from "country-code-emoji";
 import { getRandomColorObj, setCursor, generateCursorColors, setOthersCursor } from "./cursorSetting.js";
 
-export { userData, setUserData, otherUsers };
+export { myData, setUserData, otherUsers };
 
-const userData = JSON.parse(localStorage.getItem("userData")) || {};
+const myData = JSON.parse(localStorage.getItem("userData")) || {};
 const otherUsers = {};
-// console.log(userData, typeof userData);
 
 async function setUserData() {
     try {
         await getLocationData();
         setFlag();
-        generateCursorColors(userData);
+        generateCursorColors(myData);
 
-        setCursor({ cursorColor: userData.cursorColor, cursorRGBA: userData.cursorRGBA });
+        setCursor({ cursorColor: myData.cursorColor, cursorRGBA: myData.cursorRGBA });
         // setLocationCursor(userData.cursorColor, userData.cursorRGBA);
 
-        localStorage.setItem("userData", JSON.stringify(userData));
+        localStorage.setItem("userData", JSON.stringify(myData));
     } catch (err) {
         console.log(err);
     }
@@ -24,17 +23,17 @@ async function setUserData() {
 
 async function getLocationData() {
     try {
-        if (!userData?.country) {
+        if (!myData?.country) {
             const res = await fetch("http://ip-api.com/json");
             const data = await res.json();
 
             for (const prop in data) {
-                userData[prop] = data[prop];
+                myData[prop] = data[prop];
             }
 
-            console.log(userData, "inside function");
+            console.log(myData, "inside function");
         } else {
-            console.log("not fetched");
+            // console.log("not fetched");
         }
     } catch (e) {
         //toast popup
@@ -43,7 +42,7 @@ async function getLocationData() {
 }
 
 function setFlag() {
-    userData.flag = flag(userData?.countryCode);
+    myData.flag = flag(myData?.countryCode);
 }
 
 //generate colors for business case when users see black cursor as their own
@@ -72,7 +71,6 @@ class User {
         });
     }
 }
-console.log(
     new User({
         id: 1234,
         userColor: "purple",
@@ -80,10 +78,8 @@ console.log(
         flag: "🇷🇸",
         countryCode: "RS",
         region: "RS",
-    }),
-);
+    })
 
-console.log(
     new User({
         id: 1234,
         userColor: "purple",
@@ -91,7 +87,7 @@ console.log(
         flag: "🇷🇸",
         countryCode: "RS",
         region: "RS",
-    }),
-);
+    })
+
 console.log(otherUsers)
 // addNewUser(1234)

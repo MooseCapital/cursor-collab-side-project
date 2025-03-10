@@ -1,5 +1,5 @@
 // import iro from "@jaames/iro";
-import { userData } from "./userData.js";
+import { myData } from "./userData.js";
 
 export { setCursor, generateCursorColors, cursorColors, getRandomColorObj, changeCursorColors, setOthersCursor };
 
@@ -38,7 +38,7 @@ function setCursor({ cursorColor, cursorRGBA }) {
     //we combine function for setting our cursor and other users cursors
     //we must identify who is running the function to apply to us, or whichever users cursor
     if (myCursorCheckbox.checked) {
-        const text = userData.region && userData.region.length < 3 ? userData.region : userData.countryCode;
+        const text = myData.region && myData.region.length < 3 ? myData.region : myData.countryCode;
 
         const svgString = `
             <svg xmlns="http://www.w3.org/2000/svg" width="70" height="51" viewBox="0 0 70 51">
@@ -54,7 +54,7 @@ function setCursor({ cursorColor, cursorRGBA }) {
                 -2.412334 z" fill="${cursorRGBA}" stroke="#000000" stroke-width="1.79042" />
               
               <rect x="12" y="23" width="55" height="27" fill="${cursorRGBA}" rx="4" />
-              <text x="16" y="42"  font-family="Arial" font-size="16" font-weight="300" fill="black">${userData.flag} ${text}</text>
+              <text x="16" y="42"  font-family="Arial" font-size="16" font-weight="300" fill="black">${myData.flag} ${text}</text>
             </svg>
           `;
 
@@ -71,12 +71,12 @@ function setCursor({ cursorColor, cursorRGBA }) {
 //we have if statement to check if cursor exist, so we dont duplicate
 //the issue is, if user clicks show others checkbox, we want ALL others cursors replaced with other style
 //meaning, they all exist, and wouldn't change, so we can pass in an argument that defaults to false, but can override this if statement check
-function setOthersCursor({ cursorColor, cursorRGBA, id, region, countryCode, flag, swapCursors = false }) {
+function setOthersCursor({ cursorColor, cursorRGBA, id, region, countryCode, flag }) {
     const othersCursorCheckbox = document.querySelector("#othersCursorCheckbox");
     const app = document.querySelector("#app");
 
     if (othersCursorCheckbox.checked) {
-        if (!document.querySelector(`.other-cursors[data-id="${id}"]`) || swapCursors) {
+        if ( !document.querySelector(`.other-cursors[data-id="${id}"]`) ) {
             console.log("checked test. unique");
             //get other users data
             const text = region && region.length < 3 ? region : countryCode;
@@ -101,7 +101,7 @@ function setOthersCursor({ cursorColor, cursorRGBA, id, region, countryCode, fla
             app.insertAdjacentHTML("beforeend", svgString);
         }
     } else {
-        if (!document.querySelector(`.other-cursors[data-id="${id}"]`) || swapCursors) {
+        if ( !document.querySelector(`.other-cursors[data-id="${id}"]`) ) {
             const cursorPath = `${import.meta.env.BASE_URL}/images/bibata-${cursorColor}.svg`;
 
             app.insertAdjacentHTML(
