@@ -31,26 +31,16 @@ document.querySelector("#myCursorCheckbox").addEventListener("change", () => {
     setCursor({ cursorColor: myData.cursorColor, cursorRGBA: myData.cursorRGBA });
 });
 
-//we are now not setting 1(our cursor) , but all, so we need to loop over them when selected
-//find users user with the id in loop, then get that users id and run cursors again, while box is not checked
+//when swapping from location to regular cursors for others, loop over them
+//remove the old one first because setOthersCursor allows 1 per id at a time
+// render new cursors, with checkbox changed it chooses a new svg
 document.querySelector("#othersCursorCheckbox").addEventListener("change", () => {
     const otherCursors = document.querySelectorAll(".other-cursors");
-    const app = document.querySelector("#app");
     for (const el of otherCursors) {
-        app.removeChild(el);
+        document.querySelector("#app").removeChild(el);
         otherUsers[`${el.dataset.id}`].renderCursor();
         
     }
-
-    /*   setOthersCursor({
-            cursorColor: this.userColor,
-            cursorRGBA: this.userRGBA,
-            id: this.id,
-            region: this.region,
-            countryCode: this.countryCode,
-            flag: this.flag,
-            swapCursors: true,
-        }); */
 });
 
 const swatchGrid = document.querySelector(".swatchGrid");

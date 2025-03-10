@@ -80,14 +80,5 @@ class User {
         region: "RS",
     })
 
-    new User({
-        id: 1234,
-        userColor: "purple",
-        userRGBA: "rgba(173,144,255,0.6)",
-        flag: "🇷🇸",
-        countryCode: "RS",
-        region: "RS",
-    })
-
 console.log(otherUsers)
 // addNewUser(1234)

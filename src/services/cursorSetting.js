@@ -77,8 +77,7 @@ function setOthersCursor({ cursorColor, cursorRGBA, id, region, countryCode, fla
 
     if (othersCursorCheckbox.checked) {
         if ( !document.querySelector(`.other-cursors[data-id="${id}"]`) ) {
-            console.log("checked test. unique");
-            //get other users data
+            // console.log("checked test. unique");
             const text = region && region.length < 3 ? region : countryCode;
 
             const svgString = `

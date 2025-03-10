@@ -22,11 +22,10 @@
   cursor: inherit;
 }
 
-
 .other-cursors {
-   position: absolute;
-   /* top: 200px; */
-   /* left: 50px; */
+  position: absolute;
+  /* top: 200px; */
+  /* left: 50px; */
   top: 0;
   left: 0;
   pointer-events: none;
@@ -44,29 +43,38 @@
   /* background-color: rgba(91, 250, 94, 0.6); */
   /* box-shadow: 2px 2px black; */
 }
- .cursorContainer {
+.cursorContainer {
   position: absolute;
-   top: 200px;
-   left: 50px;
-   display: flex;
-   flex-direction: column;
-   pointer-events: none;
- }
+  top: 200px;
+  left: 50px;
+  display: flex;
+  flex-direction: column;
+  pointer-events: none;
+}
 
-#latency {
+.latencyContainer{
   position: absolute;
+  display: flex;
+  flex-direction: column;
   bottom: 10px;
   left: 10px;
+  align-items: start;
+  /* text-align: center; */
+}
+.latencyContainer h2, .latencyContainer p {
+  line-height: 1;
+  padding: 0;
+  margin: 0;
+}
+#latency {
   font-size: 3rem;
   font-weight: 600;
-  text-align: center;
 }
-
-#latency span {
+#latencyContainer p {
   font-weight: 400;
   font-size: 1.2rem;
-  /* font-style: italic; */
 }
+
 #color-picker {
   position: absolute;
   top: 10px;
@@ -103,7 +111,6 @@ main {
   /* justify-content: center;
   align-items: center; */
 }
-
 
 #grid {
   position: absolute;
@@ -148,24 +155,20 @@ main {
 .swatch {
   border-radius: 4px;
   /* cursor: pointer; */
-  
 }
 
 .currentSwatch {
   box-shadow: 1px 1px black;
 }
 
-
 input[type="checkbox"] {
   margin-right: 1rem;
 }
 
 /* webrtc page */
-#join-webrtc {
+.joinbtn {
   padding: 0.25rem 1rem;
- border: 1px solid black;
+  border: 1px solid black;
   cursor: inherit;
-  margin: 1rem
-;
+  margin: 1rem;
 }
-
