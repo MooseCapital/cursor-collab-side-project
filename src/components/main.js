@@ -29,7 +29,11 @@ function layout() {
 `;
 }
 */
-document.querySelector("#myCursorCheckbox").addEventListener("change", showMyLocation);
+document.querySelector("#myCursorCheckbox").addEventListener("change", () => {
+    setCursor({ cursorColor: userData.cursorColor, cursorRGBA: userData.cursorRGBA });
+});
+
+
 
 const swatchGrid = document.querySelector(".swatchGrid");
 swatchGrid.innerHTML = getSwatches();

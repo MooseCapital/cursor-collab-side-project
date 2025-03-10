@@ -9,7 +9,7 @@ export { WebrtcPage };
 const swatchGrid = document.querySelector(".swatchGrid");
 
 function WebrtcPage() {
-    console.log("Webrtc page loaded");
+    // console.log("Webrtc page loaded");
     setTimeout(() => {
         createGrid();
         setUserData();

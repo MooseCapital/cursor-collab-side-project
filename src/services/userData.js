@@ -30,14 +30,14 @@ async function getLocationData() {
         if (!userData?.country) {
             const res = await fetch("http://ip-api.com/json");
             const data = await res.json();
-
+            
             for (const prop in data) {
                 userData[prop] = data[prop];
             }
 
             console.log(userData, "inside function");
         } else {
-            // console.log("not fetched");
+            console.log("not fetched");
         }
     } catch (e) {
         //toast popup
@@ -49,17 +49,18 @@ function setFlag() {
     userData.flag = flag(userData?.countryCode);
 }
 
-
+//generate colors for business case when users see black cursor as their own
+//otherwise, send the users colors
 class User {
-    constructor({id, userColor, userRGBA}) {
-        // { name: "blue", rgba: "rgba(68,255,255,0.6)" }
+    constructor({id, userColor, userRGBA, flag, countryCode, region}) {
+        
         const colorObj = getRandomColorObj();
         this.id = id;
-        this.userColor = colorObj.name;
-        this.userRGBA = colorObj.rgba;
-        this.flag= "";
-        this.countryCode = "";
-        this.region = "";
+        this.userColor = userColor || colorObj.name;
+        this.userRGBA = userRGBA || colorObj.rgba;
+        this.flag = flag;
+        this.countryCode = countryCode;
+        this.region = region;
         // this.render(id);
         
     }
@@ -70,7 +71,8 @@ class User {
             `<object class="cursors" type="image/svg+xml" data="${import.meta.env.BASE_URL}/images/bibata-${this.userColor}.svg" data-id="${this.id}" width="auto" height="auto"></object>`)
     }
 }
-console.log(new User(1234))
+console.log(new User({id: 1234, userColor: "purple", userRGBA: "rgba(173,144,255,0.6)", flag: "🇷🇸", countryCode: "RS", region: "RS"}));
+
 function addNewUser(id) {
     otherUsers[`${id}`] = new User(`${id}`);
 }

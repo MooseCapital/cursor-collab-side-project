@@ -80,7 +80,8 @@ function setCursor({ cursorColor, cursorRGBA, id }) {
 
 function setOthersCursor({ cursorColor, cursorRGBA, id, region, countryCode, flag }) {
     const othersCursorCheckbox = document.querySelector("#othersCursorCheckbox");
-
+    const app = document.querySelector("#app");
+    
     if (othersCursorCheckbox.checked) {
         //get other users data
         const text = region && region.length < 3 ? region : countryCode;
@@ -110,7 +111,7 @@ function setOthersCursor({ cursorColor, cursorRGBA, id, region, countryCode, fla
         othersCursorCheckbox.insertAdjacentHTML("beforeend", svgString);
     } else {
         const cursorPath = `${import.meta.env.BASE_URL}/images/bibata-${cursorColor}.svg`;
-        othersCursorCheckbox.insertAdjacentHTML(
+        app.insertAdjacentHTML(
             "beforeend",
             `
         <object class="other-cursors" data-id="${id}" type="image/svg+xml"
@@ -120,9 +121,6 @@ function setOthersCursor({ cursorColor, cursorRGBA, id, region, countryCode, fla
     }
 }
 
-function showMyLocation(event) {
-    setCursor({ cursorColor: userData.cursorColor, cursorRGBA: userData.cursorRGBA });
-}
 function showOthersLocation(event) {}
 
 //location only setter

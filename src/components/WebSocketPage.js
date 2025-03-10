@@ -7,7 +7,7 @@ export { WebSocketPage};
 
 
 function WebSocketPage() {
-    console.log("websocket page loaded");
+    // console.log("websocket page loaded");
     setTimeout(() => {
         createGrid();
         setUserData();
