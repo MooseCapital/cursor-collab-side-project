@@ -11,6 +11,7 @@ function socketioSetup() {
     const joinWS = document.querySelector("#join-websocket");
     const leaveWS = document.querySelector("#leave-websocket");
     
+        // socket.connect();
     joinWS.addEventListener("click", (e) => {
         socket.connect();
         joinWS.disabled = true;
@@ -22,13 +23,13 @@ function socketioSetup() {
         leaveWS.disabled = true;
     });
 
-    setInterval(() => {
-        const start = Date.now();
-        // socket.volatile.emit("latency", Date.now());
-    }, 3000);
 
     socket.on("connect", () => {
         console.log("connected:", socket.connected); // true
+        setInterval(() => {
+            const start = Date.now();
+            socket.volatile.emit("latency", Date.now());
+        }, 3000);
     });
 
     socket.on("disconnect", () => {
