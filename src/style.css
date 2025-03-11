@@ -166,9 +166,19 @@ input[type="checkbox"] {
 }
 
 /* webrtc page */
-.joinbtn {
+.serverbtn {
   padding: 0.25rem 1rem;
   border: 1px solid black;
   cursor: inherit;
   margin: 1rem;
 }
+.serverbtn:hover:not(:disabled) {
+  box-shadow: 1px 1px black;
+}
+.serverbtn:disabled {
+  background-color: lightgray;
+  color: gray;
+  cursor: not-allowed;
+  /* box-shadow: 1px 1px black; */
+}
+
