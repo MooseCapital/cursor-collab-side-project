@@ -19,12 +19,12 @@ function WebSocketPage() {
           <button class="serverbtn" id="join-websocket">Join websocket</button>
           <button class="serverbtn" id="leave-websocket">leave websocket</button>
           <div id="latencyContainer">
-              <h2 id="latency">0</h2>
+              <h2>0</h2>
               <p>MS Latency</p>
           </div>
           
           <div id="connections">
-                <h2>14</h2>
+                <h2>0</h2>
                 <p id="users-list">users</p>
           </div>
         

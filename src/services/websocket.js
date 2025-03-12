@@ -7,22 +7,23 @@ function socketioSetup() {
         autoConnect: false,
     });
     localStorage.debug = "socket.io-client:socket";
-    
+
     const joinWS = document.querySelector("#join-websocket");
     const leaveWS = document.querySelector("#leave-websocket");
+
+    socket.connect();
+    joinWS.disabled = true;
     
-        // socket.connect();
     joinWS.addEventListener("click", (e) => {
         socket.connect();
         joinWS.disabled = true;
         leaveWS.disabled = false;
-    })
+    });
     leaveWS.addEventListener("click", (e) => {
         socket.disconnect();
         joinWS.disabled = false;
         leaveWS.disabled = true;
     });
-
 
     socket.on("connect", () => {
         console.log("connected:", socket.connected); // true
@@ -34,9 +35,20 @@ function socketioSetup() {
 
     socket.on("disconnect", () => {
         console.log("connected:", socket.connected); // false
+
+        //gray out latency and connections
+        document.querySelector("#latencyContainer h2").textContent = 0;
+        document.querySelector("#connections h2").textContent = 0;
     });
+
     socket.on("latency", (data) => {
-        document.querySelector("#latency").textContent = data;
+        document.querySelector("#latencyContainer h2").textContent = data;
+    });
+
+    socket.on("connections", (data) => {
+        console.log(`connections: ${data}, type:${typeof data}`);
+
+        document.querySelector("#connections h2").textContent = data || 0;
     });
 
     socket.on("connect_error", (error) => {

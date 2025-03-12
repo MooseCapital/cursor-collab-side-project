@@ -1,6 +1,6 @@
 import flag from "country-code-emoji";
 import { getRandomColorObj, setCursor, generateCursorColors, setOthersCursor } from "./cursorSetting.js";
-
+import { nanoid } from "nanoid";
 export { myData, setUserData, otherUsers };
 
 const myData = JSON.parse(localStorage.getItem("userData")) || {};
@@ -9,11 +9,15 @@ const otherUsers = {};
 async function setUserData() {
     try {
         await getLocationData();
-        setFlag();
+
+        if (!myData.flag || !myData.id) {
+            myData.flag = flag(myData?.countryCode);
+            myData.id = myData.id || nanoid();
+        }
+
         generateCursorColors(myData);
 
         setCursor({ cursorColor: myData.cursorColor, cursorRGBA: myData.cursorRGBA });
-        // setLocationCursor(userData.cursorColor, userData.cursorRGBA);
 
         localStorage.setItem("userData", JSON.stringify(myData));
     } catch (err) {
@@ -23,7 +27,7 @@ async function setUserData() {
 
 async function getLocationData() {
     try {
-        if (!myData?.country) {
+        if (!myData?.query) {
             const res = await fetch("http://ip-api.com/json");
             const data = await res.json();
 
@@ -39,10 +43,6 @@ async function getLocationData() {
         //toast popup
         console.log("fetch error", e);
     }
-}
-
-function setFlag() {
-    myData.flag = flag(myData?.countryCode);
 }
 
 //generate colors for business case when users see black cursor as their own
@@ -71,14 +71,14 @@ class User {
         });
     }
 }
-    new User({
-        id: 1234,
-        userColor: "purple",
-        userRGBA: "rgba(173,144,255,0.6)",
-        flag: "🇷🇸",
-        countryCode: "RS",
-        region: "RS",
-    })
+new User({
+    id: 1234,
+    userColor: "purple",
+    userRGBA: "rgba(173,144,255,0.6)",
+    flag: "🇷🇸",
+    countryCode: "RS",
+    region: "RS",
+});
 
-console.log(otherUsers)
+console.log(otherUsers);
 // addNewUser(1234)
