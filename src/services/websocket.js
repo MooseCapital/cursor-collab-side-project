@@ -49,6 +49,10 @@ function socketioSetup() {
         //get sent id, remove from otherUsers
         delete otherUsers[data];
         console.log("all users:", otherUsers);
+        // document.querySelectorAll(".other-cursors")
+        const removedUser = document.querySelector(`.other-cursors[data-id="${data}"]`)
+        console.log(removedUser)
+        removedUser.remove();
         // new User(data);
     });
     //when user leaves, we need to remove their cursor, similar to when we replace location cursor and render normal one

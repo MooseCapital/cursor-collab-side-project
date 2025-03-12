@@ -78,5 +78,4 @@ class User {
     region: "RS",
 }); */
 
-console.log(otherUsers);
 // addNewUser(1234)
