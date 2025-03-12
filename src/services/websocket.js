@@ -1,5 +1,5 @@
 import { io } from "socket.io-client";
-import { myData, User } from "./userData.js"
+import { myData, User, otherUsers } from "./userData.js"
 export { socketioSetup };
 
 function socketioSetup() {
@@ -42,8 +42,26 @@ function socketioSetup() {
     socket.on("newUser", (data) => {
         console.log("new user:", data);
         new User(data);
+        console.log("all users:", otherUsers)
     });
     
+    socket.on("removeUser", (data) => {
+        //get sent id, remove from otherUsers
+        delete otherUsers[data];
+        console.log("all users:", otherUsers);
+        // new User(data);
+    });
+    //when user leaves, we need to remove their cursor, similar to when we replace location cursor and render normal one
+    //keep in sync with server state by removing user from otherUsers like we did on server
+    /*
+        document.querySelector("#othersCursorCheckbox").addEventListener("change", () => {
+        const otherCursors = document.querySelectorAll(".other-cursors");
+        for (const el of otherCursors) {
+            document.querySelector("#app").removeChild(el);
+            otherUsers[`${el.dataset.id}`].renderCursor();
+        }
+    });
+     */
     
     socket.on("disconnect", () => {
         console.log("connected:", socket.connected); // false
