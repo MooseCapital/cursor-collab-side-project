@@ -39,7 +39,6 @@ document.querySelector("#othersCursorCheckbox").addEventListener("change", () =>
     for (const el of otherCursors) {
         document.querySelector("#app").removeChild(el);
         otherUsers[`${el.dataset.id}`].renderCursor();
-        
     }
 });
 

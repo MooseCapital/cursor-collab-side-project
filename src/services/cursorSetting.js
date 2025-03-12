@@ -34,10 +34,10 @@ function changeCursorColors(userData, cursorColor, cursorRGBA) {
 
 function setCursor({ cursorColor, cursorRGBA }) {
     const myCursorCheckbox = document.querySelector("#myCursorCheckbox");
-
-    //we combine function for setting our cursor and other users cursors
-    //we must identify who is running the function to apply to us, or whichever users cursor
+    
+    //show our location with cursor svg if checked
     if (myCursorCheckbox.checked) {
+        //if users region is too long or non-existent, show country code
         const text = myData.region && myData.region.length < 3 ? myData.region : myData.countryCode;
 
         const svgString = `
@@ -59,8 +59,8 @@ function setCursor({ cursorColor, cursorRGBA }) {
           `;
 
         const encodedSVG = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svgString)}`;
-        //cursor is the same, we just set it to us, or the other users with id
         document.body.style.cursor = `url("${encodedSVG}") 0 0, auto`;
+        
     } else {
         //regular cursor here
         const cursorPath = `${import.meta.env.BASE_URL}/images/bibata-${cursorColor}.svg`;

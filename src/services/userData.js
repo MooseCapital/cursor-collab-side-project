@@ -9,11 +9,9 @@ const otherUsers = {};
 async function setUserData() {
     try {
         await getLocationData();
-
-        if (!myData.flag || !myData.id) {
-            myData.flag = flag(myData?.countryCode);
-            myData.id = myData.id || nanoid();
-        }
+        
+        if(!myData.flag) myData.flag = flag(myData?.countryCode);
+        if(!myData.id) myData.id = nanoid();
 
         generateCursorColors(myData);
 

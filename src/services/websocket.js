@@ -1,5 +1,5 @@
 import { io } from "socket.io-client";
-
+import {myData} from "../services/userData.js"
 export { socketioSetup };
 
 function socketioSetup() {
@@ -31,8 +31,19 @@ function socketioSetup() {
             const start = Date.now();
             socket.volatile.emit("latency", Date.now());
         }, 3000);
+        
+        //important: we can't run this at first, we need to get our data before ws connection
+        // so it's best to have button to connect rather than connect on website load
+        //emit user data  { id, userColor, userRGBA, flag, countryCode, region }
+        socket.emit("newUser", { id: myData.id, userColor: myData.cursorColor, userRGBA: myData.cursorRGBA,
+            flag: myData.flag, countryCode: myData.countryCode, region: myData.region });
     });
-
+    
+    socket.on("newUser", (data) => {
+    
+    });
+    
+    
     socket.on("disconnect", () => {
         console.log("connected:", socket.connected); // false
 

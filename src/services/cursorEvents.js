@@ -18,8 +18,8 @@ let lastOutsideBoxY = 0;
 //pixel amount for threshold box
 const threshold = 10;
 
-//throttle mouse events, don't run until cursorEvents moved outside of box
-const mouseThrottle = throttle(mouseMovedOutsideBox, 50, { trailing: true });
+//throttle mouse events for 25ms, don't run until cursorEvents moved outside of box
+const mouseThrottle = throttle(mouseMovedOutsideBox, 25, { trailing: true });
 document.addEventListener("mousemove", mouseThrottle);
 
 //gsap animate, without requestAnimationFrame
