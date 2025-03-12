@@ -35,7 +35,7 @@ function socketioSetup() {
         //important: we can't run this at first, we need to get our data before ws connection
         // so it's best to have button to connect rather than connect on website load
         //emit user data  { id, userColor, userRGBA, flag, countryCode, region }
-        socket.emit("newUser", { id: myData.id, userColor: myData.cursorColor, userRGBA: myData.cursorRGBA,
+        socket.emit("newUser", { id: myData.id, cursorColor: myData.cursorColor, cursorRGBA: myData.cursorRGBA,
             flag: myData.flag, countryCode: myData.countryCode, region: myData.region });
     });
     
