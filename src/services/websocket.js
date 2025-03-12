@@ -40,39 +40,34 @@ function socketioSetup() {
     });
     
     socket.on("newUser", (data) => {
-        console.log("new user:", data);
+        // console.log("new user:", data);
         new User(data);
-        console.log("all users:", otherUsers)
+        // console.log("new user:", otherUsers)
     });
     
-    socket.on("removeUser", (data) => {
-        //get sent id, remove from otherUsers
-        delete otherUsers[data];
-        console.log("all users:", otherUsers);
-        // document.querySelectorAll(".other-cursors")
-        const removedUser = document.querySelector(`.other-cursors[data-id="${data}"]`)
-        console.log(removedUser)
-        removedUser.remove();
-        // new User(data);
-    });
-    //when user leaves, we need to remove their cursor, similar to when we replace location cursor and render normal one
-    //keep in sync with server state by removing user from otherUsers like we did on server
-    /*
-        document.querySelector("#othersCursorCheckbox").addEventListener("change", () => {
-        const otherCursors = document.querySelectorAll(".other-cursors");
-        for (const el of otherCursors) {
-            document.querySelector("#app").removeChild(el);
-            otherUsers[`${el.dataset.id}`].renderCursor();
+    socket.on("getAllUsers", (mainUsers) => {
+        console.log("initial visit, get all users:", mainUsers);
+        for (const id of Object.keys(mainUsers)) {
+            new User(mainUsers[id]);
         }
     });
-     */
+    
+    //get sent id, remove from otherUsers obj, and remove svg on screen
+    socket.on("removeUser", (id) => {
+        delete otherUsers[id];
+        document?.querySelector(`.other-cursors[data-id="${id}"]`)?.remove();
+        console.log("removed user, all other users:", otherUsers);
+    });
     
     socket.on("disconnect", () => {
-        console.log("connected:", socket.connected); // false
-
         //gray out latency and connections
         document.querySelector("#latencyContainer h2").textContent = 0;
         document.querySelector("#connections h2").textContent = 0;
+        for (const id of Object.keys(otherUsers)) {
+            delete otherUsers[id];
+            document?.querySelector(`.other-cursors[data-id="${id}"]`)?.remove();
+        }
+        console.log("disconnected: all other users", otherUsers); // false
     });
 
     socket.on("latency", (data) => {
