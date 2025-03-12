@@ -1,5 +1,5 @@
 import { io } from "socket.io-client";
-import {myData} from "../services/userData.js"
+import { myData, User } from "./userData.js"
 export { socketioSetup };
 
 function socketioSetup() {
@@ -14,12 +14,12 @@ function socketioSetup() {
     socket.connect();
     joinWS.disabled = true;
     
-    joinWS.addEventListener("click", (e) => {
+    joinWS.addEventListener("click", () => {
         socket.connect();
         joinWS.disabled = true;
         leaveWS.disabled = false;
     });
-    leaveWS.addEventListener("click", (e) => {
+    leaveWS.addEventListener("click", () => {
         socket.disconnect();
         joinWS.disabled = false;
         leaveWS.disabled = true;
@@ -28,7 +28,7 @@ function socketioSetup() {
     socket.on("connect", () => {
         console.log("connected:", socket.connected); // true
         setInterval(() => {
-            const start = Date.now();
+            // const start = Date.now();
             socket.volatile.emit("latency", Date.now());
         }, 3000);
         
@@ -40,7 +40,8 @@ function socketioSetup() {
     });
     
     socket.on("newUser", (data) => {
-    
+        console.log("new user:", data);
+        new User(data);
     });
     
     
