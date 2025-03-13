@@ -1,30 +1,16 @@
 import { io } from "socket.io-client";
 import { myData, User, otherUsers } from "./userData.js"
-export { socketioSetup };
+export { socketioSetup, socketDOM, socket };
+
+const socket = io(import.meta.env.VITE_WSSERVER, {
+    autoConnect: false,
+});
+localStorage.debug = "socket.io-client:socket";
 
 function socketioSetup() {
-    const socket = io(import.meta.env.VITE_WSSERVER, {
-        autoConnect: false,
-    });
-    localStorage.debug = "socket.io-client:socket";
-
-    const joinWS = document.querySelector("#join-websocket");
-    const leaveWS = document.querySelector("#leave-websocket");
 
     socket.connect();
-    joinWS.disabled = true;
     
-    joinWS.addEventListener("click", () => {
-        socket.connect();
-        joinWS.disabled = true;
-        leaveWS.disabled = false;
-    });
-    leaveWS.addEventListener("click", () => {
-        socket.disconnect();
-        joinWS.disabled = false;
-        leaveWS.disabled = true;
-    });
-
     socket.on("connect", () => {
         console.log("connected:", socket.connected); // true
         setInterval(() => {
@@ -46,12 +32,12 @@ function socketioSetup() {
     });
     
     socket.on("user:color", (data) => {
-        // console.log("new user:", data);
-        //need id, color, rgba to send on color change input
-        //server sends to all other users
-        //they render the new cursor color
-        
-        
+        const { id, cursorColor, cursorRGBA } = data;
+        otherUsers[id].cursorColor = cursorColor;
+        otherUsers[id].cursorRGBA = cursorRGBA;
+        document?.querySelector(`.other-cursors[data-id="${id}"]`)?.remove();
+        otherUsers[id].renderCursor();
+        // console.log("user:color", otherUsers[id] );
     });
     
     socket.on("getAllUsers", (mainUsers) => {
@@ -102,3 +88,21 @@ function socketioSetup() {
 }
 
 // }
+function socketDOM() {
+    const joinWS = document.querySelector("#join-websocket");
+    const leaveWS = document.querySelector("#leave-websocket");
+
+    joinWS.disabled = true;
+    
+    joinWS.addEventListener("click", () => {
+        socket.connect();
+        joinWS.disabled = true;
+        leaveWS.disabled = false;
+    });
+    leaveWS.addEventListener("click", () => {
+        socket.disconnect();
+        joinWS.disabled = false;
+        leaveWS.disabled = true;
+    });
+}
+

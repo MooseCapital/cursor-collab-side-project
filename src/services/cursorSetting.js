@@ -74,7 +74,7 @@ function setCursor({ cursorColor, cursorRGBA }) {
 function setOthersCursor({ cursorColor, cursorRGBA, id, region, countryCode, flag }) {
     const othersCursorCheckbox = document.querySelector("#othersCursorCheckbox");
     const app = document.querySelector("#app");
-
+    
     if (othersCursorCheckbox.checked) {
         if ( !document.querySelector(`.other-cursors[data-id="${id}"]`) ) {
             // console.log("checked test. unique");

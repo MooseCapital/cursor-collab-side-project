@@ -3,7 +3,7 @@ import { createGrid } from "../services/grid.js";
 import "../services/router.js";
 import { cursorColors, setCursor, changeCursorColors, setOthersCursor } from "../services/cursorSetting.js";
 import { myData, otherUsers } from "../services/userData.js";
-
+import {socket} from "../services/websocket.js";
 
 document.querySelector("#myCursorCheckbox").addEventListener("change", () => {
     setCursor({ cursorColor: myData.cursorColor, cursorRGBA: myData.cursorRGBA });
@@ -30,6 +30,8 @@ swatchGrid.addEventListener("click", (e) => {
         setTimeout(() => {
             setCursor({ cursorColor: swatch.dataset.color, cursorRGBA: swatch.dataset.rgba });
         }, 0);
+        socket.emit("user:color", { id: myData.id,
+            cursorColor: myData.cursorColor, cursorRGBA: myData.cursorRGBA });
         //emit color change to ws
         swatchGrid.innerHTML = getSwatches();
     }
