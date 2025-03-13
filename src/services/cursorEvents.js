@@ -1,75 +1,58 @@
 import { throttle } from "lodash-es";
 import { gsap } from "gsap";
+import {socket} from "./websocket.js";
+import {myData} from "./userData.js";
+export {moveCursorGsap}
+//throttle mouse events for 25ms, don't run until cursorEvents moved outside of box
+const mouseThrottle = throttle(mouseMovedOutsideBox, 5, { trailing: true });
+document.addEventListener("mousemove", mouseThrottle);
 
-const cursorEvents = document.querySelector(".other-cursors");
-// const floater = document.querySelector(".cursorFloat");
-// const cursorContainer = document.querySelector(".cursorContainer");
-
-// positions of our cursorEvents
-const myCurrentPosition = { x: 0, y: 0 };
-
-//other users position
-const targetPosition = { x: 0, y: 0 };
+//throttle how often we send server events
+const serverThrottle = throttle(({ currentX, currentY }) => {
+    // console.log({ currentX, currentY, id: myData.id })
+    socket.emit("user:position", { x:currentX, y:currentY, id: myData.id });
+}, 200, { trailing: true, });
 
 //position of last mouse event outside of box
 let lastOutsideBoxX = 0;
 let lastOutsideBoxY = 0;
+const threshold = 10; //pixel amount for threshold box
 
-//pixel amount for threshold box
-const threshold = 10;
-
-//throttle mouse events for 25ms, don't run until cursorEvents moved outside of box
-const mouseThrottle = throttle(mouseMovedOutsideBox, 25, { trailing: true });
-document.addEventListener("mousemove", mouseThrottle);
-
-//gsap animate, without requestAnimationFrame
-function moveCursorGsap(event) {
-    targetPosition.x = event.clientX;
-    targetPosition.y = event.clientY;
-    
-    gsap.to(cursorEvents, {
-        x: targetPosition.x,
-        y: targetPosition.y,
-        duration: 0.25,
-        ease: "none",
-    });
-}
-
-
-//throttle how often we send server events
-const serverThrottle = throttle(({ currentX, currentY }) => console.log({ currentX, currentY }), 250, {
-    trailing: true,
-});
-
-//box to limit events unless mouse moves over that
+//only send events if position changed > threshold 10px
 function mouseMovedOutsideBox(event) {
-    const currentX = event.clientX;
-    const currentY = event.clientY;
-
+    const {clientX: currentX, clientY: currentY} = event;
+    
     const deltaX = currentX - lastOutsideBoxX;
     const deltaY = currentY - lastOutsideBoxY;
     
-    //sync our floater to cursorEvents
-    // moveFloaterGsap(currentX, currentY);
-    
     const distanceMoved = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
-    //only send events if position changed > threshold 10px
+    
     if (distanceMoved >= threshold) {
-        // Update position and send to WebSocket
         lastOutsideBoxX = currentX;
         lastOutsideBoxY = currentY;
         
+        // Update position and send to WebSocket
         //animate other cursor when moving to simulate test movement
         // moveCursorGsap(event);
-        // moveCursorLinear(event);
-        
-        //send events to webrtc/websocket
-        // serverThrottle({ currentX, currentY });
+        serverThrottle({ currentX, currentY });
     }
 }
 
-
-
+//other users, gsap animate, without requestAnimationFrame
+//select with data-id attribute to animate
+function moveCursorGsap({x: userX, y:userY, id}) {
+    console.log("moveCursorGsap", userX, userY, id)
+    // targetPosition.x = event.clientX;
+    // targetPosition.y = event.clientY;
+    const user = document.querySelector(`.other-cursors[data-id="${id}"]`);
+    gsap.to(user, {
+        x: userX,
+        y: userY,
+        duration: 0.20,
+        // duration: 0.25,
+        ease: "none",
+    });
+}
 
 //-------------------------------------------------------------------------------------------------------------
 
@@ -79,7 +62,7 @@ function moveCursorLinear(event) {
     targetPosition.x = event.clientX;
     targetPosition.y = event.clientY;
     console.log(targetPosition);
-    startAnimation();
+    // startAnimation();
 }
 
 //linear interpolation, animation cursorEvents without time

@@ -1,5 +1,6 @@
 import { io } from "socket.io-client";
 import { myData, User, otherUsers } from "./userData.js"
+import {moveCursorGsap} from "./cursorEvents.js";
 export { socketioSetup, socketDOM, socket };
 
 const socket = io(import.meta.env.VITE_WSSERVER, {
@@ -29,6 +30,13 @@ function socketioSetup() {
         // console.log("new user:", data);
         new User(data);
         // console.log("new user:", otherUsers)
+    });
+    
+    socket.on("user:position", (data) => {
+        //receiving events select others cursor and animate to coordinate with id
+        const { x, y, id } = data;
+        console.log("user:position", data)
+        moveCursorGsap(data)
     });
     
     socket.on("user:color", (data) => {
