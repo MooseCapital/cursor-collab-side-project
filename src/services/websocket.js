@@ -45,6 +45,15 @@ function socketioSetup() {
         // console.log("new user:", otherUsers)
     });
     
+    socket.on("user:color", (data) => {
+        // console.log("new user:", data);
+        //need id, color, rgba to send on color change input
+        //server sends to all other users
+        //they render the new cursor color
+        
+        
+    });
+    
     socket.on("getAllUsers", (mainUsers) => {
         console.log("initial visit, get all users:", mainUsers);
         for (const id of Object.keys(mainUsers)) {

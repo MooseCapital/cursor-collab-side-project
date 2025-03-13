@@ -22,7 +22,7 @@ async function setUserData() {
         console.log(err);
     }
 }
-
+//try to have a timer, if it's more than 2 seconds try again and set default data
 async function getLocationData() {
     try {
         if (!myData?.query) {
@@ -33,7 +33,7 @@ async function getLocationData() {
                 myData[prop] = data[prop];
             }
 
-            console.log(myData, "inside function");
+            console.log( "getting location", myData);
         } else {
             // console.log("not fetched");
         }
@@ -43,7 +43,7 @@ async function getLocationData() {
     }
 }
 
-//generate colors for business case when users see black cursor as their own
+//generate colors for business use case when users see black cursor as their own, and have no color to send
 //otherwise, send the users colors
 class User {
     constructor({ id, cursorColor, cursorRGBA, flag, countryCode, region }) {
