@@ -17,7 +17,7 @@ function socketioSetup() {
         setInterval(() => {
             // const start = Date.now();
             socket.volatile.emit("latency", Date.now());
-        }, 3000);
+        }, 1000);
         
         //important: we can't run this at first, we need to get our data before ws connection
         // so it's best to have button to connect rather than connect on website load

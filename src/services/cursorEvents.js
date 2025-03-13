@@ -11,7 +11,7 @@ document.addEventListener("mousemove", mouseThrottle);
 const serverThrottle = throttle(({ currentX, currentY }) => {
     // console.log({ currentX, currentY, id: myData.id })
     socket.emit("user:position", { x:currentX, y:currentY, id: myData.id });
-}, 200, { trailing: true, });
+}, 100, { trailing: true, });
 
 //position of last mouse event outside of box
 let lastOutsideBoxX = 0;
@@ -42,14 +42,13 @@ function mouseMovedOutsideBox(event) {
 //select with data-id attribute to animate
 function moveCursorGsap({x: userX, y:userY, id}) {
     console.log("moveCursorGsap", userX, userY, id)
-    // targetPosition.x = event.clientX;
-    // targetPosition.y = event.clientY;
+    //add latency to duration to have accurate animation time
     const user = document.querySelector(`.other-cursors[data-id="${id}"]`);
     gsap.to(user, {
         x: userX,
         y: userY,
         // duration: 0.15,
-        duration: 0.20,
+        duration: 0.10,
         ease: "none",
     });
 }
