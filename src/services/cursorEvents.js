@@ -4,7 +4,7 @@ import {socket} from "./websocket.js";
 import {myData} from "./userData.js";
 export {moveCursorGsap}
 //throttle mouse events for 25ms, don't run until cursorEvents moved outside of box
-const mouseThrottle = throttle(mouseMovedOutsideBox, 5, { trailing: true });
+const mouseThrottle = throttle(mouseMovedOutsideBox, 10, { trailing: true });
 document.addEventListener("mousemove", mouseThrottle);
 
 //throttle how often we send server events
@@ -16,7 +16,7 @@ const serverThrottle = throttle(({ currentX, currentY }) => {
 //position of last mouse event outside of box
 let lastOutsideBoxX = 0;
 let lastOutsideBoxY = 0;
-const threshold = 10; //pixel amount for threshold box
+const threshold = 5; //pixel amount for threshold box
 
 //only send events if position changed > threshold 10px
 function mouseMovedOutsideBox(event) {
@@ -48,8 +48,8 @@ function moveCursorGsap({x: userX, y:userY, id}) {
     gsap.to(user, {
         x: userX,
         y: userY,
+        // duration: 0.15,
         duration: 0.20,
-        // duration: 0.25,
         ease: "none",
     });
 }
