@@ -10,7 +10,7 @@ localStorage.debug = "socket.io-client:socket";
 
 function socketioSetup() {
 
-    socket.connect();
+    // socket.connect();
     
     socket.on("connect", () => {
         console.log("connected:", socket.connected); // true
@@ -37,15 +37,6 @@ function socketioSetup() {
         const { x, y, id } = data;
         console.log("user:position", data)
         moveCursorGsap(data)
-    });
-    
-    socket.on("user:color", (data) => {
-        const { id, cursorColor, cursorRGBA } = data;
-        otherUsers[id].cursorColor = cursorColor;
-        otherUsers[id].cursorRGBA = cursorRGBA;
-        document?.querySelector(`.other-cursors[data-id="${id}"]`)?.remove();
-        otherUsers[id].renderCursor();
-        // console.log("user:color", otherUsers[id] );
     });
     
     socket.on("getAllUsers", (mainUsers) => {

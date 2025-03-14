@@ -1,5 +1,5 @@
 import flag from "country-code-emoji";
-import { getRandomColorObj, setCursor, generateCursorColors, setOthersCursor } from "./cursorSetting.js";
+import { getRandomColorObj, generateCursorColors, setOthersCursor } from "./cursorSetting.js";
 import { nanoid } from "nanoid";
 export { myData, setUserData, otherUsers, User };
 
@@ -14,8 +14,6 @@ async function setUserData() {
         if(!myData.id) myData.id = nanoid();
 
         generateCursorColors(myData);
-
-        setCursor({ cursorColor: myData.cursorColor, cursorRGBA: myData.cursorRGBA });
 
         localStorage.setItem("userData", JSON.stringify(myData));
     } catch (err) {
@@ -69,13 +67,13 @@ class User {
         });
     }
 }
-/* new User({
+new User({
     id: 1234,
     cursorColor: "purple",
     cursorRGBA: "rgba(173,144,255,0.6)",
     flag: "🇷🇸",
     countryCode: "RS",
     region: "RS",
-}); */
+});
 
 // addNewUser(1234)
