@@ -32,45 +32,40 @@ function changeCursorColors(cursorColor, cursorRGBA) {
     }
 }
 
-
 //we have if statement to check if cursor exist, so we dont duplicate
 //the issue is, if user clicks show others checkbox, we want ALL others cursors replaced with other style
 //meaning, they all exist, and wouldn't change, so we can pass in an argument that defaults to false, but can override this if statement check
 function setOthersCursor({ cursorColor, cursorRGBA, id, region, countryCode, flag }) {
     const othersCursorCheckbox = document.querySelector("#othersCursorCheckbox");
     const app = document.querySelector("#app");
+    const cursorPath = `${import.meta.env.BASE_URL}/images/bibata-${cursorColor}.svg`;
     
+
     if (othersCursorCheckbox.checked) {
-        if ( !document.querySelector(`.other-cursors[data-id="${id}"]`) ) {
+        if (!document.querySelector(`.other-cursors[data-id="${id}"]`)) {
             // console.log("checked test. unique");
             const text = region && region.length < 3 ? region : countryCode;
-            
-            const cursorPath = `${import.meta.env.BASE_URL}/images/bibata-${cursorColor}.svg`;
-            
-            const svgString = `
-            <div class="cursorContainer" data-id="${id}">
-                <img class="other-cursor" src="${cursorPath}" alt="Other users cursor icon" />
-                <div class="cursorFloat" style="background-color: ${cursorRGBA}">${flag} ${text}</div>
-            </div> `
-            
-            app.insertAdjacentHTML("beforeend", svgString);
+
+            const containerString = `
+                <div class="cursorContainer" data-id="${id}">
+                    <img class="other-cursor" src="${cursorPath}" alt="Other users cursor icon" />
+                    <div class="cursorFloat" style="background-color: ${cursorRGBA}">${flag} ${text}</div>
+                </div> `;
+
+            app.insertAdjacentHTML("beforeend", containerString);
         }
+        
     } else {
         if (!document.querySelector(`.other-cursors[data-id="${id}"]`)) {
-            const cursorPath = `${import.meta.env.BASE_URL}/images/bibata-${cursorColor}.svg`;
+            const containerString = `
+                <div class="cursorContainer" data-id="${id}">
+                  <img class="other-cursor" src="${cursorPath}" alt="Other users cursor icon" />
+                </div>`;
             
-            app.insertAdjacentHTML(
-                "beforeend",
-                `
-          <div class="cursorContainer" data-id="${id}">
-        <img class="other-cursor" src="${cursorPath}" alt="Other users cursor icon" />
-          </div>
-      `,);
+            app.insertAdjacentHTML("beforeend", containerString);
         }
     }
 }
-
-
 
 //old location svg, floater replaces this:
 /* const svgString = `
@@ -89,4 +84,3 @@ function setOthersCursor({ cursorColor, cursorRGBA, id, region, countryCode, fla
               <rect x="12" y="23" width="55" height="27" fill="${cursorRGBA}" rx="4" />
               <text x="16" y="42"  font-family="Arial" font-size="16" font-weight="300" fill="black">${flag} ${text}</text>
             </svg>`; */
-
