@@ -10,7 +10,7 @@ localStorage.debug = "socket.io-client:socket";
 
 function socketioSetup() {
 
-    // socket.connect();
+    socket.connect();
     
     socket.on("connect", () => {
         console.log("connected:", socket.connected); // true

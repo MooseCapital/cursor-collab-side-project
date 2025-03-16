@@ -4,7 +4,7 @@ import {socket} from "./websocket.js";
 import {myData} from "./userData.js";
 export {moveCursorGsap}
 //throttle mouse events for 25ms, don't run until cursorEvents moved outside of box
-const mouseThrottle = throttle(mouseMovedOutsideBox, 20, { trailing: true });
+const mouseThrottle = throttle(mouseMovedOutsideBox, 10, { trailing: true });
 document.addEventListener("mousemove", mouseThrottle);
 
 //throttle how often we send server events
