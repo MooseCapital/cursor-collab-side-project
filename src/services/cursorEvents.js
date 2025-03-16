@@ -43,7 +43,9 @@ function mouseMovedOutsideBox(event) {
 function moveCursorGsap({x: userX, y:userY, id}) {
     console.log("moveCursorGsap", userX, userY, id)
     //add latency to duration to have accurate animation time
-    const user = document.querySelector(`.cursorContainer[data-id="${id}"]`);
+    const user = document.querySelector(`.cursorContainer[data-id="${id}"]`) ||
+        document.querySelector(`.single-svg-cursor[data-id="${id}"]`);
+    
     gsap.to(user, {
         x: userX,
         y: userY,

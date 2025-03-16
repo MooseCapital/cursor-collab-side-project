@@ -22,7 +22,13 @@
   cursor: inherit;
 }
 
-
+.single-svg-cursor {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  /* z-index: 1000; */
+}
 
 
 .cursorContainer {

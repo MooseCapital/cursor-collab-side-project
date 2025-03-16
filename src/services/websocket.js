@@ -35,7 +35,7 @@ function socketioSetup() {
     socket.on("user:position", (data) => {
         //receiving events select others cursor and animate to coordinate with id
         const { x, y, id } = data;
-        console.log("user:position", data)
+        // console.log("user:position", data)
         moveCursorGsap(data)
     });
     
