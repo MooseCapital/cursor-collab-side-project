@@ -14,3 +14,4 @@ document.querySelector("#othersCursorCheckbox").addEventListener("change", () =>
         otherUsers[`${el.dataset.id}`].renderCursor();
     }
 });
+

@@ -5,6 +5,13 @@ import "../services/cursorEvents.js";
 import {socketDOM, socketioSetup} from "../services/websocket.js";
 export { WebSocketPage };
 
+//we can simply emit every 100ms for websocket and webrtc, or try to positions in an array queue
+// for websocket to reduce server load every 300-500ms.
+//our server just emits our event instantly, eventually it will group everyones and emit 1 event every 300-500ms
+//100 users at 3 events per second = 300 events per second , if the server groups them
+//it may consider a broadcast to all users 1 single event, so 3 per second out, but 300 events intake.
+
+
 function WebSocketPage() {
     // console.log("websocket page loaded");
     setTimeout(() => {

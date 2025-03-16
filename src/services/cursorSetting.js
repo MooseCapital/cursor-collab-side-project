@@ -1,4 +1,3 @@
-// import iro from "@jaames/iro";
 import { myData } from "./userData.js";
 
 export { generateCursorColors, cursorColors, getRandomColorObj, changeCursorColors, setOthersCursor };
@@ -39,10 +38,8 @@ function setOthersCursor({ cursorColor, cursorRGBA, id, region, countryCode, fla
     const othersCursorCheckbox = document.querySelector("#othersCursorCheckbox");
     const app = document.querySelector("#app");
     const cursorPath = `${import.meta.env.BASE_URL}/images/bibata-${cursorColor}.svg`;
-    
 
-    if (othersCursorCheckbox.checked) {
-        if (!document.querySelector(`.other-cursors[data-id="${id}"]`)) {
+    if (othersCursorCheckbox.checked && !document.querySelector(`.other-cursors[data-id="${id}"]`)) {
             // console.log("checked test. unique");
             const text = region && region.length < 3 ? region : countryCode;
 
@@ -53,17 +50,15 @@ function setOthersCursor({ cursorColor, cursorRGBA, id, region, countryCode, fla
                 </div> `;
 
             app.insertAdjacentHTML("beforeend", containerString);
-        }
         
-    } else {
-        if (!document.querySelector(`.other-cursors[data-id="${id}"]`)) {
+    } else if (!document.querySelector(`.other-cursors[data-id="${id}"]`)) {
+        
             const containerString = `
                 <div class="cursorContainer" data-id="${id}">
                   <img class="other-cursor" src="${cursorPath}" alt="Other users cursor icon" />
                 </div>`;
             
             app.insertAdjacentHTML("beforeend", containerString);
-        }
     }
 }
 

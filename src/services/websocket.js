@@ -22,11 +22,11 @@ function socketioSetup() {
         //important: we can't run this at first, we need to get our data before ws connection
         // so it's best to have button to connect rather than connect on website load
         //emit user data  { id, userColor, userRGBA, flag, countryCode, region }
-        socket.emit("newUser", { id: myData.id, cursorColor: myData.cursorColor, cursorRGBA: myData.cursorRGBA,
+        socket.emit("user:new", { id: myData.id, cursorColor: myData.cursorColor, cursorRGBA: myData.cursorRGBA,
             flag: myData.flag, countryCode: myData.countryCode, region: myData.region });
     });
     
-    socket.on("newUser", (data) => {
+    socket.on("user:new", (data) => {
         // console.log("new user:", data);
         new User(data);
         // console.log("new user:", otherUsers)
@@ -47,7 +47,7 @@ function socketioSetup() {
     });
     
     //get sent id, remove from otherUsers obj, and remove svg on screen
-    socket.on("removeUser", (id) => {
+    socket.on("user:remove", (id) => {
         delete otherUsers[id];
         document?.querySelector(`.other-cursors[data-id="${id}"]`)?.remove();
         console.log("removed user, all other users:", otherUsers);
@@ -91,7 +91,7 @@ function socketDOM() {
     const joinWS = document.querySelector("#join-websocket");
     const leaveWS = document.querySelector("#leave-websocket");
 
-    joinWS.disabled = true;
+    // joinWS.disabled = true;
     
     joinWS.addEventListener("click", () => {
         socket.connect();

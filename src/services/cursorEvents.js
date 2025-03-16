@@ -4,7 +4,7 @@ import {socket} from "./websocket.js";
 import {myData} from "./userData.js";
 export {moveCursorGsap}
 //throttle mouse events for 25ms, don't run until cursorEvents moved outside of box
-const mouseThrottle = throttle(mouseMovedOutsideBox, 10, { trailing: true });
+const mouseThrottle = throttle(mouseMovedOutsideBox, 20, { trailing: true });
 document.addEventListener("mousemove", mouseThrottle);
 
 //throttle how often we send server events
@@ -43,7 +43,7 @@ function mouseMovedOutsideBox(event) {
 function moveCursorGsap({x: userX, y:userY, id}) {
     console.log("moveCursorGsap", userX, userY, id)
     //add latency to duration to have accurate animation time
-    const user = document.querySelector(`.other-cursors[data-id="${id}"]`);
+    const user = document.querySelector(`.cursorContainer[data-id="${id}"]`);
     gsap.to(user, {
         x: userX,
         y: userY,
@@ -53,10 +53,16 @@ function moveCursorGsap({x: userX, y:userY, id}) {
     });
 }
 
+
+
+
 //-------------------------------------------------------------------------------------------------------------
 
 //move cursorEvents always, no box to limit events
 let animationInProgress = false;
+const targetPosition = { x: 0, y: 0 };
+const myCurrentPosition = { x: 0, y: 0 };
+
 function moveCursorLinear(event) {
     targetPosition.x = event.clientX;
     targetPosition.y = event.clientY;
