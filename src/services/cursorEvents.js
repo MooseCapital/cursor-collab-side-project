@@ -3,6 +3,10 @@ import { gsap } from "gsap";
 import {socket} from "./websocket.js";
 import {myData} from "./userData.js";
 export {moveCursorGsap}
+
+
+console.log(myData.position, typeof myData.position)
+
 //throttle mouse events for 25ms, don't run until cursorEvents moved outside of box
 const mouseThrottle = throttle(mouseMovedOutsideBox, 10, { trailing: true });
 document.addEventListener("mousemove", mouseThrottle);
@@ -33,22 +37,21 @@ function mouseMovedOutsideBox(event) {
         
         // Update position and send to WebSocket
         //animate other cursor when moving to simulate test movement
-        // moveCursorGsap(event);
         serverThrottle({ currentX, currentY });
     }
 }
 
 //other users, gsap animate, without requestAnimationFrame
 //select with data-id attribute to animate
-function moveCursorGsap({x: userX, y:userY, id}) {
-    console.log("moveCursorGsap", userX, userY, id)
+function moveCursorGsap({x, y, id}) {
+    // console.log("moveCursorGsap", userX, userY, id)
     //add latency to duration to have accurate animation time
     const user = document.querySelector(`.cursorContainer[data-id="${id}"]`) ||
         document.querySelector(`.single-svg-cursor[data-id="${id}"]`);
     
     gsap.to(user, {
-        x: userX,
-        y: userY,
+        x: x,
+        y: y,
         // duration: 0.15,
         duration: 0.10,
         ease: "none",

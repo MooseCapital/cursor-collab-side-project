@@ -12,6 +12,7 @@ async function setUserData() {
         
         if(!myData.flag) myData.flag = flag(myData?.countryCode);
         if(!myData.id) myData.id = nanoid();
+        if(!myData.position) myData.position = [];
 
         generateCursorColors(myData);
 
@@ -67,13 +68,13 @@ class User {
         });
     }
 }
-new User({
+/* new User({
     id: 1234,
     cursorColor: "purple",
     cursorRGBA: "rgba(173,144,255,0.6)",
     flag: "🇷🇸",
     countryCode: "RS",
     region: "RS",
-});
+}); */
 
 // addNewUser(1234)

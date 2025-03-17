@@ -39,7 +39,8 @@ function setOthersCursor({ cursorColor, cursorRGBA, id, region, countryCode, fla
     const app = document.querySelector("#app");
     const cursorPath = `${import.meta.env.BASE_URL}/images/bibata-${cursorColor}.svg`;
 
-    if (othersCursorCheckbox.checked && !document.querySelector(`.other-cursor[data-id="${id}"]`)) {
+    if (othersCursorCheckbox.checked && ( !document.querySelector(`.other-cursor[data-id="${id}"]`) ||
+        !document.querySelector(`.single-svg-cursor[data-id="${id}"]`)) ) {
             // console.log("checked test. unique");
             const text = region && region.length < 3 ? region : countryCode;
 
@@ -51,10 +52,10 @@ function setOthersCursor({ cursorColor, cursorRGBA, id, region, countryCode, fla
 
             app.insertAdjacentHTML("beforeend", containerString);
         
-    } else if (!document.querySelector(`.other-cursor[data-id="${id}"]`)) {
+    } else if ( !document.querySelector(`.other-cursor[data-id="${id}"]`) || !document.querySelector(`.single-svg-cursor[data-id="${id}"]`) ) {
         
         const containerString = `
-              <img class="single-svg-cursor" src="${cursorPath}" alt="Other users cursor icon" />
+              <img class="single-svg-cursor" data-id="${id}" src="${cursorPath}" alt="Other users cursor icon" />
             `
         /* const containerString = `
             <svg class="single-svg-cursor" data-id="${id}" xmlns="http://www.w3.org/2000/svg" width="19.196396" height="23.999937" viewBox="0 0 19.196396 23.999937">
