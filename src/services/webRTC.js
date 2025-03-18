@@ -1,20 +1,15 @@
-export {setUpWebRTC}
-// import { selfId, joinRoom } from "trystero";
+import {socket} from "./websocket.js";
 import { joinRoom } from "trystero/torrent";
+
+export {webrtcDOM}
+// import { selfId, joinRoom } from "trystero";
 const config = { appId: "cursor-collab" };
 let room;
 
 const app = document.querySelector("#app");
 // app.insertAdjacentHTML("beforeend", ``);
 
-//on join, we get and send data like
-//cursor color/rgba , location flag, country, region,
-//then start receiving their position and sending ours
-function setUpWebRTC() {
-    const joinButton = document.querySelector("#join-webrtc");
-    // joinButton.addEventListener("click", joinWebRTC);
-    // joinWebRTC();
-}
+
 
 function joinWebRTC() {
     room = joinRoom(config, "mainRoom");
@@ -30,3 +25,21 @@ function joinWebRTC() {
     room.onPeerLeave((peerId) => console.log(`${peerId} left`));
 }
 
+
+function webrtcDOM() {
+    const joinWebrtc = document.querySelector("#join-webrtc");
+    const leaveWebrtc = document.querySelector("#leave-webrtc");
+    console.log('webrtc dom')
+    // joinWS.disabled = true;
+
+    joinWebrtc.addEventListener("click", () => {
+        socket.connect();
+        joinWebrtc.disabled = true;
+        leaveWebrtc.disabled = false;
+    });
+    leaveWebrtc.addEventListener("click", () => {
+        socket.disconnect();
+        joinWebrtc.disabled = false;
+        leaveWebrtc.disabled = true;
+    });
+}

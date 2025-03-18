@@ -9,7 +9,7 @@ const socket = io(import.meta.env.VITE_WSSERVER, {
 localStorage.debug = "socket.io-client:socket";
 
 function socketioSetup() {
-    socket.connect();
+    // socket.connect();
 
     socket.on("connect", () => {
         console.log("connected:", socket.connected); // true
