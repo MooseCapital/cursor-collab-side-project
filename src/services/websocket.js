@@ -10,10 +10,10 @@ localStorage.debug = "socket.io-client:socket";
 
 function socketioSetup() {
     // socket.connect();
-
+    let emitInterval;
     socket.on("connect", () => {
         console.log("connected:", socket.connected); // true
-        setInterval(() => {
+        emitInterval = setInterval(() => {
             // const start = Date.now();
             socket.volatile.emit("latency", Date.now());
         }, 1000);
@@ -70,6 +70,7 @@ function socketioSetup() {
             document?.querySelector(`.other-cursors[data-id="${id}"]`)?.remove();
         }
         console.log("disconnected: all other users", otherUsers); // false
+        emitInterval.clearInterval();
     });
 
     socket.on("latency", (data) => {

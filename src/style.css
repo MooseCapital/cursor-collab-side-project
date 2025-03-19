@@ -159,3 +159,20 @@ input[type="checkbox"] {
   /* box-shadow: 1px 1px black; */
 }
 
+#grid {
+  /* width: max-content; */
+  box-shadow: 2px 2px black;
+  max-height: 400px;
+  overflow-y: scroll;
+}
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+td, th {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 250px;
+  padding: 0 5px;
+}
