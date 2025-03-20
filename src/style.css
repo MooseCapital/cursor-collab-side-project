@@ -161,12 +161,21 @@ input[type="checkbox"] {
 
 #grid {
   /* width: max-content; */
-  box-shadow: 2px 2px black;
+  box-shadow: 4px 4px black;
+  height: max-content;
   max-height: 400px;
-  overflow-y: scroll;
+  overflow-y: auto;
+  width: max-content;
+  border: 1px solid black;
+  border-collapse: collapse;
+  position: absolute;
+  top: 30%;
+  left: 100px;
 }
 table, th, td {
   border: 1px solid black;
+  border-top: 0px;
+  border-left: 0px;
   border-collapse: collapse;
 }
 td, th {
@@ -175,4 +184,21 @@ td, th {
   text-overflow: ellipsis;
   max-width: 250px;
   padding: 0 5px;
+}
+
+#grid::-webkit-scrollbar {
+  width: 8px; /* Width of the scrollbar */
+  /* background: none; */
+}
+
+#grid::-webkit-scrollbar-track {
+  background: none; /* Background of the scrollbar track */
+}
+
+#grid::-webkit-scrollbar-thumb {
+  background: gray; /* Color of the scrollbar thumb */
+}
+
+#grid::-webkit-scrollbar-thumb:hover {
+  /* background: #555; !* Color of the scrollbar thumb on hover *! */
 }

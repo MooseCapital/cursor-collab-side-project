@@ -20,7 +20,10 @@ function joinWebRTC() {
     });
     console.log(room);
     
-    room.onPeerLeave((peerId) => console.log(`${peerId} left`));
+    room.onPeerLeave((peerId) => {
+        console.log(`${peerId} left`);
+        
+    });
 }
 
 
