@@ -32,5 +32,5 @@ function navigate(path) {
 }
 
 // Initial route
-navigate(window.location.hash || "#/websocket");
+navigate(window.location.hash || "#/webrtc");
 // router(window.location.hash || "#/websocket");

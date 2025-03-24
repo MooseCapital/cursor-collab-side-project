@@ -11,7 +11,9 @@ document.querySelector("#othersCursorCheckbox").addEventListener("change", () =>
     const otherCursors = document.querySelectorAll(".cursorContainer, .single-svg-cursor");
     for (const el of otherCursors) {
         //try el.remove();
-        document.querySelector("#app").removeChild(el);
+        console.log(el)
+        // document.querySelector("#app").removeChild(el);
+        el.remove();
         otherUsers[`${el.dataset.webrtcid}`].renderCursor();
     }
 });

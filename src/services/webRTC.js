@@ -5,15 +5,16 @@ import { myData, User, otherUsers } from "./userData.js";
 // import { selfId, joinRoom } from "trystero";
 export { webrtcDOM, joinWebRTC, updateTable };
 
-//get user connections number
+
 
 const config = { appId: import.meta.env.VITE_SUPABASE_URL, supabaseKey: import.meta.env.VITE_SUPABASE_KEY };
 let room;
 let myLatencyInterval;
-//bad practice, have a single interval for all users latency, then loop over all users peerId somehow
-//then call the ping function for each user, then update the table
 
-//remove users cursor on leave
+//get user connections number, write it on table
+//when we disconnect, remove all cursors and clear table
+//send user cursor movements
+
 
 function joinWebRTC() {
     room = joinRoom(config, "mainRoom");
@@ -24,8 +25,8 @@ function joinWebRTC() {
     //once connected,send our user data to everyone
     sendUser({
         id: myData.id,
-        cursorColor: myData.cursorColor,
-        cursorRGBA: myData.cursorRGBA,
+        // cursorColor: myData.cursorColor,
+        // cursorRGBA: myData.cursorRGBA,
         flag: myData.flag,
         countryCode: myData.countryCode,
         region: myData.region,
@@ -35,8 +36,8 @@ function joinWebRTC() {
         sendUser(
             {
                 id: myData.id,
-                cursorColor: myData.cursorColor,
-                cursorRGBA: myData.cursorRGBA,
+                // cursorColor: myData.cursorColor,
+                // cursorRGBA: myData.cursorRGBA,
                 flag: myData.flag,
                 countryCode: myData.countryCode,
                 region: myData.region,
@@ -52,6 +53,9 @@ function joinWebRTC() {
         delete otherUsers[peerId];
         updateTable();
         //remove users cursor
+        const user = document.querySelector(`.cursorContainer[data-webrtcid="${peerId}"]`) ||
+        document.querySelector(`.single-svg-cursor[data-webrtcid="${peerId}"]`);
+        user.remove();
     });
 
     getUser((data, peerId) => {
@@ -62,7 +66,6 @@ function joinWebRTC() {
     });
     
     myLatencyInterval = setInterval(async () => {
-            console.log("latency interval ran", room.getPeers());
         for (const peerId in room.getPeers()) {
             updateUserLatency(peerId, await room.ping(peerId))
         }
