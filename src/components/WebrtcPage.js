@@ -1,6 +1,6 @@
 // import {getSwatches} from "./WebSocketPage.js";
 import {setUserData} from "../services/userData.js";
-import {joinWebRTC, webrtcDOM} from "../services/webRTC.js";
+import {joinWebRTC, webrtcDOM, updateTable} from "../services/webRTC.js";
 
 export { WebrtcPage };
 
@@ -13,6 +13,7 @@ function WebrtcPage() {
         setUserData();
         // joinWebRTC();
         webrtcDOM()
+        updateTable();
         // swatchGrid.innerHTML = getSwatches();
     }, 0);
     return `
