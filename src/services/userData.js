@@ -70,7 +70,7 @@ class User {
         });
     }
 }
-new User({
+/* new User({
     id: 1234,
     webrtcId: 5432,
     cursorColor: "purple",
@@ -78,6 +78,6 @@ new User({
     flag: "🇷🇸",
     countryCode: "RS",
     region: "RS",
-});
+}); */
 
 // addNewUser(1234)

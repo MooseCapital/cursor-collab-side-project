@@ -17,16 +17,13 @@ let myLatencyInterval;
 
 function joinWebRTC() {
     room = joinRoom(config, "mainRoom");
-    console.log("room", room)
+    
     myData.webrtcId = selfId;
-    localStorage.setItem("userData", JSON.stringify(myData));
-    // console.log("myData", myData);
 
     const [sendUser, getUser] = room.makeAction("user:new");
     //once connected,send our user data to everyone
     sendUser({
         id: myData.id,
-        webrtcId: myData.webrtcId,
         cursorColor: myData.cursorColor,
         cursorRGBA: myData.cursorRGBA,
         flag: myData.flag,
@@ -38,7 +35,6 @@ function joinWebRTC() {
         sendUser(
             {
                 id: myData.id,
-                webrtcId: myData.webrtcId,
                 cursorColor: myData.cursorColor,
                 cursorRGBA: myData.cursorRGBA,
                 flag: myData.flag,
@@ -59,17 +55,18 @@ function joinWebRTC() {
     });
 
     getUser((data, peerId) => {
-        new User(data);
-        //if we don't send our webrtc id, then users receive it: {...data,  webrtcId: peerId};
+        // new User(data);
+        new User({ ...data, webrtcId: peerId });
         updateTable();
         console.log("getUser received, peerId:",peerId, otherUsers);
     });
     
     myLatencyInterval = setInterval(async () => {
             console.log("latency interval ran", room.getPeers());
-            // updateUserLatency(peerId, await room.ping(peerId))
-            //run user latency update function for this user here
-    }, 2000);
+        for (const peerId in room.getPeers()) {
+            updateUserLatency(peerId, await room.ping(peerId))
+        }
+    }, 3000);
     
 }
 
@@ -110,7 +107,6 @@ function updateTable() {
     tableBody.innerHTML = tableItems;
 }
 
-console.log("otherUsers", otherUsers);
 
 function webrtcDOM() {
     const joinWebrtc = document.querySelector("#join-webrtc");
@@ -128,6 +124,9 @@ function webrtcDOM() {
         room.leave();
         joinWebrtc.disabled = false;
         leaveWebrtc.disabled = true;
-        // clearInterval(myLatencyInterval);
+        clearInterval(myLatencyInterval);
     });
 }
+
+
+
