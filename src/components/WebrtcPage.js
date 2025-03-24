@@ -20,26 +20,20 @@ function WebrtcPage() {
           <button class="serverbtn" id="leave-webrtc">leave webrtc</button>
          <div id="grid">
               <table>
-              <tr>
-                <th>User</th>
-                <th>Latency (ms)</th>
-              </tr>
-              <tr>
-                <td>🇺🇸 Miami, FL</td>
-                <td>40</td>
-              </tr>
-              <tr>
-                <td>Centro comercial Moctezuma sdfsdf</td>
-                <td>15</td>
-              </tr>
-              <tr>
-                <td>Centro comercial Moctezuma sdfsdf</td>
-                <td>15</td>
-              </tr>
-              <tr>
-                <td>Centro comercial Moctezuma sdfsdf</td>
-                <td>15</td>
-              </tr>
+              <thead>
+                  <tr>
+                    <th>User</th>
+                    <th>Latency (ms)</th>
+                  </tr>
+              </thead>
+              
+              <tbody>
+                  <tr>
+                    <td>🇺🇸 Miami, FL</td>
+                    <td>40</td>
+                  </tr>
+              </tbody>
+             
             </table>
         </div>
     `;

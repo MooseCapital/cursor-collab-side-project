@@ -33,8 +33,8 @@ function mouseMovedOutsideBox(event) {
         lastOutsideBoxX = currentX;
         lastOutsideBoxY = currentY;
         
-        // Update position and send to WebSocket
-        //animate other cursor when moving to simulate test movement
+        // only throttle our mousemove event, send events to server when we have === 3
+        // then clear the events
         serverThrottle({ currentX, currentY });
     }
 }

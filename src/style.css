@@ -183,6 +183,7 @@ td, th {
   overflow: hidden;
   text-overflow: ellipsis;
   max-width: 250px;
+  /* width: max-content; */
   padding: 0 5px;
 }
 

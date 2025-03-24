@@ -45,16 +45,17 @@ async function getLocationData() {
 //generate colors for business use case when users see black cursor as their own, and have no color to send
 //otherwise, send the users colors
 class User {
-    constructor({ id, cursorColor, cursorRGBA, flag, countryCode, region }) {
+    constructor({ id, webrtcId, cursorColor, cursorRGBA, flag, countryCode, region }) {
         const colorObj = getRandomColorObj();
         this.id = id;
+        this.webrtcId = webrtcId;
         this.cursorColor = cursorColor || colorObj.name;
         this.cursorRGBA = cursorRGBA || colorObj.rgba;
         this.flag = flag;
         this.countryCode = countryCode;
         this.region = region;
         this.renderCursor();
-        otherUsers[this.id] = this;
+        otherUsers[this.webrtcId] = this;
     }
     //this is the prototype, use for shared methods or default property values until the user sets
     renderCursor() {
@@ -62,19 +63,21 @@ class User {
             cursorColor: this.cursorColor,
             cursorRGBA: this.cursorRGBA,
             id: this.id,
+            webrtcId: this.webrtcId,
             region: this.region,
             countryCode: this.countryCode,
             flag: this.flag,
         });
     }
 }
-/* new User({
+new User({
     id: 1234,
+    webrtcId: 5432,
     cursorColor: "purple",
     cursorRGBA: "rgba(173,144,255,0.6)",
     flag: "🇷🇸",
     countryCode: "RS",
     region: "RS",
-}); */
+});
 
 // addNewUser(1234)

@@ -10,8 +10,9 @@ import {socket} from "../services/websocket.js";
 document.querySelector("#othersCursorCheckbox").addEventListener("change", () => {
     const otherCursors = document.querySelectorAll(".cursorContainer, .single-svg-cursor");
     for (const el of otherCursors) {
+        //try el.remove();
         document.querySelector("#app").removeChild(el);
-        otherUsers[`${el.dataset.id}`].renderCursor();
+        otherUsers[`${el.dataset.webrtcid}`].renderCursor();
     }
 });
 
