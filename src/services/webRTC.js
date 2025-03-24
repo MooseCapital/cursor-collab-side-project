@@ -9,9 +9,11 @@ export { webrtcDOM, joinWebRTC, updateTable };
 
 const config = { appId: import.meta.env.VITE_SUPABASE_URL, supabaseKey: import.meta.env.VITE_SUPABASE_KEY };
 let room;
-
+let myLatencyInterval;
 //bad practice, have a single interval for all users latency, then loop over all users peerId somehow
 //then call the ping function for each user, then update the table
+
+//remove users cursor on leave
 
 function joinWebRTC() {
     room = joinRoom(config, "mainRoom");
@@ -47,13 +49,6 @@ function joinWebRTC() {
         );
 
         console.log(peerId, "connected");
-        console.log("get peers", room.getPeers());
-
-        setInterval(async () => {
-            console.log(`took ${await room.ping(peerId)}ms `);
-            updateUserLatency(peerId, await room.ping(peerId))
-            //run user latency update function for this user here
-        }, 2000);
     });
 
     room.onPeerLeave((peerId) => {
@@ -64,10 +59,18 @@ function joinWebRTC() {
     });
 
     getUser((data, peerId) => {
-        console.log("getUser received", otherUsers);
         new User(data);
+        //if we don't send our webrtc id, then users receive it: {...data,  webrtcId: peerId};
         updateTable();
+        console.log("getUser received, peerId:",peerId, otherUsers);
     });
+    
+    myLatencyInterval = setInterval(async () => {
+            console.log("latency interval ran", room.getPeers());
+            // updateUserLatency(peerId, await room.ping(peerId))
+            //run user latency update function for this user here
+    }, 2000);
+    
 }
 
 /*
@@ -125,5 +128,6 @@ function webrtcDOM() {
         room.leave();
         joinWebrtc.disabled = false;
         leaveWebrtc.disabled = true;
+        // clearInterval(myLatencyInterval);
     });
 }
