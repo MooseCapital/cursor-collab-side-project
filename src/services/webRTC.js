@@ -7,7 +7,6 @@ import {initializeCursorEvents, moveCursorGsap} from "./cursorEvents.js";
 export { webrtcDOM, joinWebRTC, updateTable };
 
 
-//when we disconnect, remove all cursors and clear table
 //get proper cursor position for screen sizes
 
 const config = { appId: import.meta.env.VITE_SUPABASE_URL, supabaseKey: import.meta.env.VITE_SUPABASE_KEY };
@@ -148,15 +147,14 @@ function webrtcDOM() {
         updateConnections(0);
         
         //remove user from users list and remove their cursor, which can be a container or single svg
-        for (const webrtcId of Object.keys(otherUsers)) {
-            console.log("left webrtc, remove user:", webrtcId);
+        for (const webrtcId in otherUsers) {
             delete otherUsers[webrtcId];
             
             const user = document.querySelector(`.cursorContainer[data-webrtcid="${webrtcId}"]`) ||
                          document.querySelector(`.single-svg-cursor[data-webrtcid="${webrtcId}"]`);
             user.remove();
         }
-        console.log("disconnected: all other users", otherUsers); // false
+        console.log("disconnected: all other users,", otherUsers); // false
         updateTable();
     });
 }
