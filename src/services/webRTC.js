@@ -145,7 +145,19 @@ function webrtcDOM() {
         joinWebrtc.disabled = false;
         leaveWebrtc.disabled = true;
         clearInterval(latencyInterval);
-        updateConnections(0)
+        updateConnections(0);
+        
+        //remove user from users list and remove their cursor, which can be a container or single svg
+        for (const webrtcId of Object.keys(otherUsers)) {
+            console.log("left webrtc, remove user:", webrtcId);
+            delete otherUsers[webrtcId];
+            
+            const user = document.querySelector(`.cursorContainer[data-webrtcid="${webrtcId}"]`) ||
+                         document.querySelector(`.single-svg-cursor[data-webrtcid="${webrtcId}"]`);
+            user.remove();
+        }
+        console.log("disconnected: all other users", otherUsers); // false
+        updateTable();
     });
 }
 
