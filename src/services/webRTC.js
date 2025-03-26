@@ -1,28 +1,30 @@
 import { socket } from "./websocket.js";
 import { joinRoom, selfId } from "trystero/supabase";
+// import { joinRoom, selfId } from "trystero";
 import { myData, User, otherUsers } from "./userData.js";
-// import {SpreadGrid} from "js-spread-grid";
-// import { selfId, joinRoom } from "trystero";
+import {initializeCursorEvents, moveCursorGsap} from "./cursorEvents.js";
+
 export { webrtcDOM, joinWebRTC, updateTable };
 
 
+//when we disconnect, remove all cursors and clear table
+//get proper cursor position for screen sizes
 
 const config = { appId: import.meta.env.VITE_SUPABASE_URL, supabaseKey: import.meta.env.VITE_SUPABASE_KEY };
 let room;
-let myLatencyInterval;
-
-//get user connections number, write it on table
-//when we disconnect, remove all cursors and clear table
-//send user cursor movements
-
+let latencyInterval;
+let connectedUsers = 0;
 
 function joinWebRTC() {
+    // room = joinRoom({appId: "cursors"}, "mainRoom");
     room = joinRoom(config, "mainRoom");
     
     myData.webrtcId = selfId;
 
     const [sendUser, getUser] = room.makeAction("user:new");
+    const [sendPosition, getPosition] = room.makeAction("position");
     //once connected,send our user data to everyone
+    
     sendUser({
         id: myData.id,
         // cursorColor: myData.cursorColor,
@@ -52,6 +54,7 @@ function joinWebRTC() {
         console.log(`${peerId} left`);
         delete otherUsers[peerId];
         updateTable();
+        
         //remove users cursor
         const user = document.querySelector(`.cursorContainer[data-webrtcid="${peerId}"]`) ||
         document.querySelector(`.single-svg-cursor[data-webrtcid="${peerId}"]`);
@@ -65,12 +68,20 @@ function joinWebRTC() {
         console.log("getUser received, peerId:",peerId, otherUsers);
     });
     
-    myLatencyInterval = setInterval(async () => {
+    getPosition((data, peerId) => {
+        // console.log("get position", data)
+        moveCursorGsap({x: data.x, y: data.y, webrtcId: peerId});
+    })
+    
+    latencyInterval = setInterval(async () => {
         for (const peerId in room.getPeers()) {
             updateUserLatency(peerId, await room.ping(peerId))
+            connectedUsers++;
         }
+        updateConnections(connectedUsers);
     }, 3000);
     
+    initializeCursorEvents(sendPosition);
 }
 
 /*
@@ -89,6 +100,11 @@ getDrink((data, peerId) =>
   )
 )
 }) */
+function updateConnections(users) {
+    const connections = document.querySelector("#connections h2");
+    connections.textContent = users;
+    connectedUsers = 0;
+}
 
 function updateUserLatency(peerId, latency) {
     const latencyCell = document.querySelector(` tr[data-webrtcid="${peerId}"] #latency `);
@@ -125,9 +141,11 @@ function webrtcDOM() {
 
     leaveWebrtc.addEventListener("click", () => {
         room.leave();
+        room = "";
         joinWebrtc.disabled = false;
         leaveWebrtc.disabled = true;
-        clearInterval(myLatencyInterval);
+        clearInterval(latencyInterval);
+        updateConnections(0)
     });
 }
 

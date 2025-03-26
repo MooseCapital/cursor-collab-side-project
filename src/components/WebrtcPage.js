@@ -37,6 +37,11 @@ function WebrtcPage() {
              
             </table>
         </div>
+        
+        <div id="connections">
+                <h2>0</h2>
+                <p id="users-list">users</p>
+          </div>
     `;
 }
 
