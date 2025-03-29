@@ -11,7 +11,7 @@ function WebrtcPage() {
     // console.log("Webrtc page loaded");
     setTimeout(() => {
         setUserData();
-        // joinWebRTC();
+        joinWebRTC();
         webrtcDOM()
         updateTable();
         // swatchGrid.innerHTML = getSwatches();

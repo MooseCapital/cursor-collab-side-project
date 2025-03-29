@@ -14,12 +14,12 @@ function initializeCursorEvents(sendPosition) {
         // console.log({ currentX, currentY, id: myData.id })
         // socket.emit("user:position", { x:currentX, y:currentY, id: myData.id });
         sendPosition({ x:currentX, y:currentY });
-    }, 100, { trailing: true, });
+    }, 50, { trailing: true, });
     
     //position of last mouse event outside of box
     let lastOutsideBoxX = 0;
     let lastOutsideBoxY = 0;
-    const threshold = 5; //pixel amount for threshold box
+    const threshold = 1; //pixel amount for threshold box
     
     //only send events if position changed > threshold 10px
     function mouseMovedOutsideBox(event) {
@@ -43,18 +43,31 @@ function initializeCursorEvents(sendPosition) {
 
 //other users, gsap animate, without requestAnimationFrame
 //select with data-id attribute to animate
+
+//test updating style x,y and not interpolation
 function moveCursorGsap({x, y, webrtcId}) {
     const user = document.querySelector(`.cursorContainer[data-webrtcid="${webrtcId}"]`) ||
         document.querySelector(`.single-svg-cursor[data-webrtcid="${webrtcId}"]`);
     
-    gsap.to(user, {
+    /* gsap.to(user, {
         x: x,
         y: y,
         // duration: 0.15,
         duration: 0.10,
         ease: "none",
-    });
+    }); */
+    
+    gsap.set(user, {
+    x: x,
+    y: y,
+    overwrite: true // Critical for fast updates
+  });
+  
 }
 
-
+/* gsap.set(cursorElement, {
+    x: clientX,
+    y: clientY,
+    overwrite: true // Critical for fast updates
+  }); */
 //-------------------------------------------------------------------------------------------------------------
