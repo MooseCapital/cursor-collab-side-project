@@ -9,6 +9,18 @@ export { webrtcDOM, joinWebRTC, updateTable };
 
 //get proper cursor position for screen sizes
 
+// try not using gsap and set x,y directly like ably spaces
+//when we stop moving it basically starts slow transitioning the cursor to endpoint
+//style={{
+//         left: `${position.x}px`,
+//         top: `${position.y}px`,
+//         transition: position.isMoving ? 'none' : 'all 0.5s ease'
+//       }}
+
+//we need positions about every 50ms, so we might need to batch them, which is too fast for websocket
+// decide batch amount and look into perplexity answer on adaptive batch sizing and hybrid.
+
+
 const config = { appId: import.meta.env.VITE_SUPABASE_URL, supabaseKey: import.meta.env.VITE_SUPABASE_KEY };
 let room;
 let latencyInterval;
